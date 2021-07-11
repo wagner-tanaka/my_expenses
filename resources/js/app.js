@@ -8,6 +8,25 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import {
+    BootstrapVue,
+    IconsPlugin
+} from 'bootstrap-vue'
+
+Vue.use(IconsPlugin)
+
+import String from './mixins/Strings.vue'
+Vue.mixin(String)
+
+import AxiosWrapper from 'sb-axios-wrapper'
+import eventBus from './event-bus'
+import Notificator from "./Notificator";
+Vue.use(BootstrapVue)
+
+ Vue.use(AxiosWrapper, {
+    eventBus
+})
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,6 +39,8 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('expenses-component', require('./components/expense/ExpensesComponent.vue').default);
+Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,3 +51,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+eventBus.$on('notify', (options) => {
+    const notificator = new Notificator(options, app)
+    notificator.notify()
+})

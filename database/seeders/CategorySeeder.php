@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CategorySeeder extends Seeder
 {
@@ -13,6 +15,14 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('categories')->truncate();
+        Category::create([
+            'name' => 'Necessarios',
+            'user_id' => 1
+        ]);
+        Category::create([
+            'name' => 'Lazer',
+            'user_id' => 1
+        ]);
     }
 }
