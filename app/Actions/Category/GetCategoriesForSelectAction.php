@@ -9,10 +9,10 @@ class GetCategoriesForSelectAction implements Executable
 {
     public function handle()
     {
-        return  Category::orderBy('name')->get()->map(function ($project) {
+        return  Category::orderBy('name')->get()->map(function ($category) {
             return [
-                'value' => $project->id,
-                'text' => $project->name
+                'value' => $category->id,
+                'text' => $category->name
             ];
         });
     }

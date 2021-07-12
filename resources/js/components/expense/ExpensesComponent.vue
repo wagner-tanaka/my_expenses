@@ -53,7 +53,7 @@ export default {
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.data.data;
-                    // console.log(response.data.data);
+                    console.log(response.data.data);
                 },
             });
         },
