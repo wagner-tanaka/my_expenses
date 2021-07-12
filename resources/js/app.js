@@ -19,13 +19,10 @@ import String from './mixins/Strings.vue'
 Vue.mixin(String)
 
 import AxiosWrapper from 'sb-axios-wrapper'
-import eventBus from './event-bus'
-import Notificator from "./Notificator";
+import Notifier from "./Notifier";
 Vue.use(BootstrapVue)
 
- Vue.use(AxiosWrapper, {
-    eventBus
-})
+ Vue.mixin(AxiosWrapper)
 
 /**
  * The following block of code may be used to automatically register your
@@ -52,7 +49,7 @@ const app = new Vue({
     el: '#app',
 });
 
-eventBus.$on('notify', (options) => {
-    const notificator = new Notificator(options, app)
-    notificator.notify()
+app.$root.$on('notify', (options) => {
+    const notifier = new Notifier(options, app)
+    notifier.notify()
 })
