@@ -1,4 +1,4 @@
-const Notificator = (options, app) => {
+const Notifier = (options, app) => {
 
     let message = options.message
     let messages = options.messages
@@ -6,10 +6,10 @@ const Notificator = (options, app) => {
         title: options.title || "Notification",
     }
 
-    if (options.type === 'success') {
+    if (options.status === 'success') {
         toastOptions.variant = "success"
         toastOptions.autoHideDelay = options.timeout || 1000
-    } else if (options.type === 'error') {
+    } else if (options.status === 'error') {
         toastOptions.variant = 'danger'
         toastOptions.autoHideDelay = options.timeout || 5000
     }
@@ -27,4 +27,4 @@ const Notificator = (options, app) => {
     }
 }
 
-export default Notificator
+export default Notifier

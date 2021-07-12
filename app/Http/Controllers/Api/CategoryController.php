@@ -8,7 +8,6 @@ use App\Actions\Category\GetCategoriesForSelectAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,39 +15,27 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index()
     {
-        $data = $this->execute(new GetCategoriesAction);
-
-        return response()->json($data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return [
+            'categories' => $this->execute(new GetCategoriesAction)
+        ];
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @return array
      */
     public function store(CategoryRequest $request)
     {
-        $data = $this->execute(
-            new CreateCategoryAction($request->validated()),
-            'Categoria salva!'
-        );
-
-        return response()->json($data);
+        return [
+            'category' => $this->execute(new CreateCategoryAction($request->validated())),
+            'message' => 'Categoria salva!'
+        ];
     }
 
     /**
@@ -58,17 +45,6 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
     {
         //
     }
@@ -96,9 +72,10 @@ class CategoryController extends Controller
         //
     }
 
-    public function getCategories(): JsonResponse
+    public function getCategories(): array
     {
-        $data = $this->execute( new GetCategoriesForSelectAction());
-        return response()->json($data);
+        return [
+            'categories' => $this->execute(new GetCategoriesForSelectAction())
+        ];
     }
 }

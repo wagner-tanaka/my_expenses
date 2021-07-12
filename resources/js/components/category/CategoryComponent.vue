@@ -58,7 +58,7 @@ export default {
                 onSuccess: (response) => {
                     this.showModalNewCategory = false;
                     this.getCategories();
-                    this.selected = response.data.data.id
+                    this.selected = response.data.category.id
                 },
             });
         },
@@ -69,7 +69,7 @@ export default {
                 {},
                 {
                     onSuccess: (response) => {
-                        this.categoriesOptions = response.data.data;
+                        this.categoriesOptions = response.data.categories;
                     },
                 }
             );
