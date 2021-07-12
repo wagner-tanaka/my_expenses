@@ -13,24 +13,29 @@
             v-for="category in categories"
             :key="category.id"
         >
-            <b-modal
-                v-model="showNewExpensesModal"
-                title="Nova Despesa"
-                centered
-            >
-                <div class="container">
-                    <b-input
-                        class="mt-2"
-                        placeholder="Nome do gasto aqui!"
-                    ></b-input>
-                    <b-input
-                        class="mt-2"
-                        placeholder="Valor do gasto!"
-                    ></b-input>
-                    <category-component></category-component>
-                </div>
-            </b-modal>
         </b-card>
+        <b-modal
+            v-model="showNewExpensesModal"
+            title="Nova Despesa"
+            centered
+        >
+            <div class="container">
+                <b-input
+                    class="mt-2"
+                    placeholder="Nome do gasto aqui!"
+                ></b-input>
+                <b-input
+                    class="mt-2"
+                    placeholder="Valor do gasto!"
+                ></b-input>
+
+                <!-- TODO: o select da categoria seria bom estar aqui-->
+
+                <!-- TODO: o componente abaixo seria só pra salvar a categoria nova e emitir o id dela pra ca-->
+                <!-- TODO: exemplo, @save=this.form.category_id = $event" -->
+                <category-component></category-component>
+            </div>
+        </b-modal>
     </b-container>
 </template>
 
