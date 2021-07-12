@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Expense\CreateExpenseAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseRequest;
-use Illuminate\Http\JsonResponse;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -17,7 +17,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -33,17 +33,15 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ExpenseRequest $request
+     * @return array
      */
     public function store(ExpenseRequest $request)
     {
-        $data = $this->execute(
-            new CreateExpenseAction($request->validated()),
-            'Despesa salva!'
-        );
-
-        return response()->json($data);
+        return [
+            'project' => $this->execute(new CreateExpenseAction($request->validated())),
+            'message' => 'Despesa salva!'
+        ];
     }
 
     /**

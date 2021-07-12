@@ -52,8 +52,7 @@ export default {
             let url = "/api/categories";
             this.request("get", url, null, {
                 onSuccess: (response) => {
-                    this.categories = response.data.data.data;
-                    console.log(response.data.data);
+                    this.categories = response.data.categories.data;
                 },
             });
         },
