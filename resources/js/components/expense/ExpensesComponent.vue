@@ -13,28 +13,75 @@
             v-for="category in categories"
             :key="category.id"
         >
+            <div v-for="(expense, index) in category.expenses" :key="index">
+                <b-button variant="warning" class="mb-2">{{
+                    expense
+                }}</b-button>
+            </div>
         </b-card>
+
+        <!-- New Expense Modal -->
         <b-modal
             v-model="showNewExpensesModal"
+            hide-footer
             title="Nova Despesa"
             centered
         >
             <div class="container">
                 <b-input
+                    v-model="form.name"
                     class="mt-2"
                     placeholder="Nome do gasto aqui!"
                 ></b-input>
                 <b-input
+                    v-model="form.value"
                     class="mt-2"
                     placeholder="Valor do gasto!"
                 ></b-input>
 
-                <!-- TODO: o select da categoria seria bom estar aqui-->
+                <b-input-group class="mt-2">
+                    <b-form-select
+                        v-model="selected"
+                        :options="categoriesOptions"
+                    >
+                        <template v-slot:first>
+                            <b-form-select-option :value="null" disabled
+                                >-- Selecione uma Categoria --
+                            </b-form-select-option>
+                        </template>
+                    </b-form-select>
+                    <template v-slot:append>
+                        <b-button
+                            variant="outline-dark"
+                            @click="showNewCategoryModal = true"
+                        >
+                            <i class="fas fa-plus"></i>
+                        </b-button>
+                    </template>
+                </b-input-group>
 
-                <!-- TODO: o componente abaixo seria só pra salvar a categoria nova e emitir o id dela pra ca-->
-                <!-- TODO: exemplo, @save=this.form.category_id = $event" -->
-                <category-component></category-component>
+                <div class="text-center mt-2">
+                    <b-button variant="danger mr-2" @click="showNewExpensesModal = false">Cancelar</b-button>
+                    <b-button variant="success" @click="submitExpense"
+                        >Salvar</b-button
+                    >
+                </div>
             </div>
+        </b-modal>
+
+        <!-- New Category Modal -->
+        <b-modal
+            v-model="showNewCategoryModal"
+            title="Nova Categoria"
+            centered
+            hide-footer
+        >
+            <!-- TODO: o componente abaixo seria só pra salvar a categoria nova e emitir o id dela pra ca-->
+            <!-- TODO: exemplo, @save=this.form.category_id = $event" -->
+
+            <category-component
+                @save="categoryHasBeenSaved"
+            ></category-component>
         </b-modal>
     </b-container>
 </template>
@@ -44,22 +91,70 @@ export default {
     props: [],
     data: function () {
         return {
+            form: {},
             categories: [],
             showNewExpensesModal: false,
+            showNewCategoryModal: false,
+            categoriesOptions: [],
+            selected: null,
             // newCategory: false,
         };
     },
     created() {
         this.getCategories();
+        this.getCategoriesOptions();
     },
     methods: {
+        submitExpense() {
+            this.form.category_id = this.selected;
+
+            let url = `/api/expenses`;
+            this.request("post", url, this.form, {
+                onSuccess: (response) => {
+                    // console.log(response);
+                    this.form = {};
+                    this.selected = null;
+                    this.showNewExpensesModal = false;
+                    this.getCategories();
+                },
+            });
+        },
+        getCategoriesOptions() {
+            let url = "/api/get_categories";
+            // axios.get(url).then((response) => {
+            //     this.categoriesOptions = response.data.categories;
+            // });
+            this.request(
+                "get",
+                url,
+                {},
+                {
+                    onSuccess: (response) => {
+                        this.categoriesOptions = response.data.categories;
+                    },
+                }
+            );
+        },
         getCategories() {
             let url = "/api/categories";
+            // axios.get(url).then((response) => {
+            //     this.categories = response.data.categories.data;
+            // });
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.categories.data;
+                    // console.log(response.data.categories.data);
                 },
             });
+        },
+        categoryHasBeenSaved(event) {
+            if(event == 'closeModal'){
+                this.showNewCategoryModal = false;
+            }
+            console.log(event);
+            this.getCategoriesOptions();
+            this.showNewCategoryModal = false;
+            this.selected = event;
         },
     },
 };
