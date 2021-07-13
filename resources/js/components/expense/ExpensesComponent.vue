@@ -13,10 +13,19 @@
             v-for="category in categories"
             :key="category.id"
         >
-            <div v-for="(expense, index) in category.expenses" :key="index">
-                <b-button variant="warning" class="mb-2">{{
-                    expense
-                }}</b-button>
+            <div
+                v-for="(expense, index) in category.expenses"
+                :key="index"
+                @click="
+                    (expenseModal = true),
+                        (form.name = expense),
+                        (form.category_id = category.id)
+                "
+            >
+                <b-button variant="warning" class="mb-2">
+                    {{ expense }}
+                </b-button>
+                <!-- New Expense Modal -->
             </div>
         </b-card>
 
@@ -61,7 +70,33 @@
                 </b-input-group>
 
                 <div class="text-center mt-2">
-                    <b-button variant="danger mr-2" @click="showNewExpensesModal = false">Cancelar</b-button>
+                    <b-button
+                        variant="danger mr-2"
+                        @click="cancelExpenseCreation"
+                        >Cancelar</b-button
+                    >
+                    <b-button variant="success" @click="submitNewExpense"
+                        >Salvar</b-button
+                    >
+                </div>
+            </div>
+        </b-modal>
+
+        <!-- Expense Modal -->
+        <b-modal v-model="expenseModal" hide-footer title="Despesa" centered>
+            <div class="container">
+                <b-input
+                    v-model="form.value"
+                    class="mt-2"
+                    placeholder="Valor do gasto!"
+                ></b-input>
+
+                <div class="text-center mt-2">
+                    <b-button
+                        variant="danger mr-2"
+                        @click="cancelExpenseCreation"
+                        >Cancelar</b-button
+                    >
                     <b-button variant="success" @click="submitExpense"
                         >Salvar</b-button
                     >
@@ -91,8 +126,12 @@ export default {
     props: [],
     data: function () {
         return {
-            form: {},
+            form: {
+                name: "",
+                category_id: "",
+            },
             categories: [],
+            expenseModal: false,
             showNewExpensesModal: false,
             showNewCategoryModal: false,
             categoriesOptions: [],
@@ -106,6 +145,17 @@ export default {
     },
     methods: {
         submitExpense() {
+            let url = `/api/expenses`;
+            this.request("post", url, this.form, {
+                onSuccess: (response) => {
+                    this.form = {};
+                    this.selected = null;
+                    this.expenseModal = false;
+                    this.getCategories();
+                },
+            });
+        },
+        submitNewExpense() {
             this.form.category_id = this.selected;
 
             let url = `/api/expenses`;
@@ -121,9 +171,6 @@ export default {
         },
         getCategoriesOptions() {
             let url = "/api/get_categories";
-            // axios.get(url).then((response) => {
-            //     this.categoriesOptions = response.data.categories;
-            // });
             this.request(
                 "get",
                 url,
@@ -137,9 +184,6 @@ export default {
         },
         getCategories() {
             let url = "/api/categories";
-            // axios.get(url).then((response) => {
-            //     this.categories = response.data.categories.data;
-            // });
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.categories.data;
@@ -148,13 +192,19 @@ export default {
             });
         },
         categoryHasBeenSaved(event) {
-            if(event == 'closeModal'){
+            if (event == "closeModal") {
                 this.showNewCategoryModal = false;
+                return;
             }
             console.log(event);
             this.getCategoriesOptions();
             this.showNewCategoryModal = false;
             this.selected = event;
+        },
+        cancelExpenseCreation() {
+            this.expenseModal = false;
+            this.showNewExpensesModal = false;
+            this.selected = null;
         },
     },
 };
