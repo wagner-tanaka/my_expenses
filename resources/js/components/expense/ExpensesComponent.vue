@@ -13,20 +13,46 @@
             v-for="category in categories"
             :key="category.id"
         >
-            <div
-                v-for="(expense, index) in category.expenses"
-                :key="index"
-                @click="
-                    (expenseModal = true),
-                        (form.name = expense),
-                        (form.category_id = category.id)
-                "
-            >
-                <b-button variant="warning" class="mb-2">
+            <template v-slot:header>
+                <b-button
+                    @click="deleteCategory(category)"
+                    variant="danger"
+                    size="sm"
+                    class="float-right ml-2 btn-xs"
+                    ><i class="fas fa-times fa-sm"></i
+                ></b-button>
+                <b-button variant="warning" size="sm" class="float-right btn-xs"
+                    ><i class="fas fa-pen fa-sm"></i
+                ></b-button>
+                <div style="color: white" class="text-center">
+                    <strong>{{ category.name }}</strong>
+                </div>
+            </template>
+            <b-card-text>
+                <b-button
+                    variant="warning"
+                    class="mb-2 mr-3"
+                    v-for="(expense, index) in category.expenses"
+                    :key="index"
+                    @click="
+                        (expenseModal = true),
+                            (form.name = expense),
+                            (form.category_id = category.id)
+                    "
+                >
                     {{ expense }}
                 </b-button>
-                <!-- New Expense Modal -->
+            </b-card-text>
+            <div
+                v-b-toggle="'expensesDetails'"
+                class="text-right mr-3 mt-2"
+                style="cursor: pointer; color: black"
+            >
+                Ver detalhes
             </div>
+            <b-collapse id="expensesDetails">
+                Aqui vai os detalhes dos gastos
+            </b-collapse>
         </b-card>
 
         <!-- New Expense Modal -->
@@ -50,7 +76,7 @@
 
                 <b-input-group class="mt-2">
                     <b-form-select
-                        v-model="selected"
+                        v-model="form.category_id"
                         :options="categoriesOptions"
                     >
                         <template v-slot:first>
@@ -116,6 +142,7 @@
 
             <category-component
                 @save="categoryHasBeenSaved"
+                @cancel="showNewCategoryModal = false"
             ></category-component>
         </b-modal>
     </b-container>
@@ -128,14 +155,14 @@ export default {
         return {
             form: {
                 name: "",
-                category_id: "",
+                category_id: null,
             },
             categories: [],
             expenseModal: false,
             showNewExpensesModal: false,
             showNewCategoryModal: false,
             categoriesOptions: [],
-            selected: null,
+            // form.category_id: null,
             // newCategory: false,
         };
     },
@@ -144,26 +171,50 @@ export default {
         this.getCategoriesOptions();
     },
     methods: {
+        deleteCategory(category) {
+            if (
+                !confirm(
+                    "Se voce excluir a categoria, ira excluir todos os gastos desta categoria tambem. \n Quer mesmo excluir?"
+                )
+            ) {
+                return;
+            }
+            let categoryIndex = this.categories.indexOf(category);
+            let url = `/api/categories/${category.id}`;
+
+            this.request(
+                "delete",
+                url,
+                {},
+                {
+                    onSuccess: (response) => {
+                        alert("deletou");
+                        this.categories.splice(categoryIndex, 1);
+                        console.log(categoryIndex);
+                    },
+                }
+            );
+        },
         submitExpense() {
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
                 onSuccess: (response) => {
                     this.form = {};
-                    this.selected = null;
+                    this.form.category_id = null;
                     this.expenseModal = false;
                     this.getCategories();
                 },
             });
         },
         submitNewExpense() {
-            this.form.category_id = this.selected;
+            this.form.category_id = this.form.category_id;
 
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
                 onSuccess: (response) => {
                     // console.log(response);
                     this.form = {};
-                    this.selected = null;
+                    this.form.category_id = null;
                     this.showNewExpensesModal = false;
                     this.getCategories();
                 },
@@ -192,20 +243,25 @@ export default {
             });
         },
         categoryHasBeenSaved(event) {
-            if (event == "closeModal") {
-                this.showNewCategoryModal = false;
-                return;
-            }
             console.log(event);
             this.getCategoriesOptions();
             this.showNewCategoryModal = false;
-            this.selected = event;
+            this.form.category_id = event;
         },
         cancelExpenseCreation() {
             this.expenseModal = false;
             this.showNewExpensesModal = false;
-            this.selected = null;
+            this.form.category_id = null;
         },
     },
 };
 </script>
+
+<style scoped>
+.btn-xs {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.875rem;
+    line-height: 0.5;
+    border-radius: 0.2rem;
+}
+</style>

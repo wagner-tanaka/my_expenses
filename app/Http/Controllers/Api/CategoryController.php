@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Category\CreateCategoryAction;
+use App\Actions\Category\DeleteCategoryAction;
 use App\Actions\Category\GetCategoriesAction;
 use App\Actions\Category\GetCategoriesForSelectAction;
 use App\Http\Controllers\Controller;
@@ -69,7 +70,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $data = $this->execute(
+            new DeleteCategoryAction($category),
+            'Categoria deletada!'
+        );
+
+        return response()->json($data);
     }
 
     public function getCategories(): array

@@ -7,7 +7,7 @@
         ></b-input>
 
         <div class="text-center mt-2">
-            <b-button variant="danger mr-2" @click="$emit('save', 'closeModal')">Cancelar</b-button>
+            <b-button variant="danger mr-2" @click="$emit('cancel')">Cancelar</b-button>
             <b-button variant="success" @click="submitCategory">Salvar</b-button>
         </div>
     </div>
