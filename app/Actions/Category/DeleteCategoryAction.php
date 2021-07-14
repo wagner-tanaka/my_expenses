@@ -25,7 +25,6 @@ class DeleteCategoryAction implements Executable
     public function handle(): bool
     {
         \DB::transaction(function () {
-            $this->category->expenses()->delete();
             $this->category->delete();
         });
 

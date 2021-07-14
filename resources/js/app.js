@@ -36,7 +36,12 @@ Vue.use(BootstrapVue)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// Expense Components
 Vue.component('expenses-component', require('./components/expense/ExpensesComponent.vue').default);
+Vue.component('expenses-list', require('./components/expense/ExpensesList.vue').default);
+
+// Category Components
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
 /**

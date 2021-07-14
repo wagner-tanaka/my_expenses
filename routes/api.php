@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::get('get_categories', [CategoryController::class, 'getCategories'])->name('get_categories');
+    // Route::get('get_expenses/{category}', [ExpenseController::class, 'getExpenses'])->name('get_expenses');
 
 });
 

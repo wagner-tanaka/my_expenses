@@ -18,7 +18,9 @@ class CategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'id' => $this->id,
-            'expenses' => $this->expenses()->orderBy('name', 'asc')->groupBy('name')->pluck('name')
+            'expensesNames' => $this->expenses()->orderBy('name', 'asc')->groupBy('name')->pluck('name'),
+            // 'expenses' => $this->expenses,
+            'expenses' => ExpenseResource::collection($this->expenses)->response()->getData(true)
         ];
     }
 }

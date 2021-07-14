@@ -32,26 +32,26 @@
                 <b-button
                     variant="warning"
                     class="mb-2 mr-3"
-                    v-for="(expense, index) in category.expenses"
+                    v-for="(expenseName, index) in category.expensesNames"
                     :key="index"
                     @click="
                         (expenseModal = true),
-                            (form.name = expense),
+                            (form.name = expenseName),
                             (form.category_id = category.id)
                     "
                 >
-                    {{ expense }}
+                    {{ expenseName }} -
                 </b-button>
             </b-card-text>
             <div
-                v-b-toggle="'expensesDetails'"
+                v-b-toggle="category.id.toString()"
                 class="text-right mr-3 mt-2"
                 style="cursor: pointer; color: black"
             >
                 Ver detalhes
             </div>
-            <b-collapse id="expensesDetails">
-                Aqui vai os detalhes dos gastos
+            <b-collapse :id="category.id.toString()">
+                <expenses-list :value="category.expenses.data"></expenses-list>
             </b-collapse>
         </b-card>
 
@@ -188,7 +188,6 @@ export default {
                 {},
                 {
                     onSuccess: (response) => {
-                        alert("deletou");
                         this.categories.splice(categoryIndex, 1);
                         console.log(categoryIndex);
                     },
@@ -238,7 +237,7 @@ export default {
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.categories.data;
-                    // console.log(response.data.categories.data);
+                    console.log(response.data.categories.data);
                 },
             });
         },

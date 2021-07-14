@@ -6,6 +6,7 @@ use App\Actions\Category\CreateCategoryAction;
 use App\Actions\Category\DeleteCategoryAction;
 use App\Actions\Category\GetCategoriesAction;
 use App\Actions\Category\GetCategoriesForSelectAction;
+use App\Actions\Expense\GetExpensesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -70,18 +71,27 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $data = $this->execute(
-            new DeleteCategoryAction($category),
-            'Categoria deletada!'
-        );
+        // $data = $this->execute(
+        //     new DeleteCategoryAction($category),
+        //     'message' => 'Categoria deletada!'
+        // );
 
-        return response()->json($data);
+        return [
+            $this->execute(new DeleteCategoryAction($category)),
+            'message' => 'Categoria deletada!'
+        ];
+
+
+        // return [
+        //     'category' => $this->execute(new CreateCategoryAction($request->validated())),
+        //     'message' => 'Categoria salva!'
+        // ];
     }
 
     public function getCategories(): array
     {
         return [
-            'categories' => $this->execute(new GetCategoriesForSelectAction())
+            'categories' => $this->execute(new GetCategoriesForSelectAction()),
         ];
     }
 }

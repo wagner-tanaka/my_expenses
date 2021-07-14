@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Expense\CreateExpenseAction;
+use App\Actions\Expense\GetExpensesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseRequest;
+use App\Models\Category;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 
@@ -89,4 +91,12 @@ class ExpenseController extends Controller
         //
     }
 
+    // public function getExpenses(Category $category)
+    // {
+    //     // dd('getExpeses Controller', $this->execute( new GetExpensesAction($category)));
+    //     return [
+    //         'expenses' => $this->execute( new GetExpensesAction($category))
+    //     ];
+    // }
+    
 }
