@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Expense\CreateExpenseAction;
+use App\Actions\Expense\DeleteExpenseAction;
 use App\Actions\Expense\GetExpensesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseRequest;
@@ -88,15 +89,10 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        return [
+            $this->execute(new DeleteExpenseAction($expense)),
+            'message' => 'Despesa deletada!'
+        ];
     }
 
-    // public function getExpenses(Category $category)
-    // {
-    //     // dd('getExpeses Controller', $this->execute( new GetExpensesAction($category)));
-    //     return [
-    //         'expenses' => $this->execute( new GetExpensesAction($category))
-    //     ];
-    // }
-    
 }

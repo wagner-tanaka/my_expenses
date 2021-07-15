@@ -71,21 +71,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        // $data = $this->execute(
-        //     new DeleteCategoryAction($category),
-        //     'message' => 'Categoria deletada!'
-        // );
-
         return [
             $this->execute(new DeleteCategoryAction($category)),
             'message' => 'Categoria deletada!'
         ];
-
-
-        // return [
-        //     'category' => $this->execute(new CreateCategoryAction($request->validated())),
-        //     'message' => 'Categoria salva!'
-        // ];
     }
 
     public function getCategories(): array

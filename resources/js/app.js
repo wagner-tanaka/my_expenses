@@ -42,6 +42,7 @@ Vue.component('expenses-component', require('./components/expense/ExpensesCompon
 Vue.component('expenses-list', require('./components/expense/ExpensesList.vue').default);
 
 // Category Components
+Vue.component('create-category-component', require('./components/category/CreateCategoryComponent.vue').default);
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
 /**

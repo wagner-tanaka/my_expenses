@@ -29,19 +29,29 @@
                 </div>
             </template>
             <b-card-text>
-                <b-button
-                    variant="warning"
-                    class="mb-2 mr-3"
-                    v-for="(expenseName, index) in category.expensesNames"
-                    :key="index"
-                    @click="
-                        (expenseModal = true),
-                            (form.name = expenseName),
-                            (form.category_id = category.id)
-                    "
-                >
-                    {{ expenseName }} -
-                </b-button>
+                <div>
+                    <b-row>
+                        <b-col
+                            cols="6"
+                            v-for="(expense, index) in category.groupedExpenses"
+                            :key="index"
+                            class="p-0 px-1"
+                        >
+                            <b-button
+                                variant="warning"
+                                class="mb-2 w-100"
+                                @click="
+                                    (expenseModal = true),
+                                        (form.name = expense.name),
+                                        (form.category_id = category.id)
+                                "
+                            >
+                                {{ expense.name }} <br> 
+                                {{ expense.value }}
+                            </b-button>
+                        </b-col>
+                    </b-row>
+                </div>
             </b-card-text>
             <div
                 v-b-toggle="category.id.toString()"
@@ -51,7 +61,7 @@
                 Ver detalhes
             </div>
             <b-collapse :id="category.id.toString()">
-                <expenses-list :value="category.expenses.data"></expenses-list>
+                <expenses-list :value="category" @update="getCategories"></expenses-list>
             </b-collapse>
         </b-card>
 
@@ -140,10 +150,10 @@
             <!-- TODO: o componente abaixo seria só pra salvar a categoria nova e emitir o id dela pra ca-->
             <!-- TODO: exemplo, @save=this.form.category_id = $event" -->
 
-            <category-component
+            <create-category-component
                 @save="categoryHasBeenSaved"
                 @cancel="showNewCategoryModal = false"
-            ></category-component>
+            ></create-category-component>
         </b-modal>
     </b-container>
 </template>
@@ -237,7 +247,7 @@ export default {
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.categories.data;
-                    console.log(response.data.categories.data);
+                    console.log(this.categories);
                 },
             });
         },
@@ -253,6 +263,17 @@ export default {
             this.form.category_id = null;
         },
     },
+    // computed: {
+    //     totalCategoryExpenses(){
+    //         let total = this.categories
+    //         return total
+    //     }
+    // },
+    // watch: {
+    //     totalCategoryExpenses(){
+    //         console.log('aaaa')
+    //     }
+    // }
 };
 </script>
 
