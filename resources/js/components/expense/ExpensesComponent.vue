@@ -3,68 +3,10 @@
         <b-button variant="primary" @click="showNewExpensesModal = true"
             >Novo Gasto</b-button
         >
-        <b-card
-            border-variant="primary"
-            :header="capitalizeFirstLetter(category.name)"
-            header-bg-variant="primary"
-            header-text-variant="white"
-            align="center"
-            class="mt-2"
-            v-for="category in categories"
-            :key="category.id"
-        >
-            <template v-slot:header>
-                <b-button
-                    @click="deleteCategory(category)"
-                    variant="danger"
-                    size="sm"
-                    class="float-right ml-2 btn-xs"
-                    ><i class="fas fa-times fa-sm"></i
-                ></b-button>
-                <b-button variant="warning" size="sm" class="float-right btn-xs"
-                    ><i class="fas fa-pen fa-sm"></i
-                ></b-button>
-                <div style="color: white" class="text-center">
-                    <strong>{{ category.name }}</strong>
-                </div>
-            </template>
-            <b-card-text>
-                <div>
-                    <b-row>
-                        <b-col
-                            cols="6"
-                            v-for="(expense, index) in category.groupedExpenses"
-                            :key="index"
-                            class="p-0 px-1"
-                        >
-                            <b-button
-                                variant="warning"
-                                class="mb-2 w-100"
-                                @click="
-                                    (expenseModal = true),
-                                        (form.name = expense.name),
-                                        (form.category_id = category.id)
-                                "
-                            >
-                                {{ expense.name }} <br> 
-                                {{ expense.value }}
-                            </b-button>
-                        </b-col>
-                    </b-row>
-                </div>
-            </b-card-text>
-            <div
-                v-b-toggle="category.id.toString()"
-                class="text-right mr-3 mt-2"
-                style="cursor: pointer; color: black"
-            >
-                Ver detalhes
-            </div>
-            <b-collapse :id="category.id.toString()">
-                <expenses-list :value="category" @update="getCategories"></expenses-list>
-            </b-collapse>
-        </b-card>
-
+        <div v-for="(category, index) in categories"
+            :key="category.id">
+            <category-component v-model="categories[index]" @update="consoleLog"></category-component>
+        </div>
         <!-- New Expense Modal -->
         <b-modal
             v-model="showNewExpensesModal"
@@ -118,28 +60,6 @@
             </div>
         </b-modal>
 
-        <!-- Expense Modal -->
-        <b-modal v-model="expenseModal" hide-footer title="Despesa" centered>
-            <div class="container">
-                <b-input
-                    v-model="form.value"
-                    class="mt-2"
-                    placeholder="Valor do gasto!"
-                ></b-input>
-
-                <div class="text-center mt-2">
-                    <b-button
-                        variant="danger mr-2"
-                        @click="cancelExpenseCreation"
-                        >Cancelar</b-button
-                    >
-                    <b-button variant="success" @click="submitExpense"
-                        >Salvar</b-button
-                    >
-                </div>
-            </div>
-        </b-modal>
-
         <!-- New Category Modal -->
         <b-modal
             v-model="showNewCategoryModal"
@@ -147,9 +67,6 @@
             centered
             hide-footer
         >
-            <!-- TODO: o componente abaixo seria só pra salvar a categoria nova e emitir o id dela pra ca-->
-            <!-- TODO: exemplo, @save=this.form.category_id = $event" -->
-
             <create-category-component
                 @save="categoryHasBeenSaved"
                 @cancel="showNewCategoryModal = false"
@@ -168,7 +85,6 @@ export default {
                 category_id: null,
             },
             categories: [],
-            expenseModal: false,
             showNewExpensesModal: false,
             showNewCategoryModal: false,
             categoriesOptions: [],
@@ -181,29 +97,10 @@ export default {
         this.getCategoriesOptions();
     },
     methods: {
-        deleteCategory(category) {
-            if (
-                !confirm(
-                    "Se voce excluir a categoria, ira excluir todos os gastos desta categoria tambem. \n Quer mesmo excluir?"
-                )
-            ) {
-                return;
-            }
-            let categoryIndex = this.categories.indexOf(category);
-            let url = `/api/categories/${category.id}`;
-
-            this.request(
-                "delete",
-                url,
-                {},
-                {
-                    onSuccess: (response) => {
-                        this.categories.splice(categoryIndex, 1);
-                        console.log(categoryIndex);
-                    },
-                }
-            );
-        },
+       consoleLog(){
+            this.getCategories();
+            console.log('emitou')
+       },
         submitExpense() {
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
@@ -246,8 +143,9 @@ export default {
             let url = "/api/categories";
             this.request("get", url, null, {
                 onSuccess: (response) => {
+                    console.log('pegou as categorias', response)
                     this.categories = response.data.categories.data;
-                    console.log(this.categories);
+                    console.log('pegou as categorias', this.categories)
                 },
             });
         },
@@ -258,7 +156,7 @@ export default {
             this.form.category_id = event;
         },
         cancelExpenseCreation() {
-            this.expenseModal = false;
+            // this.expenseModal = false;
             this.showNewExpensesModal = false;
             this.form.category_id = null;
         },
@@ -277,11 +175,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.btn-xs {
-    padding: 0.25rem 0.4rem;
-    font-size: 0.875rem;
-    line-height: 0.5;
-    border-radius: 0.2rem;
-}
-</style>
