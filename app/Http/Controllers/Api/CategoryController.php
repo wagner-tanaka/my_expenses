@@ -81,10 +81,5 @@ class CategoryController extends Controller
         ];
     }
 
-    public function getCategories(): array
-    {
-        return [
-            'categories' => $this->execute(new GetCategoriesForSelectAction()),
-        ];
-    }
+   
 }
