@@ -36,7 +36,7 @@
                 </div>
             @endif
 
-            HELLO WORLD
+            Anote Seus Gastos
         </div>
     </body>
 </html>
