@@ -38,11 +38,14 @@ Vue.use(BootstrapVue)
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 // Expense Components
-Vue.component('expenses-component', require('./components/expense/ExpensesComponent.vue').default);
-Vue.component('expenses-list', require('./components/expense/ExpensesList.vue').default);
+Vue.component('expenses-list', require('./components/expense/ExpensesListComponent.vue').default);
+Vue.component('expenses-create', require('./components/expense/ExpenseCreateComponent.vue').default);
+Vue.component('expense-add-value-component', require('./components/expense/ExpenseAddValueComponent.vue').default);
+Vue.component('expense-new-component', require('./components/expense/ExpenseNewComponent.vue').default);
 
 // Category Components
-Vue.component('create-category-component', require('./components/category/CreateCategoryComponent.vue').default);
+Vue.component('category-list-component', require('./components/category/CategoryListComponent.vue').default);
+Vue.component('category-create-update-component', require('./components/category/CategoryCreateComponent.vue').default);
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
 /**

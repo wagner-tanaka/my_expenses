@@ -13,15 +13,23 @@
                     @click="deleteCategory(category)"
                     variant="danger"
                     size="sm"
-                    class="float-right ml-2 btn-xs"
+                    class="float-left btn-xs"
                     ><i class="fas fa-times fa-sm"></i
                 ></b-button>
-                <b-button variant="warning" size="sm" class="float-right btn-xs"
-                    ><i class="fas fa-pen fa-sm"></i
-                ></b-button>
-                <div style="color: white" class="text-center">
+                <b-button
+                    variant="success"
+                    @click="showNewExpensesModal = true"
+                    size="sm"
+                    class="float-right"
+                    >Novo Gasto</b-button
+                >
+                <a
+                    style="color: white"
+                    class="text-center"
+                    @click="showEditCategoryNameModal = true"
+                >
                     <strong>{{ category.name }}</strong>
-                </div>
+                </a>
             </template>
             <b-card-text>
                 <div>
@@ -32,18 +40,11 @@
                             :key="index"
                             class="p-0 px-1"
                         >
-                            <b-button
-                                variant="warning"
-                                class="mb-2 w-100"
-                                @click="
-                                    (expenseModal = true),
-                                        (form.name = expense.name),
-                                        (form.category_id = category.id)
-                                "
-                            >
-                                {{ expense.name }} <br />
-                                {{ expense.value }}
-                            </b-button>
+                            <expense-add-value-component
+                                v-model="category.groupedExpenses[index]"
+                                :category="category"
+                                @update="$emit('update')"
+                            ></expense-add-value-component>
                         </b-col>
                     </b-row>
                 </div>
@@ -63,26 +64,32 @@
                 ></expenses-list>
             </b-collapse>
         </b-card>
-        <!-- Expense Modal -->
-        <b-modal v-model="expenseModal" hide-footer title="Despesa" centered>
-            <div class="container">
-                <b-input
-                    v-model="form.value"
-                    class="mt-2"
-                    placeholder="Valor do gasto!"
-                ></b-input>
 
-                <div class="text-center mt-2">
-                    <b-button
-                        variant="danger mr-2"
-                        @click="cancelExpenseCreation"
-                        >Cancelar</b-button
-                    >
-                    <b-button variant="success" @click="submitExpense"
-                        >Salvar</b-button
-                    >
-                </div>
-            </div>
+        <!-- New Expense Modal -->
+        <b-modal
+            v-model="showNewExpensesModal"
+            hide-footer
+            title="Nova Despesa"
+            centered
+        >
+            <expense-new-component
+                :category="category"
+                @update="$emit('update'), (showNewExpensesModal = false)"
+            ></expense-new-component>
+        </b-modal>
+
+        <!-- Edit Category name Modal -->
+        <b-modal
+            v-model="showEditCategoryNameModal"
+            title="Editar Categoria"
+            centered
+            hide-footer
+        >
+            <category-create-update-component
+                v-model="category"
+                @save="categoryHasBeenUpdated"
+                @cancel="showNewCategoryModal = false"
+            ></category-create-update-component>
         </b-modal>
     </div>
 </template>
@@ -99,21 +106,21 @@ export default {
     },
     data: function () {
         return {
-            form: {
-                name: "",
-                category_id: null,
-            },
-            // category: this.value,
-            expenseModal: false,
+            showNewExpensesModal: false,
             collapse: false,
+            showEditCategoryNameModal: false,
         };
     },
-    mounted() {
-        // this.$emit('input', {oi:'ola'})
-        // this.category = 'ola'
-        //
-    },
+    mounted() {},
     methods: {
+        categoryHasBeenUpdated(event) {
+            this.$emit('update')
+            this.showEditCategoryNameModal = false;
+        },
+        editCategoryName() {
+            this.$emit("update", { categoryId: this.category.id });
+            // let url = `/api/categories/${category.id}`;
+        },
         deleteCategory(category) {
             if (
                 !confirm(
@@ -122,7 +129,6 @@ export default {
             ) {
                 return;
             }
-            // let categoryIndex = this.categories.indexOf(category);
             let url = `/api/categories/${category.id}`;
 
             this.request(
@@ -132,27 +138,10 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.$emit("update");
-                        // this.categories.splice(categoryIndex, 1);
                         console.log(categoryIndex);
                     },
                 }
             );
-        },
-        submitExpense() {
-            let url = `/api/expenses`;
-            this.request("post", url, this.form, {
-                onSuccess: (response) => {
-                    this.form = {};
-                    this.form.category_id = null;
-                    this.expenseModal = false;
-                    this.$emit("update");
-                    // this.getCategories();
-                },
-            });
-        },
-        cancelExpenseCreation() {
-            this.expenseModal = false;
-            this.form.category_id = null;
         },
     },
     computed: {

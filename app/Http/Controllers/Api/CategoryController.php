@@ -6,6 +6,7 @@ use App\Actions\Category\CreateCategoryAction;
 use App\Actions\Category\DeleteCategoryAction;
 use App\Actions\Category\GetCategoriesAction;
 use App\Actions\Category\GetCategoriesForSelectAction;
+use App\Actions\Category\UpdateCategoryAction;
 use App\Actions\Expense\GetExpensesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
@@ -58,9 +59,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        return [
+            'category' => $this->execute(new UpdateCategoryAction($category, $request->validated())),
+            'message' => 'Categoria atualizada!'
+        ];
     }
 
     /**
