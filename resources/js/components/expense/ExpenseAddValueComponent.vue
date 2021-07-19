@@ -3,11 +3,7 @@
         <b-button
             variant="warning"
             class="mb-2 w-100"
-            @click="
-                (expenseModal = true),
-                    (form.name = expense.name),
-                    (form.category_id = category.id)
-            "
+            @click="expenseModal = true"
         >
             {{ expense.name }} <br />
             {{ expense.value }}
@@ -63,17 +59,13 @@ export default {
             },
         };
     },
-    mounted() {
-        //
+    created() {
     },
     methods: {
         submitExpense() {
-            this.form.category_id = this.category.id;
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
                 onSuccess: (response) => {
-                    this.form = {};
-                    this.form.category_id = null;
                     this.expenseModal = false;
                     this.showNewExpensesModal = false;
                     this.$emit("update");
@@ -83,8 +75,15 @@ export default {
         cancelExpenseCreation() {
             this.showNewExpensesModal = false;
             this.expenseModal = false;
-            this.form.category_id = null;
         },
     },
+    watch: {
+        expenseModal(){
+            if(this.expenseModal){
+                this.form.name = this.expense.name
+                this.form.category_id = this.category.id
+            }
+        }
+    }
 };
 </script>

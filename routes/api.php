@@ -21,8 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
-    Route::resource('categories', CategoryController::class);
-    Route::resource('expenses', ExpenseController::class);
+    Route::resource('categories', CategoryController::class)->only(['index','store','update','destroy']);
+    Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy']);
 });
 
 
