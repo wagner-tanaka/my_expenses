@@ -48,6 +48,11 @@ Vue.component('category-list-component', require('./components/category/Category
 Vue.component('category-create-update-component', require('./components/category/CategoryCreateComponent.vue').default);
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
+// Monthly Expenses
+Vue.component('details-component', require('./components/details/DetailsComponent.vue').default);
+Vue.component('details-cateagory-component', require('./components/details/DetailsCategoryComponent.vue').default);
+Vue.component('details-expense-component', require('./components/details/DetailsExpenseComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
