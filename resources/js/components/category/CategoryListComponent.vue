@@ -1,25 +1,39 @@
 <template>
     <b-container class="text-center">
-        <b-button variant="primary" @click="showNewCategoryModal = true">
-            Nova Categoria
-        </b-button>
-        <div v-for="(category, index) in categories" :key="category.id">
-            <category-component
-                v-model="categories[index]"
-                @update="categoryHasBeenSaved"
-            ></category-component>
+        <div>
+            <b-tabs content-class="mt-3">
+                <b-tab title="Home" active>
+                    <b-button
+                        variant="primary"
+                        size="sm"
+                        @click="showNewCategoryModal = true"
+                    >
+                        Nova Categoria
+                    </b-button>
+                    <div
+                        v-for="(category, index) in categories"
+                        :key="category.id"
+                    >
+                        <category-component
+                            v-model="categories[index]"
+                            @update="categoryHasBeenSaved"
+                        ></category-component>
+                    </div>
+                    <b-modal
+                        v-model="showNewCategoryModal"
+                        title="Nova Categoria"
+                        centered
+                        hide-footer
+                    >
+                        <category-create-update-component
+                            @save="categoryHasBeenSaved"
+                            @cancel="showNewCategoryModal = false"
+                        ></category-create-update-component>
+                    </b-modal>
+                </b-tab>
+                <b-tab title="Detalhes do Mes"> </b-tab>
+            </b-tabs>
         </div>
-        <b-modal
-            v-model="showNewCategoryModal"
-            title="Nova Categoria"
-            centered
-            hide-footer
-        >
-            <category-create-update-component
-                @save="categoryHasBeenSaved"
-                @cancel="showNewCategoryModal = false"
-            ></category-create-update-component>
-        </b-modal>
     </b-container>
 </template>
 
