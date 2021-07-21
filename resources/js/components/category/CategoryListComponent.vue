@@ -31,9 +31,8 @@
                         ></category-create-update-component>
                     </b-modal>
                 </b-tab>
-                <b-tab title="Detalhes do Mes"> 
+                <b-tab title="Detalhes do Mes">
                     <details-component></details-component>
-
                 </b-tab>
             </b-tabs>
         </div>
@@ -58,6 +57,8 @@ export default {
             this.request("get", url, null, {
                 onSuccess: (response) => {
                     this.categories = response.data.categories.data;
+                    this.capitalizeCategoryNameFirstLetter();
+                    this.orderCategoriesByName();
                 },
             });
         },
@@ -65,6 +66,18 @@ export default {
             this.getCategories();
             this.showNewCategoryModal = false;
         },
+        orderCategoriesByName() {
+            this.categories = _.orderBy(this.categories, ["name"]);
+        },
+        capitalizeCategoryNameFirstLetter() {
+            this.categories.map((category) => {
+                category.name = this.capitalizeFirstLetter(category.name);
+                return category;
+            });
+        },
+        // orderByDate(){
+        //     this.categories = _.orderBy(this.categories, ['date'],['desc']);
+        // }
     },
 };
 </script>

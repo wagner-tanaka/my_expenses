@@ -46,10 +46,6 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.categories = response.data.categories.data;
-                        console.log(
-                            "categories expenses",
-                            response.data.categories.data
-                        );
                     },
                 }
             );

@@ -19,7 +19,7 @@ class ExpenseResource extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'value' => $this->value,
-            'data' => substr($this->created_at, 6, -9),
+            'date' => substr($this->created_at, 6, -9),
             'time' => substr($this->created_at, 11, -3),
         ];
     }
