@@ -18,7 +18,7 @@
                     <i class="fa fa-trash-alt" aria-hidden="true"> </i>
                 </b-button>
             </template>
-            <template #cell(value)="item">
+            <!-- <template #cell(value)="item">
                 <b-button
                     size="sm"
                     variant="outline-secondary"
@@ -26,6 +26,9 @@
                 >
                     {{ item.value }}
                 </b-button>
+            </template> -->
+            <template #cell(data)="data">
+                {{ data.item.data }} -- {{ data.item.time }}
             </template>
             <template v-slot:custom-foot>
                 <b-tr style="background-color: #d3d3d3">
@@ -63,6 +66,8 @@ export default {
         };
     },
     mounted() {
+            console.log('b-table',this.expenses)
+
         // this.getExpenses()
     },
     methods: {

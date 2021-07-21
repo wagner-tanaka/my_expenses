@@ -17,6 +17,7 @@
         >
             <div class="container">
                 <b-input
+                    type="number"
                     v-model="form.value"
                     class="mt-2"
                     placeholder="Valor do gasto!"

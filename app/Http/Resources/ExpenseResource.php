@@ -20,6 +20,7 @@ class ExpenseResource extends JsonResource
             'description' => $this->description,
             'value' => $this->value,
             'data' => substr($this->created_at, 6, -9),
+            'time' => substr($this->created_at, 11, -3),
         ];
     }
 }

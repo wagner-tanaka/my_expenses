@@ -1,11 +1,13 @@
 <template>
     <div class="container">
         <b-input
+            type="text"
             v-model="form.name"
             class="mt-2"
             placeholder="Nome do gasto aqui!"
         ></b-input>
         <b-input
+            type="number"
             v-model="form.value"
             class="mt-2"
             placeholder="Valor do gasto!"

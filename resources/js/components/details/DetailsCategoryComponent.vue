@@ -1,8 +1,8 @@
 <template>
-        <tr>
+        <!-- <tr>
             <td v-b-toggle="value.id.toString()">{{ value.name }}</td>
             <td>{{ value.totalCategoryExpenses }}</td>
-        </tr>
+        </tr> -->
         <tr>
             <td colspan="2">
                 <b-collapse :id="value.id.toString()">
