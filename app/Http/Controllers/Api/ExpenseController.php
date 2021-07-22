@@ -23,7 +23,7 @@ class ExpenseController extends Controller
     public function store(ExpenseRequest $request)
     {
         return [
-            'project' => $this->execute(new CreateExpenseAction($request->validated())),
+            'expense' => $this->execute(new CreateExpenseAction($request->validated())),
             'message' => 'Despesa salva!'
         ];
     }

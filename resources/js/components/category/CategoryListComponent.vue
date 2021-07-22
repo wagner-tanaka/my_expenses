@@ -31,8 +31,11 @@
                         ></category-create-update-component>
                     </b-modal>
                 </b-tab>
-                <b-tab title="Detalhes do Mes">
+                <b-tab title="Detalhes">
                     <details-component></details-component>
+                </b-tab>
+                <b-tab title="Despesas do Mes">
+                    <month-bills></month-bills>
                 </b-tab>
             </b-tabs>
         </div>

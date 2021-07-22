@@ -26,7 +26,8 @@
 export default {
     props: {
         category:{
-            required: true
+            required: true,
+            type: Object
         },
     },
     data: function () {

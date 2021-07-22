@@ -17,7 +17,8 @@
 export default {
     props: {
         value: {
-            default: null
+            required: false,
+            default: () => ({})
         }
     },
     data: function () {
@@ -28,6 +29,7 @@ export default {
         };
     },
     created() {
+        console.log(this.value)
     },
     methods: {
         submitCategory() {

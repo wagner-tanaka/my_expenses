@@ -39,7 +39,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 // Expense Components
 Vue.component('expenses-list', require('./components/expense/ExpensesListComponent.vue').default);
-Vue.component('expenses-create', require('./components/expense/ExpenseCreateComponent.vue').default);
 Vue.component('expense-add-value-component', require('./components/expense/ExpenseAddValueComponent.vue').default);
 Vue.component('expense-new-component', require('./components/expense/ExpenseNewComponent.vue').default);
 
@@ -48,10 +47,15 @@ Vue.component('category-list-component', require('./components/category/Category
 Vue.component('category-create-update-component', require('./components/category/CategoryCreateComponent.vue').default);
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
-// Monthly Expenses
+// Details
 Vue.component('details-component', require('./components/details/DetailsComponent.vue').default);
 Vue.component('details-cateagory-component', require('./components/details/DetailsCategoryComponent.vue').default);
 Vue.component('details-expense-component', require('./components/details/DetailsExpenseComponent.vue').default);
+
+// Month Expenses
+Vue.component('month-bills', require('./components/month-bills/MonthBills.vue').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

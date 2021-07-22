@@ -40,15 +40,17 @@
 
 <script>
 export default {
-     model: {
+    model: {
         prop: "expense",
     },
     props: {
         category:{
-            required: true
+            required: true,
+            type: Object
         },
         expense: {
             required: true,
+            type: Object
         },
     },
     data: function () {

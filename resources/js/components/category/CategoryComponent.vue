@@ -59,7 +59,7 @@
             </div>
             <b-collapse :id="category.id.toString()">
                 <expenses-list
-                    :value="category"
+                    :category="category"
                     @update="$emit('update')"
                 ></expenses-list>
             </b-collapse>
@@ -102,6 +102,7 @@ export default {
     props: {
         category: {
             required: true,
+            type: Object
         },
     },
     data: function () {

@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->truncate();
+        // DB::table('categories')->truncate();
         Category::create([
             'name' => 'Necessarios',
             'user_id' => 1

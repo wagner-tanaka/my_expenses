@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BillController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('categories', CategoryController::class)->only(['index','store','update','destroy']);
     Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy']);
+    Route::resource('bills', BillController::class);
 });
 
 

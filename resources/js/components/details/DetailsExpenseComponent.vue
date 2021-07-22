@@ -16,11 +16,6 @@
                 <td>{{ expense.value }}</td>
             </tr>
         </tbody>
-        <!-- <span>
-                                    <strong>{{ expense.name }}</strong> -
-                                    {{ expense.value }}
-                                    <br />
-                                </span> -->
     </table>
 </template>
 
@@ -28,7 +23,8 @@
 export default {
     props: {
         value: {
-            required: true
+            required: true,
+            type: Object
         }
     },
     data: function () {

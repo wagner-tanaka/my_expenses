@@ -15,7 +15,7 @@ class ExpenseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('expenses')->truncate();
+        // DB::table('expenses')->truncate();
         Expense::create([
             'name' => 'Mercado',
             'category_id' => 1,

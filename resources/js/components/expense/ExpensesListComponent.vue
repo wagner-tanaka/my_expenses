@@ -18,15 +18,11 @@
                     <i class="fa fa-trash-alt" aria-hidden="true"> </i>
                 </b-button>
             </template>
-            <!-- <template #cell(value)="item">
-                <b-button
-                    size="sm"
-                    variant="outline-secondary"
-                    style="cursor: pointer; color: black"
-                >
-                    {{ item.value }}
-                </b-button>
-            </template> -->
+            <template #cell(name)="data">
+                <span>
+                    {{ data.item.name }}
+                </span>
+            </template>
             <template #cell(data)="data">
                 {{ data.item.date }} -- {{ data.item.time }}
             </template>
@@ -37,7 +33,7 @@
                     </b-td>
                     <b-td></b-td>
                     <b-td class="text-center">
-                        <strong>{{ value.totalCategoryExpenses }}</strong>
+                        <strong>{{ category.totalCategoryExpenses }}</strong>
                     </b-td>
                     <b-td></b-td>
                 </b-tr>
@@ -49,9 +45,9 @@
 <script>
 export default {
     props: {
-        value: {
+        category: {
             required: true,
-            // type: Array,
+            type: Object,
         },
     },
     data: function () {
@@ -62,7 +58,7 @@ export default {
                 { key: "value", label: "Valor", sortable: true },
                 { key: "excluir_ou_editar_despesa", label: "" },
             ],
-            expenses: this.value.expenses.data,
+            expenses: this.category.expenses.data,
         };
     },
     mounted() {
@@ -80,15 +76,15 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.expenses.splice(expenseIndex, 1);
-                        this.$emit('update')
+                        this.$emit("update");
                     },
                 }
             );
         },
     },
     watch: {
-        value() {
-            this.expenses = this.value.expenses.data;
+        category() {
+            this.expenses = this.category.expenses.data;
         },
     },
 };
