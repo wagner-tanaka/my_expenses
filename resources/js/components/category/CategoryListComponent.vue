@@ -35,7 +35,7 @@
                     <details-component></details-component>
                 </b-tab>
                 <b-tab title="Despesas do Mes">
-                    <month-bills></month-bills>
+                    <month-expenses-and-earnings></month-expenses-and-earnings>
                 </b-tab>
             </b-tabs>
         </div>

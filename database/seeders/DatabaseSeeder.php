@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Bill;
+use App\Models\MonthEarning;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             ExpenseSeeder::class,
-            BillSeeder::class
+            MonthExpenseSeeder::class,
+            MonthEarningSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
         // $this->call(UserSeeder::class);
