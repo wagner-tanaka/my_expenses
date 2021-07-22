@@ -52,10 +52,10 @@ Vue.component('details-component', require('./components/details/DetailsComponen
 Vue.component('details-cateagory-component', require('./components/details/DetailsCategoryComponent.vue').default);
 Vue.component('details-expense-component', require('./components/details/DetailsExpenseComponent.vue').default);
 
-// Month Expenses
+// Month Expenses and Earnings
 Vue.component('month-expenses-and-earnings', require('./components/month-expenses-and-earnings/MonthExpensesAndEarnings.vue').default);
-Vue.component('month-expense', require('./components/month-expenses-and-earnings/MonthExpense.vue').default);
-Vue.component('month-earning', require('./components/month-expenses-and-earnings/MonthEarning.vue').default);
+Vue.component('month-tables', require('./components/month-expenses-and-earnings/MonthTables.vue').default);
+// Vue.component('month-earning', require('./components/month-expenses-and-earnings/MonthEarning.vue').default);
 Vue.component('month-expense-create', require('./components/month-expenses-and-earnings/MonthExpenseCreate.vue').default);
 Vue.component('month-earning-create', require('./components/month-expenses-and-earnings/MonthEarningCreate.vue').default);
 

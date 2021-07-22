@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\MonthExpense\UpdateMonthExpenseAction;
 use App\Actions\MonthExpense\CreateMonthExpenseAction;
+use App\Actions\MonthExpense\DeleteMonthExpenseAction;
+use App\Actions\MonthExpense\GetMonthExpensesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthExpenseRequest;
 use App\Models\MonthExpense;
@@ -17,7 +20,9 @@ class MonthExpenseController extends Controller
      */
     public function index()
     {
-        //
+        return [
+            'monthExpenses' => $this->execute(new GetMonthExpensesAction )
+        ];
     }
 
     /**
@@ -73,9 +78,13 @@ class MonthExpenseController extends Controller
      * @param  \App\Models\MonthExpense  $monthExpense
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MonthExpense $monthExpense)
+    public function update(MonthExpenseRequest $request, MonthExpense $monthExpense)
     {
-        //
+        // dd('update month', $request->all());
+        return [
+            'monthExpense' => $this->execute(new UpdateMonthExpenseAction($monthExpense, $request->validated())),
+            'message' => 'Gasto atualizado!'
+        ];
     }
 
     /**
@@ -86,6 +95,9 @@ class MonthExpenseController extends Controller
      */
     public function destroy(MonthExpense $monthExpense)
     {
-        //
+        return [
+            $this->execute(new DeleteMonthExpenseAction($monthExpense)),
+            'message' => 'Despesa deletada!'
+        ];
     }
 }

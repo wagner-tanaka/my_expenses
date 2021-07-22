@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\MonthEarning\UpdateMonthEarningAction;
 use App\Actions\MonthEarning\CreateMonthEarningAction;
+use App\Actions\MonthEarning\GetMonthEarningsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthEarningRequest;
 use App\Models\MonthEarning;
@@ -17,7 +19,9 @@ class MonthEarningController extends Controller
      */
     public function index()
     {
-        //
+        return [
+            'monthEarnings' => $this->execute(new GetMonthEarningsAction)
+        ];
     }
 
     /**
@@ -73,9 +77,12 @@ class MonthEarningController extends Controller
      * @param  \App\Models\MonthEarning  $monthEarning
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MonthEarning $monthEarning)
+    public function update(MonthEarningRequest $request, MonthEarning $monthEarning)
     {
-        //
+        return [
+            'monthEarning' => $this->execute(new UpdateMonthEarningAction($monthEarning, $request->validated())),
+            'message' => 'Ganho atualizado!'
+        ];
     }
 
     /**
