@@ -24,8 +24,9 @@ class ExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'value' => 'required',
+            'name' => 'sometimes',
+            'value' => 'sometimes',
+            "category_id" => 'required'
         ];
     }
 }

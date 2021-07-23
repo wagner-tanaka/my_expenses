@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Expense\CreateExpenseAction;
 use App\Actions\Expense\DeleteExpenseAction;
 use App\Actions\Expense\GetExpensesAction;
+use App\Actions\Expense\UpdateExpenseAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseRequest;
 use App\Models\Category;
@@ -22,9 +23,26 @@ class ExpenseController extends Controller
      */
     public function store(ExpenseRequest $request)
     {
+        // dd('chegou no dd', $request->all());
         return [
             'expense' => $this->execute(new CreateExpenseAction($request->validated())),
             'message' => 'Despesa salva!'
+        ];
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ExpenseRequest $request, Expense $expense)
+    {
+        // dd($expense);
+        return [
+            'expense' => $this->execute(new UpdateExpenseAction($expense, $request->validated())),
+            'message' => 'Despesa atualizada!'
         ];
     }
 

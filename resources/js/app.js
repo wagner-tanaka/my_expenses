@@ -39,6 +39,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 // Expense Components
 Vue.component('expenses-list', require('./components/expense/ExpensesListComponent.vue').default);
+Vue.component('expense-row-component', require('./components/expense/ExpenseRowComponent.vue').default);
 Vue.component('expense-add-value-component', require('./components/expense/ExpenseAddValueComponent.vue').default);
 Vue.component('expense-new-component', require('./components/expense/ExpenseNewComponent.vue').default);
 

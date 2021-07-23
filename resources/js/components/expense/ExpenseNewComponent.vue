@@ -27,7 +27,8 @@ export default {
     props: {
         category:{
             required: true,
-            type: Object
+            type: Object,
+            // default: ()=>({})
         },
     },
     data: function () {
@@ -39,7 +40,6 @@ export default {
         };
     },
     mounted() {
-        //
     },
     methods: {
          submitExpense() {

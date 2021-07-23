@@ -1,44 +1,30 @@
 <template>
     <div>
-        <b-table
-            small
-            striped="striped"
-            head-variant="light"
-            hover
-            :fields="fields"
-            :items="expenses"
-        >
-            <template #cell(excluir_ou_editar_despesa)="item">
-                <b-button
-                    size="sm"
-                    variant="outline-secondary"
-                    style="cursor: pointer; color: black"
-                    @click="deleteExpense(item.item)"
-                >
-                    <i class="fa fa-trash-alt" aria-hidden="true"> </i>
-                </b-button>
-            </template>
-            <template #cell(name)="data">
-                <span>
-                    {{ data.item.name }}
-                </span>
-            </template>
-            <template #cell(data)="data">
-                {{ data.item.date }} -- {{ data.item.time }}
-            </template>
-            <template v-slot:custom-foot>
-                <b-tr style="background-color: #d3d3d3">
-                    <b-td class="text-center">
-                        <strong>Total</strong>
-                    </b-td>
-                    <b-td></b-td>
-                    <b-td class="text-center">
-                        <strong>{{ category.totalCategoryExpenses }}</strong>
-                    </b-td>
-                    <b-td></b-td>
-                </b-tr>
-            </template>
-        </b-table>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Despesa</th>
+                    <th>Valor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody v-for="(expense, index) in expenses" :key="index">
+                <expense-row-component
+                    :category-id="category.id"
+                    :expense="expenses[index]"
+                    @delete="$emit('update')"
+                ></expense-row-component>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th>{{ category.totalCategoryExpenses }}</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </template>
 
@@ -52,12 +38,6 @@ export default {
     },
     data: function () {
         return {
-            fields: [
-                { key: "data", sortable: true },
-                { key: "name", label: "Despesa", sortable: true },
-                { key: "value", label: "Valor", sortable: true },
-                { key: "excluir_ou_editar_despesa", label: "" },
-            ],
             expenses: this.category.expenses.data,
         };
     },
