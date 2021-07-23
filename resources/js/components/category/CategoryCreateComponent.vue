@@ -29,7 +29,6 @@ export default {
         };
     },
     created() {
-        console.log(this.value)
     },
     methods: {
         submitCategory() {

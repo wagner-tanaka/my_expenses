@@ -139,7 +139,6 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.$emit("update");
-                        console.log(categoryIndex);
                     },
                 }
             );

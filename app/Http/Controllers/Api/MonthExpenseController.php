@@ -21,7 +21,8 @@ class MonthExpenseController extends Controller
     public function index()
     {
         return [
-            'monthExpenses' => $this->execute(new GetMonthExpensesAction )
+            'monthExpenses' => $this->execute(new GetMonthExpensesAction),
+            'monthExpensesTotal' => MonthExpense::get()->sum('value')
         ];
     }
 

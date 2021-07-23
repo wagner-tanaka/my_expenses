@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy', 'update']);
     Route::resource('monthExpenses', MonthExpenseController::class);
     Route::resource('monthEarnings', MonthEarningController::class);
+
+    Route::get('getDailyExpensesTotal', [CategoryController::class, 'getDailyExpensesTotal'])->name('getDailyExpensesTotal');
 });
 
 

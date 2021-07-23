@@ -16,7 +16,25 @@
             </b-button>
         </div>
 
-        <b-row class="mt-2" :class="isMonthDebtBiggerThanZero ? 'monthDebtClassBiggerThanZero' : 'monthDebtClassLessThanZero'">
+        <!-- <b-row
+            class="mt-2"
+            :class="
+                isMonthDebtBiggerThanZero
+                    ? 'monthDebtClassBiggerThanZero'
+                    : 'monthDebtClassLessThanZero'
+            "
+        >
+            <b-col class="text-right">Debito</b-col>
+            <b-col class="text-left">{{ monthDebt }}</b-col>
+        </b-row> -->
+        <b-row
+            class="mt-2"
+            :class="
+                isMonthDebtBiggerThanZero
+                    ? 'monthDebtClassBiggerThanZero'
+                    : 'monthDebtClassLessThanZero'
+            "
+        >
             <b-col class="text-right">Debito</b-col>
             <b-col class="text-left">{{ monthDebt }}</b-col>
         </b-row>
@@ -26,13 +44,15 @@
         <table class="table table-sm mt-1">
             <thead>
                 <tr>
-                    <th>Gasto</th>
-                    <th>Valor</th>
-                    <th>Editar</th>
+                    <th colspan="3">Despesas Fixas</th>
                 </tr>
             </thead>
             <tbody v-for="(monthExpense, index) in monthExpenses" :key="index">
-                <month-tables v-model="monthExpenses[index]" route="monthExpenses" @delete="getMonthExpenses"></month-tables>
+                <month-tables
+                    v-model="monthExpenses[index]"
+                    route="monthExpenses"
+                    @delete="getMonthExpenses"
+                ></month-tables>
             </tbody>
             <tfoot>
                 <tr>
@@ -42,6 +62,8 @@
                 </tr>
             </tfoot>
         </table>
+
+        <table-categories></table-categories>
 
         <!-- Month Earnings Table -->
         <h4 class="mt-2">Ganhos</h4>
@@ -54,7 +76,11 @@
                 </tr>
             </thead>
             <tbody v-for="(monthEarning, index) in monthEarnings" :key="index">
-                <month-tables v-model="monthEarnings[index]" route="monthEarnings" @delete="getMonthEarnings"></month-tables>
+                <month-tables
+                    v-model="monthEarnings[index]"
+                    route="monthEarnings"
+                    @delete="getMonthEarnings"
+                ></month-tables>
             </tbody>
             <tfoot>
                 <tr>
@@ -92,7 +118,9 @@
 </template>
 
 <script>
+import DetailsComponent from "../details/TableCategories.vue";
 export default {
+    components: { DetailsComponent },
     props: [],
     data: function () {
         return {
@@ -100,13 +128,30 @@ export default {
             showNewMonthEarningModal: false,
             monthExpenses: [],
             monthEarnings: [],
+            monthExpensesTotal: "",
+            monthEarningsTotal: "",
+            dailyExpensesTotal: "",
         };
     },
     mounted() {
         this.getMonthEarnings();
         this.getMonthExpenses();
+        this.getDailyExpensesTotal();
     },
     methods: {
+        getDailyExpensesTotal() {
+            let url = "/api/getDailyExpensesTotal";
+            this.request(
+                "get",
+                url,
+                {},
+                {
+                    onSuccess: (response) => {
+                        this.dailyExpensesTotal = response.data;
+                    },
+                }
+            );
+        },
         getMonthExpenses() {
             let url = `/api/monthExpenses`;
 
@@ -117,7 +162,9 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.monthExpenses = response.data.monthExpenses.data;
-                        console.log(response.data.monthExpenses.data);
+                        this.monthExpensesTotal =
+                            response.data.monthExpensesTotal;
+                        console.log(response.data);
                     },
                 }
             );
@@ -132,7 +179,10 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.monthEarnings = response.data.monthEarnings.data;
-                        console.log(response.data.monthEarnings.data);
+                        this.monthEarningsTotal =
+                            response.data.monthEarningsTotal;
+
+                        console.log(response.data);
                     },
                 }
             );
@@ -147,22 +197,11 @@ export default {
         },
     },
     computed: {
-        monthExpensesTotal() {
-            let initialValue = 0;
-            return this.monthExpenses.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.value,
-                initialValue
-            );
-        },
-        monthEarningsTotal() {
-            let initialValue = 0;
-            return this.monthEarnings.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.value,
-                initialValue
-            );
-        },
         monthDebt() {
-            return (Number(this.monthEarningsTotal) - Number(this.monthExpensesTotal));
+            let totalExpenses =
+                Number(this.monthExpensesTotal) +
+                Number(this.dailyExpensesTotal);
+            return Number(this.monthEarningsTotal) - totalExpenses;
         },
         isMonthDebtBiggerThanZero() {
             if (this.monthDebt >= 0) {

@@ -48,7 +48,6 @@ export default {
             let url = `api/${this.route}/${this.value.id}`
             this.request('put',url,form,{
                 onSuccess: (response) => {
-                    console.log(response)
                 }
             })
 

@@ -23,10 +23,14 @@ class CategoryController extends Controller
     public function index()
     {
         return [
-            'categories' => $this->execute(new GetCategoriesAction)
+            'categories' => $this->execute(new GetCategoriesAction),
+            'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
         ];
     }
-
+    
+    public function getDailyExpensesTotal(){
+        return Category::get()->sum('totalCategoryExpenses');
+    }
     /**
      * Store a newly created resource in storage.
      *

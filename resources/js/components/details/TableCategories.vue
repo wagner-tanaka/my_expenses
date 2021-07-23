@@ -1,27 +1,39 @@
 <template>
     <b-container>
-        <table class="table table-hover">
-            <thead class="thead-dark">
+        <table class="table table-hover table-sm">
+            <thead>
                 <tr>
-                    <th>Categoria</th>
-                    <th>Valor</th>
+                    <th colspan="3">Despesas Diarias</th>
                 </tr>
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
-                <tr>
+                <tr >
                     <td v-b-toggle="category.id.toString()">
                         {{ category.name }}
                     </td>
                     <td>{{ category.totalCategoryExpenses }}</td>
+                    <td>
+                        <b-button disabled variant="warning" size="sm"
+                            ><i class="fas fa-pen"></i
+                        ></b-button>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="p-0 border-0">
+                    <td colspan="3" class="p-0 border-0">
                         <b-collapse :id="category.id.toString()">
-                            <details-expense-component :value="category"></details-expense-component>
+                            <table-expenses-grouped
+                                :value="category"
+                            ></table-expenses-grouped>
                         </b-collapse>
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th>{{ categoriesExpensesTotal }}</th>
+                </tr>
+            </tfoot>
         </table>
     </b-container>
 </template>
@@ -31,6 +43,7 @@ export default {
     data: function () {
         return {
             categories: [],
+            categoriesExpensesTotal: ''
         };
     },
     created() {
@@ -46,10 +59,12 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.categories = response.data.categories.data;
+                        this.categoriesExpensesTotal = response.data.categoriesAmountTotal 
                     },
                 }
             );
         },
     },
+    
 };
 </script>

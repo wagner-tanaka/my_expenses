@@ -10,4 +10,5 @@ class MonthEarning extends Model
     use HasFactory;
     protected $guarded = [];
 
+
 }

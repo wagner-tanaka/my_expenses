@@ -49,9 +49,8 @@ Vue.component('category-create-update-component', require('./components/category
 Vue.component('category-component', require('./components/category/CategoryComponent.vue').default);
 
 // Details
-Vue.component('details-component', require('./components/details/DetailsComponent.vue').default);
-Vue.component('details-cateagory-component', require('./components/details/DetailsCategoryComponent.vue').default);
-Vue.component('details-expense-component', require('./components/details/DetailsExpenseComponent.vue').default);
+Vue.component('table-categories', require('./components/details/TableCategories.vue').default);
+Vue.component('table-expenses-grouped', require('./components/details/TableExpensesGrouped.vue').default);
 
 // Month Expenses and Earnings
 Vue.component('month-expenses-and-earnings', require('./components/month-expenses-and-earnings/MonthExpensesAndEarnings.vue').default);

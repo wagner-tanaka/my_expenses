@@ -1,9 +1,10 @@
 <template>
     <table class="table table-sm text-center">
         <thead class="table-info">
-            <tr >
+            <tr>
                 <th>Despesa</th>
                 <th>Valor</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -14,6 +15,7 @@
             >
                 <td>{{ expense.name }}</td>
                 <td>{{ expense.value }}</td>
+                <td></td>
             </tr>
         </tbody>
     </table>

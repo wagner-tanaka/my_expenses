@@ -56,7 +56,6 @@ export default {
         };
     },
     created() {
-        console.log(this.expense);
     },
     methods: {
         
@@ -68,7 +67,6 @@ export default {
             }
             this.request('put', this.url, form,{
                 onSuccess: (response) => {
-                    console.log(response)
                 }
             })
             this.isEditingName = false
@@ -81,7 +79,6 @@ export default {
             }
             this.request('put', this.url, form,{
                 onSuccess: (response) => {
-                    console.log(response)
                 }
             })
             this.isEditingValue = false
