@@ -13,6 +13,25 @@ class Category extends Model
         static::addGlobalScope(new UserScope);
     }
 
+    public static function generateForThisMonth(): void
+    {
+        $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
+        $dateEnd =now()->startOfMonth();   // 2021-07-01
+        $expenses = Expense::where('is_fixed',true)
+            ->groupBy('name')
+            ->whereBetween('created_at', [$dateStart, $dateEnd])
+            ->get();
+
+        $expenses->each(function ($expense) {
+            Expense::create([
+                'category_id' => $expense->category->id,
+                'is_fixed' => true,
+                'name' => $expense->name,
+                'value' => 0
+            ]);
+        });
+    }
+
     use HasFactory;
 
     protected $guarded = [];
@@ -34,7 +53,7 @@ class Category extends Model
 
     public function groupedExpenses()
     {
-        return $this->expenses()->get()->groupBy('name')->map(function ($expenses) {
+        return $this->expenses()->thisMonth()->get()->groupBy('name')->map(function ($expenses) {
             return [
                 'name' => $expenses[0]->name,
                 'value' => $expenses->sum('value')

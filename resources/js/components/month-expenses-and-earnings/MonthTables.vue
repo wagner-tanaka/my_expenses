@@ -1,10 +1,10 @@
 <template>
     <tr>
-        <td v-if="!isEditing">{{ value.name }}</td>
+        <td v-if="!isEditing" style="width: 33%">{{ value.name }}</td>
         <td v-if="isEditing"><b-input v-model="value.name" size="sm" class="text-center"></b-input></td>
-        <td v-if="!isEditing">{{ value.value }}</td>
+        <td v-if="!isEditing" style="width: 33%">{{ value.value }}</td>
         <td v-if="isEditing"><b-input v-model="value.value" size="sm" class="text-center"></b-input></td>
-        <td>
+        <td style="width: 34%">
             <b-button v-if="!isEditing" size="sm" variant="warning" @click="isEditing = true">
                 <i class="fas fa-pen"></i>
             </b-button>

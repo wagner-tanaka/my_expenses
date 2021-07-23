@@ -1,6 +1,6 @@
 <template>
-    <b-container>
-        <table class="table table-hover table-sm">
+    <div>
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th colspan="3">Despesas Diarias</th>
@@ -8,11 +8,11 @@
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
                 <tr >
-                    <td v-b-toggle="category.id.toString()">
+                    <td v-b-toggle="category.id.toString()" style="width: 33%">
                         {{ category.name }}
                     </td>
-                    <td>{{ category.totalCategoryExpenses }}</td>
-                    <td>
+                    <td style="width: 33%">{{ category.totalCategoryExpenses }}</td>
+                    <td style="width: 33%">
                         <b-button disabled variant="warning" size="sm"
                             ><i class="fas fa-pen"></i
                         ></b-button>
@@ -35,7 +35,7 @@
                 </tr>
             </tfoot>
         </table>
-    </b-container>
+    </div>
 </template>
 <script>
 export default {

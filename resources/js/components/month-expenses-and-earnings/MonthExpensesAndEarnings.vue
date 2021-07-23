@@ -15,18 +15,6 @@
                 >Adicionar Ganho
             </b-button>
         </div>
-
-        <!-- <b-row
-            class="mt-2"
-            :class="
-                isMonthDebtBiggerThanZero
-                    ? 'monthDebtClassBiggerThanZero'
-                    : 'monthDebtClassLessThanZero'
-            "
-        >
-            <b-col class="text-right">Debito</b-col>
-            <b-col class="text-left">{{ monthDebt }}</b-col>
-        </b-row> -->
         <b-row
             class="mt-2"
             :class="
@@ -41,7 +29,7 @@
 
         <!-- Month Expenses Table -->
         <h4 class="mt-2">Despesas</h4>
-        <table class="table table-sm mt-1">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th colspan="3">Despesas Fixas</th>
@@ -67,7 +55,7 @@
 
         <!-- Month Earnings Table -->
         <h4 class="mt-2">Ganhos</h4>
-        <table class="table table-sm mt-1">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th>Ganho</th>
@@ -204,10 +192,7 @@ export default {
             return Number(this.monthEarningsTotal) - totalExpenses;
         },
         isMonthDebtBiggerThanZero() {
-            if (this.monthDebt >= 0) {
-                return true;
-            }
-            return false;
+            return this.monthDebt >= 0;
         },
     },
 };

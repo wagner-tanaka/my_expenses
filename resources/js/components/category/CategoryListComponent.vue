@@ -2,7 +2,7 @@
     <b-container class="text-center">
         <div>
             <b-tabs content-class="mt-3">
-                <b-tab title="Home" >
+                    <b-tab title="Home"  active>
                     <b-button
                         variant="primary"
                         size="sm"
@@ -34,7 +34,7 @@
                 <b-tab title="Detalhes">
                     <table-categories></table-categories>
                 </b-tab>
-                <b-tab title="Despesas do Mes" active>
+                <b-tab title="Despesas do Mes" >
                     <month-expenses-and-earnings></month-expenses-and-earnings>
                 </b-tab>
             </b-tabs>

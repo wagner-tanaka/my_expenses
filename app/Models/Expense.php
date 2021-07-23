@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,4 +22,9 @@ class Expense extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function scopeThisMonth($query)
+    {
+       return $query->whereYear('created_at', now()->format('Y'))
+            ->whereMonth('created_at', now()->format('m'));
+    }
 }

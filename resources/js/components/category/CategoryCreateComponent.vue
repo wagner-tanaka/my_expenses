@@ -17,7 +17,7 @@
 export default {
     props: {
         value: {
-            required: false,
+            type: Object,
             default: () => ({})
         }
     },
@@ -32,8 +32,9 @@ export default {
     },
     methods: {
         submitCategory() {
-            let url = this.value ? `/api/categories/${this.value.id}` : `/api/categories`
-            let method = this.value ? 'put' : 'post'
+            // console.log(this.value);
+            let url = this.value.id ? `/api/categories/${this.value.id}` : `/api/categories`
+            let method = this.value.id ? 'put' : 'post'
             this.request(method, url, this.form, {
                 onSuccess: (response) => {
                     this.$emit('save', response.data.category.id)

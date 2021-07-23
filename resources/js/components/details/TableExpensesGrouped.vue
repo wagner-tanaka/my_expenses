@@ -1,5 +1,5 @@
 <template>
-    <table class="table table-sm text-center">
+    <table class="table table-sm">
         <thead class="table-info">
             <tr>
                 <th>Despesa</th>
