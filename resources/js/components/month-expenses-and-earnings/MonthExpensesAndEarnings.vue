@@ -162,7 +162,7 @@ export default {
             );
         },
         monthDebt() {
-            return this.monthEarningsTotal - this.monthExpensesTotal;
+            return (Number(this.monthEarningsTotal) - Number(this.monthExpensesTotal));
         },
         isMonthDebtBiggerThanZero() {
             if (this.monthDebt >= 0) {

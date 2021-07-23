@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\MonthEarning\UpdateMonthEarningAction;
 use App\Actions\MonthEarning\CreateMonthEarningAction;
+use App\Actions\MonthEarning\DeleteMonthEarningAction;
 use App\Actions\MonthEarning\GetMonthEarningsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthEarningRequest;
@@ -93,6 +94,10 @@ class MonthEarningController extends Controller
      */
     public function destroy(MonthEarning $monthEarning)
     {
-        //
+        return [
+            $this->execute(new DeleteMonthEarningAction($monthEarning)),
+            'message' => 'Ganho deletado!'
+        ];
     }
 }
+
