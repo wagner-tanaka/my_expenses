@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Actions\Category;
 
 use App\Actions\Executable;
@@ -9,10 +10,10 @@ class GetCategoriesAction implements Executable
 {
     public function handle()
     {
-      $categories = $this->getCategories();
+        $categories = $this->getCategories();
 
-        if($categories->isEmpty()){
-            Category::generateForThisMonth();
+        if ($categories->isEmpty()) {
+            Category::generateExpensesForThisCategory();
             $categories = $this->getCategories();
         }
 
@@ -21,10 +22,13 @@ class GetCategoriesAction implements Executable
 
     private function getCategories()
     {
-        return Category::with('expenses')->whereHas('expenses', function($query){
-            $query->whereYear('created_at', now()->format('Y'))
-            ->whereMonth('created_at', now()->format('m'));
-        })->get();
-
+        return Category::with('expenses')->
+                         whereHas('expenses', function ($query) {$query->
+                            whereYear('created_at', now()->format('Y'))->
+                            whereMonth('created_at', now()->format('m'));})->
+                         orWhere(function ($query) {$query->
+                            whereYear('created_at', now()->format('Y'))->
+                            whereMonth('created_at', now()->format('m'));})->
+                         get();
     }
 }

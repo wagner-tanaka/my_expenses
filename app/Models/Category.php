@@ -13,7 +13,7 @@ class Category extends Model
         static::addGlobalScope(new UserScope);
     }
 
-    public static function generateForThisMonth(): void
+    public static function generateExpensesForThisCategory(): void
     {
         $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
         $dateEnd =now()->startOfMonth();   // 2021-07-01
