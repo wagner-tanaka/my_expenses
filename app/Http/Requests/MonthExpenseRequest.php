@@ -26,6 +26,7 @@ class MonthExpenseRequest extends FormRequest
         return [
             'name' => 'required',
             'value' => 'required',
+            "is_fixed" => 'required'
         ];
     }
 }

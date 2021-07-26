@@ -12,7 +12,12 @@
             class="mt-2"
             placeholder="Valor do gasto!"
         ></b-input>
-
+        <b-form-checkbox
+            v-model="form.is_fixed"
+            class="mt-2"
+        >
+            Fixar gasto
+        </b-form-checkbox>
         <div class="text-center mt-2">
             <b-button variant="danger mr-2" @click="cancelExpenseCreation"
                 >Cancelar</b-button
@@ -36,7 +41,9 @@ export default {
             form: {
                 name: "",
                 category_id: null,
+                is_fixed: false
             },
+
         };
     },
     mounted() {
@@ -46,7 +53,7 @@ export default {
             this.form.category_id = this.category.id;
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
-                onSuccess: (response) => {
+                onSuccess: () => {
                     this.form = {};
                     this.form.category_id = null;
                     this.expenseModal = false;

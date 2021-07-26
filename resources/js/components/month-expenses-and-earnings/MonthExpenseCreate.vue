@@ -6,12 +6,21 @@
             class="mt-2"
             placeholder="Nome da conta aqui!"
         ></b-input>
+
         <b-input
             type="number"
             v-model="form.value"
             class="mt-2"
             placeholder="Valor da conta!"
         ></b-input>
+
+        <b-form-checkbox
+            v-model="form.is_fixed"
+            class="mt-2"
+        >
+            Fixar Conta
+        </b-form-checkbox>
+
 
         <div class="text-center mt-2">
             <b-button variant="danger mr-2" @click="cancelExpenseCreation"
@@ -30,6 +39,7 @@ export default {
             form: {
                 name: "",
                 value: "",
+                is_fixed: false
             },
         };
     },
@@ -40,7 +50,7 @@ export default {
         submitExpense() {
             let url = `/api/monthExpenses`;
             this.request("post", url, this.form, {
-                onSuccess: (response) => {
+                onSuccess: () => {
                     this.form = {};
                     this.$emit('save')
                 },
