@@ -4,28 +4,38 @@
             <b-button
                 variant="primary"
                 class="mr-1"
-                @click="showNewMonthExpenseModal = !showNewMonthExpenseModal"
-                >Adicionar Despesa
+                @click="showMonthExpensesCategoryCreateUpdateModal = true"
+                >Adicionar Categoria de Despesas
             </b-button>
 
-            <b-button
-                variant="primary"
-                class="ml-1"
-                @click="showNewMonthEarningModal = !showNewMonthEarningModal"
-                >Adicionar Ganho
-            </b-button>
+<!--            <b-button-->
+<!--                variant="primary"-->
+<!--                class="ml-1"-->
+<!--                @click="showNewMonthEarningModal = !showNewMonthEarningModal"-->
+<!--                >Adicionar Ganho-->
+<!--            </b-button>-->
         </div>
-        <b-row
-            class="mt-2"
-            :class="
-                isMonthDebtBiggerThanZero
-                    ? 'monthDebtClassBiggerThanZero'
-                    : 'monthDebtClassLessThanZero'
-            "
+
+        <div
+            v-for="(category, index) in categories"
+            :key="category.id"
         >
-            <b-col class="text-right">Debito</b-col>
-            <b-col class="text-left">{{ monthDebt }}</b-col>
-        </b-row>
+            <month-expenses-category-list
+                v-model="categories[index]"
+                @update="getMonthExpensesCategories"
+            ></month-expenses-category-list>
+        </div>
+<!--        <b-row-->
+<!--            class="mt-2"-->
+<!--            :class="-->
+<!--                isMonthDebtBiggerThanZero-->
+<!--                    ? 'monthDebtClassBiggerThanZero'-->
+<!--                    : 'monthDebtClassLessThanZero'-->
+<!--            "-->
+<!--        >-->
+<!--            <b-col class="text-right">Debito</b-col>-->
+<!--            <b-col class="text-left">{{ monthDebt }}</b-col>-->
+<!--        </b-row>-->
 
         <!-- Month Expenses Table -->
         <h4 class="mt-2">Despesas</h4>
@@ -79,19 +89,18 @@
             </tfoot>
         </table>
 
-        <!-- Month Expense Modal -->
+        <!-- Month Earning Modal -->
         <b-modal
-            v-model="showNewMonthExpenseModal"
-            title="Adicionar conta do Mes"
+            v-model="showMonthExpensesCategoryCreateUpdateModal"
+            title="Nova Categoria de Despesas do Mes"
             centered
             hide-footer
         >
-            <month-expense-create
-                @save="monthExpenseHasBeenSaved"
-            ></month-expense-create>
+            <month-expenses-category-create-update
+                @save="monthExpensesCategoryHasBeenSaved"
+                @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
+            ></month-expenses-category-create-update>
         </b-modal>
-
-        <!-- Month Earning Modal -->
         <b-modal
             v-model="showNewMonthEarningModal"
             title="Adicionar conta do Mes"
@@ -112,21 +121,41 @@ export default {
     props: [],
     data: function () {
         return {
-            showNewMonthExpenseModal: false,
+            showMonthExpensesCategoryCreateUpdateModal: false,
             showNewMonthEarningModal: false,
             monthExpenses: [],
             monthEarnings: [],
             monthExpensesTotal: "",
             monthEarningsTotal: "",
             dailyExpensesTotal: "",
+            categories: [],
+
         };
     },
     mounted() {
         this.getMonthEarnings();
         this.getMonthExpenses();
         this.getDailyExpensesTotal();
+        this.getCategories()
     },
     methods: {
+        getMonthExpensesCategories(){
+
+        },
+        monthExpensesCategoryHasBeenSaved(){
+            this.showMonthExpensesCategoryCreateUpdateModal = false
+            this.getMonthExpensesCategories()
+        },
+        getCategories() {
+            let url = "/api/categories";
+            this.request("get", url, null, {
+                onSuccess: (response) => {
+                    this.categories = response.data.categories.data;
+                    this.capitalizeCategoryNameFirstLetter();
+                    this.orderCategoriesByName();
+                },
+            });
+        },
         getDailyExpensesTotal() {
             let url = "/api/getDailyExpensesTotal";
             this.request(
@@ -175,10 +204,10 @@ export default {
                 }
             );
         },
-        monthExpenseHasBeenSaved() {
-            this.showNewMonthExpenseModal = false;
-            this.getMonthExpenses();
-        },
+        // monthExpenseHasBeenSaved() {
+        //     this.showNewMonthExpenseModal = false;
+        //     this.getMonthExpenses();
+        // },
         monthEarningHasBeenSaved() {
             this.showNewMonthEarningModal = false;
             this.getMonthEarnings();
@@ -203,7 +232,7 @@ export default {
     font-size: 1.5em;
     background-color: #146d9e;
 }
-.monthDebtClassLessThanZero {
+    .monthDebtClassLessThanZero {
     font-size: 1.5em;
     background-color: #e33949;
 }

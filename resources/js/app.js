@@ -59,6 +59,11 @@ Vue.component('month-tables', require('./components/month-expenses-and-earnings/
 Vue.component('month-expense-create', require('./components/month-expenses-and-earnings/MonthExpenseCreate.vue').default);
 Vue.component('month-earning-create', require('./components/month-expenses-and-earnings/MonthEarningCreate.vue').default);
 
+// Month Expenses Category
+Vue.component('month-expenses-category-list', require('./components/month-expenses-category/MonthExpensesCategory.vue').default);
+Vue.component('month-expenses-category-create-update', require('./components/month-expenses-category/MonthExpensesCategoryCreateUpdate.vue').default);
+
+
 
 
 /**

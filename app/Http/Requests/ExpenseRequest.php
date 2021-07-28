@@ -27,7 +27,7 @@ class ExpenseRequest extends FormRequest
             'name' => 'sometimes',
             'value' => 'sometimes',
             "category_id" => 'required',
-            "is_fixed" => 'required'
+            "is_fixed" => 'sometimes'
         ];
     }
 }
