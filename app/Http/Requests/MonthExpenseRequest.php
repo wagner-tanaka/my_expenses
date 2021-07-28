@@ -26,7 +26,8 @@ class MonthExpenseRequest extends FormRequest
         return [
             'name' => 'required',
             'value' => 'required',
-            "is_fixed" => 'required'
+            "is_fixed" => 'required',
+            "month_expenses_category_id" => 'required',
         ];
     }
 }

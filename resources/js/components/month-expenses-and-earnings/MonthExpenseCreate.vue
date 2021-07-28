@@ -33,7 +33,12 @@
 
 <script>
 export default {
-    props: [],
+    props: {
+        monthExpensesCategory:{
+            required:true,
+            type:Object
+        }
+    },
     data: function () {
         return {
             form: {
@@ -49,6 +54,7 @@ export default {
     methods: {
         submitExpense() {
             let url = `/api/monthExpenses`;
+            this.form.month_expenses_category_id = this.monthExpensesCategory.id
             this.request("post", url, this.form, {
                 onSuccess: () => {
                     this.form = {};

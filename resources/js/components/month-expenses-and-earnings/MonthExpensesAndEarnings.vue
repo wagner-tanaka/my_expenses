@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div class="mb-2 mt-2">
             <b-button
                 variant="primary"
                 class="mr-1"
@@ -17,11 +17,11 @@
         </div>
 
         <div
-            v-for="(category, index) in categories"
-            :key="category.id"
+            v-for="(monthExpensesCategory, index) in monthExpensesCategories"
+            :key="monthExpensesCategory.id"
         >
             <month-expenses-category-list
-                v-model="categories[index]"
+                v-model="monthExpensesCategories[index]"
                 @update="getMonthExpensesCategories"
             ></month-expenses-category-list>
         </div>
@@ -101,6 +101,7 @@
                 @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
             ></month-expenses-category-create-update>
         </b-modal>
+
         <b-modal
             v-model="showNewMonthEarningModal"
             title="Adicionar conta do Mes"
@@ -128,7 +129,7 @@ export default {
             monthExpensesTotal: "",
             monthEarningsTotal: "",
             dailyExpensesTotal: "",
-            categories: [],
+            monthExpensesCategories: [],
 
         };
     },
@@ -136,25 +137,23 @@ export default {
         this.getMonthEarnings();
         this.getMonthExpenses();
         this.getDailyExpensesTotal();
-        this.getCategories()
+        this.getMonthExpensesCategories()
     },
     methods: {
         getMonthExpensesCategories(){
-
-        },
-        monthExpensesCategoryHasBeenSaved(){
-            this.showMonthExpensesCategoryCreateUpdateModal = false
-            this.getMonthExpensesCategories()
-        },
-        getCategories() {
-            let url = "/api/categories";
+            let url = "/api/monthExpensesCategories";
             this.request("get", url, null, {
                 onSuccess: (response) => {
-                    this.categories = response.data.categories.data;
+                    console.log('categorias',response.data.monthExpensesCategories.data)
+                    this.monthExpensesCategories = response.data.monthExpensesCategories.data;
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
                 },
             });
+        },
+        monthExpensesCategoryHasBeenSaved(){
+            this.showMonthExpensesCategoryCreateUpdateModal = false
+            this.getMonthExpensesCategories()
         },
         getDailyExpensesTotal() {
             let url = "/api/getDailyExpensesTotal";
@@ -211,6 +210,15 @@ export default {
         monthEarningHasBeenSaved() {
             this.showNewMonthEarningModal = false;
             this.getMonthEarnings();
+        },
+        capitalizeCategoryNameFirstLetter() {
+            this.monthExpensesCategories.map((category) => {
+                category.name = this.capitalizeFirstLetter(category.name);
+                return category;
+            });
+        },
+        orderCategoriesByName() {
+            this.monthExpensesCategories = _.orderBy(this.monthExpensesCategories, ["name"]);
         },
     },
     computed: {

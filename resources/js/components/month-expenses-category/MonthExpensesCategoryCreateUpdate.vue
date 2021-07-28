@@ -32,12 +32,12 @@ export default {
     },
     methods: {
         submitCategory() {
-            // console.log(this.value);
             let url = this.value.id ? `/api/monthExpensesCategories/${this.value.id}` : `/api/monthExpensesCategories`
             let method = this.value.id ? 'put' : 'post'
             this.request(method, url, this.form, {
                 onSuccess: (response) => {
-                    console.log(response)
+                    this.$emit('input', response.data.monthExpensesCategory)
+                    this.$emit('update')
                     this.$emit('save', response.data.monthExpensesCategory.id)
                 },
             });

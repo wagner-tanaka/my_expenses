@@ -4,13 +4,14 @@ use App\Http\Controllers\Api\MonthExpenseController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\MonthEarningController;
+use App\Http\Controllers\Api\MonthExpensesCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+|-----------------------------API---------------------------------------------
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -24,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('categories', CategoryController::class)->only(['index','store','update','destroy']);
-    Route::resource('monthExpensesCategories', \App\Http\Controllers\Api\MonthExpensesCategoryController::class)->only(['store']);
+    Route::resource('monthExpensesCategories', MonthExpensesCategoryController::class)->only(['store','index','update','destroy']);
     Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy', 'update']);
     Route::resource('monthExpenses', MonthExpenseController::class);
     Route::resource('monthEarnings', MonthEarningController::class);

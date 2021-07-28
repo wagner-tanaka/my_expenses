@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\MonthExpensesCategory\CreateMonthExpensesCategoryAction;
+use App\Actions\MonthExpensesCategory\DeleteMonthExpensesCategoryAction;
+use App\Actions\MonthExpensesCategory\GetMonthExpensesCategoriesAction;
+use App\Actions\MonthExpensesCategory\UpdateMonthExpensesCategoryAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\MonthExpensesCategoryRequest;
 use App\Models\Category;
+use App\Models\MonthExpensesCategory;
 
 class MonthExpensesCategoryController extends Controller
 {
@@ -15,14 +19,13 @@ class MonthExpensesCategoryController extends Controller
      *
      * @return array
      */
-//    public function index(): array
-//    {
-//
-//        return [
-//            'categories' => $this->execute(new GetCategoriesAction),
-//            'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
-//        ];
-//    }
+    public function index(): array
+    {
+        return [
+            'monthExpensesCategories' => $this->execute(new GetMonthExpensesCategoriesAction()),
+            'monthExpensesTotal' => MonthExpensesCategory::get()->sum('monthExpensesTotal')
+        ];
+    }
 
 //    public function getDailyExpensesTotal(){
 //        return Category::get()->sum('totalCategoryExpenses');
@@ -48,13 +51,13 @@ class MonthExpensesCategoryController extends Controller
      * @param Category $category
      * @return array
      */
-//    public function update(CategoryRequest $request, Category $category): array
-//    {
-//        return [
-//            'category' => $this->execute(new UpdateCategoryAction($category, $request->validated())),
-//            'message' => 'Categoria atualizada!'
-//        ];
-//    }
+    public function update(MonthExpensesCategoryRequest $request, MonthExpensesCategory $monthExpensesCategory): array
+    {
+        return [
+            'monthExpensesCategory' => $this->execute(new UpdateMonthExpensesCategoryAction($monthExpensesCategory, $request->validated())),
+            'message' => 'Categoria atualizada!'
+        ];
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -62,13 +65,13 @@ class MonthExpensesCategoryController extends Controller
      * @param Category $category
      * @return array
      */
-//    public function destroy(Category $category): array
-//    {
-//        return [
-//            $this->execute(new DeleteCategoryAction($category)),
-//            'message' => 'Categoria deletada!'
-//        ];
-//    }
+    public function destroy(MonthExpensesCategory $monthExpensesCategory): array
+    {
+        return [
+            $this->execute(new DeleteMonthExpensesCategoryAction($monthExpensesCategory)),
+            'message' => 'Categoria deletada!'
+        ];
+    }
 
 
 }
