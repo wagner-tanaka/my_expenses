@@ -14,13 +14,14 @@
             placeholder="Valor da conta!"
         ></b-input>
 
+        <b-form-select v-model="selected" :options="daysOfMonth" class="mt-2"></b-form-select>
+
         <b-form-checkbox
             v-model="form.is_fixed"
             class="mt-2"
         >
             Fixar Conta
         </b-form-checkbox>
-
 
         <div class="text-center mt-2">
             <b-button variant="danger mr-2" @click="cancelExpenseCreation"
@@ -44,15 +45,28 @@ export default {
             form: {
                 name: "",
                 value: "",
+                pay_day:"",
                 is_fixed: false
             },
+            selected: null,
+            daysOfMonth: [
+                { value: null, text: 'Selecione o dia da conta' },
+            ]
         };
     },
     mounted() {
-        //
+        this.createDaysOfMonth()
     },
     methods: {
+        createDaysOfMonth(){
+            let day = "";
+            for (let i = 1; i < 32; i++) {
+                day = i;
+                this.daysOfMonth.push(day)
+            }
+        },
         submitExpense() {
+            this.form.pay_day = this.selected
             let url = `/api/monthExpenses`;
             this.form.month_expenses_category_id = this.monthExpensesCategory.id
             this.request("post", url, this.form, {

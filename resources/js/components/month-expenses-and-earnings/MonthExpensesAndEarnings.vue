@@ -20,10 +20,10 @@
             v-for="(monthExpensesCategory, index) in monthExpensesCategories"
             :key="monthExpensesCategory.id"
         >
-            <month-expenses-category-list
+            <month-expenses-category
                 v-model="monthExpensesCategories[index]"
                 @update="getMonthExpensesCategories"
-            ></month-expenses-category-list>
+            ></month-expenses-category>
         </div>
 <!--        <b-row-->
 <!--            class="mt-2"-->
@@ -99,6 +99,7 @@
             <month-expenses-category-create-update
                 @save="monthExpensesCategoryHasBeenSaved"
                 @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
+
             ></month-expenses-category-create-update>
         </b-modal>
 
@@ -141,10 +142,11 @@ export default {
     },
     methods: {
         getMonthExpensesCategories(){
+            console.log('update expense')
             let url = "/api/monthExpensesCategories";
             this.request("get", url, null, {
                 onSuccess: (response) => {
-                    console.log('categorias',response.data.monthExpensesCategories.data)
+                    console.log('salvou e pego as categorias')
                     this.monthExpensesCategories = response.data.monthExpensesCategories.data;
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
@@ -180,7 +182,6 @@ export default {
                         this.monthExpenses = response.data.monthExpenses.data;
                         this.monthExpensesTotal =
                             response.data.monthExpensesTotal;
-                        console.log(response.data);
                     },
                 }
             );
@@ -198,7 +199,6 @@ export default {
                         this.monthEarningsTotal =
                             response.data.monthEarningsTotal;
 
-                        console.log(response.data);
                     },
                 }
             );

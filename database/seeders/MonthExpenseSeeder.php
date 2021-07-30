@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\MonthExpense;
 use Illuminate\Database\Seeder;
 
 class MonthExpenseSeeder extends Seeder
@@ -14,17 +13,20 @@ class MonthExpenseSeeder extends Seeder
      */
     public function run()
     {
-        MonthExpense::create([
-            'name' => 'Aluguel',
-            'value' => 56000
-        ]);
-        MonthExpense::create([
-            'name' => 'Escola',
-            'value' => 7500
-        ]);
-        MonthExpense::create([
-            'name' => 'Luz',
-            'value' => 10000
-        ]);
+//        MonthExpense::create([
+//            'name' => 'Aluguel',
+//            'value' => 56000,
+//            'month_expenses_category_id' => 1
+//        ]);
+//        MonthExpense::create([
+//            'name' => 'Escola',
+//            'value' => 7500,
+//            'month_expenses_category_id' => 1
+//        ]);
+//        MonthExpense::create([
+//            'name' => 'Luz',
+//            'value' => 10000,
+//            'month_expenses_category_id' => 1
+//        ]);
     }
 }

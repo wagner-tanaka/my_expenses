@@ -27,8 +27,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('categories', CategoryController::class)->only(['index','store','update','destroy']);
     Route::resource('monthExpensesCategories', MonthExpensesCategoryController::class)->only(['store','index','update','destroy']);
     Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy', 'update']);
-    Route::resource('monthExpenses', MonthExpenseController::class);
-    Route::resource('monthEarnings', MonthEarningController::class);
+    Route::resource('monthExpenses', MonthExpenseController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('monthEarnings', MonthEarningController::class)->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('getDailyExpensesTotal', [CategoryController::class, 'getDailyExpensesTotal'])->name('getDailyExpensesTotal');
 });

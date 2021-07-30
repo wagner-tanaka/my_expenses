@@ -53,7 +53,7 @@ class Category extends Model
 
     public function groupedExpenses()
     {
-        return $this->expenses()->thisMonth()->get()->groupBy('name')->map(function ($expenses) {
+        return $this->expenses()->  thisMonth()->get()->groupBy('name')->map(function ($expenses) {
             return [
                 'name' => $expenses[0]->name,
                 'value' => $expenses->sum('value')

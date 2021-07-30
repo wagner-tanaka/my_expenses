@@ -1,25 +1,27 @@
 <template>
     <tr>
         <td>{{ expense.date }}</td>
-        <td @click="isEditingName = true" v-if="!isEditingName">{{ expense.name }}</td>
+        <td @click="isEditingName = true" v-if="!isEditingName">{{ form.name }}</td>
         <td v-if="isEditingName">
             <b-row>
                 <b-col cols="9" class="text-right pr-0">
-                    <b-input type="text" v-model="expense.name" size="sm"></b-input>
+                    <b-input type="text" v-model="form.name" size="sm"></b-input>
                 </b-col>
                 <b-col cols="3" class="text-left pl-1">
-                    <b-button variant="success" size="sm" @click="updateExpenseName"><i class="fas fa-check"></i></b-button>
+                    <b-button variant="success" size="sm" @click="updateExpenseName"><i class="fas fa-check"></i>
+                    </b-button>
                 </b-col>
             </b-row>
         </td>
-        <td @click="isEditingValue = true" v-if="!isEditingValue">{{ expense.value }}</td>
+        <td @click="isEditingValue = true" v-if="!isEditingValue">{{ form.value }}</td>
         <td v-if="isEditingValue">
             <b-row>
                 <b-col cols="9" class="text-right pr-0">
-                    <b-input type="number" v-model="expense.value" size="sm"></b-input>
+                    <b-input type="number" v-model="form.value" size="sm"></b-input>
                 </b-col>
                 <b-col cols="3" class="text-left pl-1">
-                    <b-button variant="success" size="sm" @click="updateExpenseValue"><i class="fas fa-check"></i></b-button>
+                    <b-button variant="success" size="sm" @click="updateExpenseValue"><i class="fas fa-check"></i>
+                    </b-button>
                 </b-col>
             </b-row>
         </td>
@@ -39,7 +41,7 @@
 <script>
 export default {
     props: {
-        categoryId:{
+        categoryId: {
             required: true
         },
         expense: {
@@ -49,50 +51,38 @@ export default {
     },
     data: function () {
         return {
-            
+
             isEditingName: false,
             isEditingValue: false,
-            url: `api/expenses/${this.expense.id}`
+            url: `api/expenses/${this.expense.id}`,
+            form: {
+                category_id: this.categoryId,
+                name: this.expense.name,
+                value: this.expense.value
+            }
         };
     },
     created() {
     },
     methods: {
-        
-        updateExpenseName(){
-            let form = {
-                category_id: this.categoryId,
-                name: this.expense.name,
-                value: this.expense.value
-            }
-            this.request('put', this.url, form,{
-                onSuccess: (response) => {
-                }
-            })
+
+        updateExpenseName() {
+            this.request('put', this.url, this.form, {resetForm: false})
             this.isEditingName = false
         },
-        updateExpenseValue(){
-            let form = {
-                category_id: this.categoryId,
-                name: this.expense.name,
-                value: this.expense.value
-            }
-            this.request('put', this.url, form,{
-                onSuccess: (response) => {
-                }
-            })
+        updateExpenseValue() {
+            this.request('put', this.url, this.form, {resetForm: false})
             this.isEditingValue = false
         },
         deleteExpense() {
             // let expenseIndex = this.expenses.indexOf(expense);
-            let url = `/api/expenses/${this.expense.id}`;
 
             this.request(
                 "delete",
-                url,
+                this.url,
                 {},
                 {
-                    onSuccess: (response) => {
+                    onSuccess: () => {
                         // this.expenses.splice(expenseIndex, 1);
                         this.$emit("delete");
                     },

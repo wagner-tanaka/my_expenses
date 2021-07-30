@@ -32,7 +32,6 @@ export default {
     },
     methods: {
         submitCategory() {
-            // console.log(this.value);
             let url = this.value.id ? `/api/categories/${this.value.id}` : `/api/categories`
             let method = this.value.id ? 'put' : 'post'
             this.request(method, url, this.form, {

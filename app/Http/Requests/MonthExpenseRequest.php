@@ -24,9 +24,10 @@ class MonthExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'value' => 'required',
-            "is_fixed" => 'required',
+            'name' => 'sometimes',
+            'value' => 'sometimes',
+            "is_fixed" => 'nullable',
+            "pay_day" => 'nullable',
             "month_expenses_category_id" => 'required',
         ];
     }

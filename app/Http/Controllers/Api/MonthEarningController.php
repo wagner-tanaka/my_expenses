@@ -9,14 +9,13 @@ use App\Actions\MonthEarning\GetMonthEarningsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthEarningRequest;
 use App\Models\MonthEarning;
-use Illuminate\Http\Request;
 
 class MonthEarningController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index()
     {
@@ -27,20 +26,10 @@ class MonthEarningController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(MonthEarningRequest $request)
     {
@@ -51,33 +40,11 @@ class MonthEarningController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MonthEarning  $monthEarning
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MonthEarning $monthEarning)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MonthEarning  $monthEarning
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MonthEarning $monthEarning)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\MonthEarning  $monthEarning
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function update(MonthEarningRequest $request, MonthEarning $monthEarning)
     {
@@ -91,7 +58,7 @@ class MonthEarningController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\MonthEarning  $monthEarning
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function destroy(MonthEarning $monthEarning)
     {

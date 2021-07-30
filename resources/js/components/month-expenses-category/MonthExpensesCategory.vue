@@ -25,20 +25,20 @@
                         variant="success"
                         size="sm"
                         class="float-right"
-                        @click="showNewMonthExpenseModal = !showNewMonthExpenseModal"
+                        @click="showCreateMonthExpenseModal = !showCreateMonthExpenseModal"
                     >Nova Conta
                     </b-button
                     >
                 </th>
             </tr>
             </thead>
-            <!--            <tbody v-for="(expense, index) in expenses" :key="index">-->
-            <!--            <expense-row-component-->
-            <!--                :category-id="category.id"-->
-            <!--                :expense="expenses[index]"-->
-            <!--                @delete="$emit('update')"-->
-            <!--            ></expense-row-component>-->
-            <!--            </tbody>-->
+            <tbody v-for="(monthExpense, index) in monthExpenses" :key="index">
+            <month-expense-row
+                :category-id="value.id"
+                :monthExpense="monthExpenses[index]"
+                @delete="$emit('update')"
+            ></month-expense-row>
+            </tbody>
             <tfoot>
             <tr>
                 <th>Total</th>
@@ -51,7 +51,7 @@
 
         <!--        Month Expenses Create Modal -->
         <b-modal
-            v-model="showNewMonthExpenseModal"
+            v-model="showCreateMonthExpenseModal"
             title="Adicionar conta do Mes"
             centered
             hide-footer
@@ -89,19 +89,21 @@ export default {
     data: function () {
         return {
             monthExpensesCategory: this.value,
-            showNewMonthExpenseModal: false,
+            monthExpenses: [],
+            showCreateMonthExpenseModal: false,
             showEditMonthExpensesCategoryNameModal: false
 
         }
     },
     created() {
+        this.monthExpenses = this.value.monthExpenses.data
     },
     methods: {
         monthExpensesCategoryHasBeenUpdated() {
             this.showEditMonthExpensesCategoryNameModal = false
         },
         monthExpenseHasBeenSaved() {
-            this.showNewMonthExpenseModal = false;
+            this.showCreateMonthExpenseModal = false;
             this.$emit('update')
             // this.$emit('input', this.monthExpensesCategory)
             // this.getMonthExpenses();
@@ -128,5 +130,10 @@ export default {
             );
         },
     },
+    watch: {
+        monthExpenses: function () {
+            console.log('chego no MonthCategoria')
+        }
+    }
 }
 </script>

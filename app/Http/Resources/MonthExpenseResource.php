@@ -18,6 +18,7 @@ class MonthExpenseResource extends JsonResource
             'name' => $this->name,
             'id' => $this->id,
             'value' => $this->value,
+            'pay_day' => $this->pay_day
         ];
     }
 }
