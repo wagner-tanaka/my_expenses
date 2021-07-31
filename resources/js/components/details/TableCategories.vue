@@ -3,7 +3,7 @@
         <table class="table table-sm">
             <thead>
                 <tr>
-                    <th colspan="3">Despesas Diarias</th>
+                    <th colspan="3">Despesas Diárias</th>
                 </tr>
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
@@ -59,12 +59,12 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.categories = response.data.categories.data;
-                        this.categoriesExpensesTotal = response.data.categoriesAmountTotal 
+                        this.categoriesExpensesTotal = response.data.categoriesAmountTotal
                     },
                 }
             );
         },
     },
-    
+
 };
 </script>
