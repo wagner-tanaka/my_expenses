@@ -3,24 +3,25 @@
         <table class="table table-sm">
             <thead>
                 <tr>
-                    <th colspan="3">Despesas Diárias</th>
+                    <th colspan="4">Despesas Diárias</th>
                 </tr>
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
-                <tr >
-                    <td v-b-toggle="category.id.toString()" style="width: 33%">
+                <tr v-b-toggle="category.id.toString()">
+                    <td><i :class="[categoryIsOpen(category.id) ? 'fas fa-chevron-down' : 'fas fa-chevron-right']" ></i></td>
+                    <td style="width: 33%">
                         {{ category.name }}
                     </td>
                     <td style="width: 33%">{{ category.totalCategoryExpenses }}</td>
                     <td style="width: 33%">
-                        <b-button disabled variant="warning" size="sm"
+                        <b-button @click.stop="" disabled variant="warning" size="sm"
                             ><i class="fas fa-pen"></i
                         ></b-button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3" class="p-0 border-0">
-                        <b-collapse :id="category.id.toString()">
+                        <b-collapse @show="openCategoriesAdd(category.id)" @hide="openCategoriesRemove(category.id)" :id="category.id.toString()">
                             <table-expenses-grouped
                                 :value="category"
                             ></table-expenses-grouped>
@@ -42,6 +43,7 @@ export default {
     props: {},
     data: function () {
         return {
+            openCategories: [],
             categories: [],
             categoriesExpensesTotal: ''
         };
@@ -50,6 +52,17 @@ export default {
         this.getCategoriesExpenses();
     },
     methods: {
+        categoryIsOpen(id){
+            return this.openCategories.includes(id) ;
+        },
+        openCategoriesAdd(id){
+            if(!this.openCategories.includes(id)){
+                this.openCategories.push(id)
+            }
+        },
+        openCategoriesRemove(id){
+            this.openCategories = this.openCategories.filter(category_id => category_id !== id)
+        },
         getCategoriesExpenses() {
             let url = "/api/categories";
             this.request(
