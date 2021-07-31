@@ -25,7 +25,9 @@ class CategoryController extends Controller
         ];
     }
 
-    public function getDailyExpensesTotal(){
+    public function getDailyExpensesTotal()
+    {
+        // TODO retornar com nome
         return Category::get()->sum('totalCategoryExpenses');
     }
 
