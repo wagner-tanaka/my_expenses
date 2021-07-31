@@ -9,8 +9,6 @@ use Illuminate\Contracts\View\View;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return Application|Factory|View
      */
     public function index()

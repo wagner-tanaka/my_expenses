@@ -19,7 +19,6 @@ class CategoryController extends Controller
      */
     public function index(): array
     {
-
         return [
             'categories' => $this->execute(new GetCategoriesAction),
             'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
@@ -29,9 +28,8 @@ class CategoryController extends Controller
     public function getDailyExpensesTotal(){
         return Category::get()->sum('totalCategoryExpenses');
     }
+
     /**
-     * Store a newly created resource in storage.
-     *
      * @param CategoryRequest $request
      * @return array
      */
@@ -44,8 +42,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param CategoryRequest $request
      * @param Category $category
      * @return array
@@ -59,8 +55,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param Category $category
      * @return array
      */
@@ -71,6 +65,4 @@ class CategoryController extends Controller
             'message' => 'Categoria deletada!'
         ];
     }
-
-
 }

@@ -9,15 +9,14 @@ use App\Actions\MonthEarning\GetMonthEarningsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthEarningRequest;
 use App\Models\MonthEarning;
+use Illuminate\Http\Request;
 
 class MonthEarningController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return array
      */
-    public function index()
+    public function index(): array
     {
         return [
             'monthEarnings' => $this->execute(new GetMonthEarningsAction),
@@ -26,12 +25,10 @@ class MonthEarningController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param MonthEarningRequest $request
      * @return array
      */
-    public function store(MonthEarningRequest $request)
+    public function store(MonthEarningRequest $request): array
     {
         return [
             'monthEarning' => $this->execute(new CreateMonthEarningAction($request->validated())),
@@ -40,13 +37,11 @@ class MonthEarningController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MonthEarning  $monthEarning
+     * @param MonthEarningRequest $request
+     * @param MonthEarning $monthEarning
      * @return array
      */
-    public function update(MonthEarningRequest $request, MonthEarning $monthEarning)
+    public function update(MonthEarningRequest $request, MonthEarning $monthEarning): array
     {
         return [
             'monthEarning' => $this->execute(new UpdateMonthEarningAction($monthEarning, $request->validated())),
@@ -55,12 +50,10 @@ class MonthEarningController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MonthEarning  $monthEarning
+     * @param MonthEarning $monthEarning
      * @return array
      */
-    public function destroy(MonthEarning $monthEarning)
+    public function destroy(MonthEarning $monthEarning): array
     {
         return [
             $this->execute(new DeleteMonthEarningAction($monthEarning)),

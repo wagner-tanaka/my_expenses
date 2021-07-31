@@ -13,14 +13,11 @@ class ExpenseController extends Controller
 {
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param ExpenseRequest $request
      * @return array
      */
     public function store(ExpenseRequest $request): array
     {
-        // dd('chegou no dd', $request->all());
         return [
             'expense' => $this->execute(new CreateExpenseAction($request->validated())),
             'message' => 'Despesa salva!'
@@ -28,15 +25,12 @@ class ExpenseController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param ExpenseRequest $request
      * @param Expense $expense
      * @return array
      */
     public function update(ExpenseRequest $request, Expense $expense): array
     {
-        // dd($expense);
         return [
             'expense' => $this->execute(new UpdateExpenseAction($expense, $request->validated())),
             'message' => 'Despesa atualizada!'
@@ -44,8 +38,6 @@ class ExpenseController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param Expense $expense
      * @return array
      */
