@@ -12,12 +12,7 @@ use App\Models\MonthExpense;
 
 class MonthExpenseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return array
-     */
-    public function index()
+    public function index(): array
     {
         return [
             'monthExpenses' => $this->execute(new GetMonthExpensesAction),
@@ -26,12 +21,10 @@ class MonthExpenseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param MonthExpenseRequest $request
      * @return array
      */
-    public function store(MonthExpenseRequest $request)
+    public function store(MonthExpenseRequest $request): array
     {
         return [
             'monthExpense' => $this->execute(new CreateMonthExpenseAction($request->validated())),
@@ -40,13 +33,11 @@ class MonthExpenseController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param  MonthExpenseRequest  $request
      * @param MonthExpense $monthExpense
      * @return array
      */
-    public function update(MonthExpenseRequest $request, MonthExpense $monthExpense)
+    public function update(MonthExpenseRequest $request, MonthExpense $monthExpense): array
     {
         return [
             'monthExpense' => $this->execute(new UpdateMonthExpenseAction($monthExpense, $request->validated())),
@@ -55,12 +46,10 @@ class MonthExpenseController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param MonthExpense $monthExpense
      * @return array
      */
-    public function destroy(MonthExpense $monthExpense)
+    public function destroy(MonthExpense $monthExpense): array
     {
         return [
             $this->execute(new DeleteMonthExpenseAction($monthExpense)),

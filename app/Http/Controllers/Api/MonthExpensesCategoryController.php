@@ -15,8 +15,6 @@ use App\Models\MonthExpensesCategory;
 class MonthExpensesCategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return array
      */
     public function index(): array
@@ -27,12 +25,7 @@ class MonthExpensesCategoryController extends Controller
         ];
     }
 
-//    public function getDailyExpensesTotal(){
-//        return Category::get()->sum('totalCategoryExpenses');
-//    }
     /**
-     * Store a newly created resource in storage.
-     *
      * @param MonthExpensesCategoryRequest $request
      * @return array
      */
@@ -45,10 +38,8 @@ class MonthExpensesCategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param CategoryRequest $request
-     * @param Category $category
+     * @param MonthExpensesCategoryRequest $request
+     * @param MonthExpensesCategory $monthExpensesCategory
      * @return array
      */
     public function update(MonthExpensesCategoryRequest $request, MonthExpensesCategory $monthExpensesCategory): array
@@ -60,9 +51,7 @@ class MonthExpensesCategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param Category $category
+     * @param MonthExpensesCategory $monthExpensesCategory
      * @return array
      */
     public function destroy(MonthExpensesCategory $monthExpensesCategory): array
@@ -72,6 +61,4 @@ class MonthExpensesCategoryController extends Controller
             'message' => 'Categoria deletada!'
         ];
     }
-
-
 }
