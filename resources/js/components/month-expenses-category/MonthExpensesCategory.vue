@@ -1,7 +1,7 @@
 <template>
     <b-container>
-        <table class="table table-striped table-sm">
-            <thead>
+        <table class="table table-striped table-bordered table-sm">
+            <thead class="table-footer-header-color">
             <tr>
                 <th>
                     <b-button
@@ -14,7 +14,7 @@
                 </th>
                 <th colspan="2">
                     <a
-                        class="text-center"
+                        class="text-center text-white"
                         @click="showEditMonthExpensesCategoryNameModal = true"
                     >
                         <strong>{{ monthExpensesCategory.name }}</strong>
@@ -22,28 +22,28 @@
                 </th>
                 <th>
                     <b-button
-                        variant="success"
-                        size="sm"
                         class="float-right"
+                        size="sm"
+                        variant="success"
                         @click="showCreateMonthExpenseModal = !showCreateMonthExpenseModal"
-                    >Nova Conta
-                    </b-button
-                    >
+                    ><i class="fas fa-plus"></i>
+                    </b-button>
                 </th>
             </tr>
             </thead>
-            <tbody v-for="(monthExpense, index) in monthExpenses" :key="index">
+            <tbody >
             <month-expense-row
-                :category-id="value.id"
+                v-for="(monthExpense, index) in monthExpenses" :key="JSON.stringify(monthExpense)"
+                :category-id="monthExpensesCategory.id"
                 :monthExpense="monthExpenses[index]"
                 @delete="$emit('update')"
             ></month-expense-row>
             </tbody>
-            <tfoot>
+            <tfoot class="table-footer-header-color">
             <tr>
                 <th>Total</th>
                 <th></th>
-                <!--                <th>{{ category.totalCategoryExpenses }}</th>-->
+                <th>{{ monthExpensesCategory.monthExpensesCategoryTotal }}</th>
                 <th></th>
             </tr>
             </tfoot>
@@ -80,23 +80,24 @@
 
 <script>
 export default {
+    model: {
+        prop: "monthExpensesCategory",
+    },
     props: {
-        value: {
+        monthExpensesCategory: {
             required: true,
             type: Object
-        }
+        },
     },
     data: function () {
         return {
-            monthExpensesCategory: this.value,
-            monthExpenses: [],
+            monthExpenses: this.monthExpensesCategory.monthExpenses.data,
             showCreateMonthExpenseModal: false,
             showEditMonthExpensesCategoryNameModal: false
 
         }
     },
-    created() {
-        this.monthExpenses = this.value.monthExpenses.data
+    mounted() {
     },
     methods: {
         monthExpensesCategoryHasBeenUpdated() {
@@ -105,8 +106,6 @@ export default {
         monthExpenseHasBeenSaved() {
             this.showCreateMonthExpenseModal = false;
             this.$emit('update')
-            // this.$emit('input', this.monthExpensesCategory)
-            // this.getMonthExpenses();
         },
         deleteCategory() {
             if (
@@ -131,9 +130,16 @@ export default {
         },
     },
     watch: {
-        monthExpenses: function () {
-            console.log('chego no MonthCategoria')
-        }
+        monthExpensesCategory() {
+            this.monthExpenses = this.monthExpensesCategory.monthExpenses.data
+            console.log('monthExpensesCategory - monthExpensesCategory', this.monthExpensesCategory)
+        },
     }
 }
 </script>
+<style scoped>
+.table-footer-header-color{
+    background-color: #EF5151;
+    color: white;
+}
+</style>

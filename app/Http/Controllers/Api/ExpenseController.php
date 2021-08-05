@@ -22,7 +22,7 @@ class ExpenseController extends Controller
     {
         // dd('chegou no dd', $request->all());
         return [
-            'expense' => $this->execute(new CreateExpenseAction($request->validated())),
+            'daily-expenses' => $this->execute(new CreateExpenseAction($request->validated())),
             'message' => 'Despesa salva!'
         ];
     }
@@ -36,9 +36,9 @@ class ExpenseController extends Controller
      */
     public function update(ExpenseRequest $request, Expense $expense): array
     {
-        // dd($expense);
+        // dd($daily-expenses);
         return [
-            'expense' => $this->execute(new UpdateExpenseAction($expense, $request->validated())),
+            'daily-expenses' => $this->execute(new UpdateExpenseAction($expense, $request->validated())),
             'message' => 'Despesa atualizada!'
         ];
     }

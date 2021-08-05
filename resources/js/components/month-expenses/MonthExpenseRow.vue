@@ -75,7 +75,6 @@ export default {
         };
     },
     created() {
-        console.log("monthExpense", this.monthExpense)
     },
     methods: {
         updateExpensePayDay() {

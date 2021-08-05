@@ -32,7 +32,7 @@
                     </b-modal>
                 </b-tab>
                 <b-tab title="Detalhes">
-                    <table-categories></table-categories>
+                    <daily-expenses-table></daily-expenses-table>
                 </b-tab>
                 <b-tab title="Despesas do Mes" active>
                     <month-expenses-and-earnings></month-expenses-and-earnings>
@@ -65,7 +65,7 @@ export default {
                 },
             });
         },
-        categoryHasBeenSaved() {
+            categoryHasBeenSaved() {
             this.getCategories();
             this.showNewCategoryModal = false;
         },

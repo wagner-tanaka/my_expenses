@@ -40,11 +40,11 @@
                             :key="index"
                             class="p-0 px-1"
                         >
-                            <expense-add-value-component
+                            <daily-expense-add-value
                                 v-model="category.groupedExpenses[index]"
                                 :category="category"
                                 @update="$emit('update')"
-                            ></expense-add-value-component>
+                            ></daily-expense-add-value>
                         </b-col>
                     </b-row>
                 </div>
@@ -58,10 +58,10 @@
                 {{ showDetails }}
             </div>
             <b-collapse :id="category.id.toString()">
-                <expenses-list
+                <daily-expenses-list
                     :category="category"
                     @update="$emit('update')"
-                ></expenses-list>
+                ></daily-expenses-list>
             </b-collapse>
         </b-card>
 
@@ -72,10 +72,10 @@
             title="Nova Despesa"
             centered
         >
-            <expense-new-component
+            <daily-expense-create
                 :category="category"
-                @update="$emit('update'), (showNewExpensesModal = false)"
-            ></expense-new-component>
+                @update="$emit('update'); (showNewExpensesModal = false)"
+            ></daily-expense-create>
         </b-modal>
 
         <!-- Edit Category name Modal -->
@@ -137,7 +137,7 @@ export default {
                 url,
                 {},
                 {
-                    onSuccess: (response) => {
+                    onSuccess: () => {
                         this.$emit("update");
                     },
                 }
@@ -153,6 +153,11 @@ export default {
             return "Ver detalhes";
         },
     },
+    watch:{
+        category(){
+            console.log('att categoria',this.category.groupedExpenses)
+        }
+    }
 };
 </script>
 

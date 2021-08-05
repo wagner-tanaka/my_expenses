@@ -1,161 +1,129 @@
 <template>
     <div>
-        <div class="mb-2 mt-2">
-            <b-button
-                variant="primary"
-                class="mr-1"
-                @click="showMonthExpensesCategoryCreateUpdateModal = true"
-                >Adicionar Categoria de Despesas
-            </b-button>
-
-<!--            <b-button-->
-<!--                variant="primary"-->
-<!--                class="ml-1"-->
-<!--                @click="showNewMonthEarningModal = !showNewMonthEarningModal"-->
-<!--                >Adicionar Ganho-->
-<!--            </b-button>-->
-        </div>
-
-        <div
-            v-for="(monthExpensesCategory, index) in monthExpensesCategories"
-            :key="monthExpensesCategory.id"
+        <b-row
+            class="mt-2"
+            :class="
+                        isMonthDebtBiggerThanZero
+                            ? 'monthDebtClassBiggerThanZero'
+                            : 'monthDebtClassLessThanZero'
+                    "
         >
-            <month-expenses-category
-                v-model="monthExpensesCategories[index]"
-                @update="getMonthExpensesCategories"
-            ></month-expenses-category>
+            <b-col class="text-right">Débito</b-col>
+            <b-col class="text-left">{{ monthDebt }}</b-col>
+        </b-row>
+        <div class="expensesBackgroundColor">
+            <div class="mb-2 mt-2 expensesTitleStyle ">
+                Despesas Mensais
+                <b-button
+                    class="float-right mb-2"
+                    variant="warning"
+                    @click="showMonthExpensesCategoryCreateUpdateModal = true"
+                ><i class="fas fa-plus"></i>
+                </b-button>
+            </div>
+
+            <div
+                v-for="(monthExpensesCategory, index) in monthExpensesCategories"
+                :key="index"
+            >
+                <month-expenses-category
+                    v-model="monthExpensesCategories[index]"
+                    @update="MonthExpensesCategoryHasBeenUpdated"
+                ></month-expenses-category>
+            </div>
+
+            <hr>
+
+            <daily-expenses-table></daily-expenses-table>
+
+            <b-row class="expensesTotalStyle mb-2">
+                <b-col class="align-self-center">Total Despesas</b-col>
+                <b-col class="align-self-center"><strong>{{ monthExpensesTotal }}</strong></b-col>
+            </b-row>
         </div>
-<!--        <b-row-->
-<!--            class="mt-2"-->
-<!--            :class="-->
-<!--                isMonthDebtBiggerThanZero-->
-<!--                    ? 'monthDebtClassBiggerThanZero'-->
-<!--                    : 'monthDebtClassLessThanZero'-->
-<!--            "-->
-<!--        >-->
-<!--            <b-col class="text-right">Debito</b-col>-->
-<!--            <b-col class="text-left">{{ monthDebt }}</b-col>-->
-<!--        </b-row>-->
 
-        <!-- Month Expenses Table -->
-        <h4 class="mt-2">Despesas</h4>
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th colspan="3">Despesas Fixas</th>
-                </tr>
-            </thead>
-            <tbody v-for="(monthExpense, index) in monthExpenses" :key="index">
-                <month-tables
-                    v-model="monthExpenses[index]"
-                    route="monthExpenses"
-                    @delete="getMonthExpenses"
-                ></month-tables>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Total</th>
-                    <th>{{ monthExpensesTotal }}</th>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <table-categories></table-categories>
 
         <!-- Month Earnings Table -->
-        <h4 class="mt-2">Ganhos</h4>
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th>Ganho</th>
-                    <th>Valor</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody v-for="(monthEarning, index) in monthEarnings" :key="index">
-                <month-tables
-                    v-model="monthEarnings[index]"
-                    route="monthEarnings"
-                    @delete="getMonthEarnings"
-                ></month-tables>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Total</th>
-                    <th>{{ monthEarningsTotal }}</th>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="earningsBackgroundColor">
+            <div class="earningsTitleStyle">
+                Ganhos Mensais
+                <b-button
+                    class="float-right mb-2"
+                    variant="warning"
+                    @click="showNewMonthEarningModal = true"
+                ><i class="fas fa-plus"></i>
+                </b-button>
+            </div>
 
-        <!-- Month Earning Modal -->
-        <b-modal
-            v-model="showMonthExpensesCategoryCreateUpdateModal"
-            title="Nova Categoria de Despesas do Mes"
-            centered
-            hide-footer
-        >
-            <month-expenses-category-create-update
-                @save="monthExpensesCategoryHasBeenSaved"
-                @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
+            <month-earnings-table @monthEarningsTotal="monthEarningsTotal = $event"></month-earnings-table>
 
-            ></month-expenses-category-create-update>
-        </b-modal>
+            <!-- Month Earning Modal -->
+            <b-modal
+                v-model="showMonthExpensesCategoryCreateUpdateModal"
+                title="Nova Categoria de Despesas do Mes"
+                centered
+                hide-footer
+            >
+                <month-expenses-category-create-update
+                    @save="monthExpensesCategoryHasBeenSaved"
+                    @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
 
-        <b-modal
-            v-model="showNewMonthEarningModal"
-            title="Adicionar conta do Mes"
-            centered
-            hide-footer
-        >
-            <month-earning-create
-                @save="monthEarningHasBeenSaved"
-            ></month-earning-create>
-        </b-modal>
+                ></month-expenses-category-create-update>
+            </b-modal>
+
+            <b-modal
+                v-model="showNewMonthEarningModal"
+                title="Adicionar conta do Mes"
+                centered
+                hide-footer
+            >
+                <month-earning-create
+                    @save="monthEarningHasBeenSaved"
+                ></month-earning-create>
+            </b-modal>
+        </div>
+
     </div>
 </template>
 
 <script>
-import DetailsComponent from "../details/TableCategories.vue";
+import DetailsComponent from "../daily-expenses/DailyExpensesTable.vue";
+
 export default {
-    components: { DetailsComponent },
+    components: {DetailsComponent},
     props: [],
     data: function () {
         return {
             showMonthExpensesCategoryCreateUpdateModal: false,
             showNewMonthEarningModal: false,
             monthExpenses: [],
-            monthEarnings: [],
-            monthExpensesTotal: "",
-            monthEarningsTotal: "",
             dailyExpensesTotal: "",
             monthExpensesCategories: [],
-
+            monthEarningsTotal: ''
         };
     },
-    mounted() {
-        this.getMonthEarnings();
-        this.getMonthExpenses();
+    created() {
         this.getDailyExpensesTotal();
         this.getMonthExpensesCategories()
     },
     methods: {
-        getMonthExpensesCategories(){
-            console.log('update expense')
+        MonthExpensesCategoryHasBeenUpdated() {
+            this.getMonthExpensesCategories()
+        },
+        monthExpensesCategoryHasBeenSaved() {
+            this.showMonthExpensesCategoryCreateUpdateModal = false
+            this.getMonthExpensesCategories()
+        },
+        getMonthExpensesCategories() {
             let url = "/api/monthExpensesCategories";
             this.request("get", url, null, {
                 onSuccess: (response) => {
-                    console.log('salvou e pego as categorias')
-                    this.monthExpensesCategories = response.data.monthExpensesCategories.data;
+                    this.monthExpensesCategories = response.data.monthExpensesCategories.data
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
+                    console.log('monthExpensesCategories', this.monthExpensesCategories)
                 },
             });
-        },
-        monthExpensesCategoryHasBeenSaved(){
-            this.showMonthExpensesCategoryCreateUpdateModal = false
-            this.getMonthExpensesCategories()
         },
         getDailyExpensesTotal() {
             let url = "/api/getDailyExpensesTotal";
@@ -166,47 +134,11 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.dailyExpensesTotal = response.data;
+                        console.log('dailyExpensesTotal', this.dailyExpensesTotal)
                     },
                 }
             );
         },
-        getMonthExpenses() {
-            let url = `/api/monthExpenses`;
-
-            this.request(
-                "get",
-                url,
-                {},
-                {
-                    onSuccess: (response) => {
-                        this.monthExpenses = response.data.monthExpenses.data;
-                        this.monthExpensesTotal =
-                            response.data.monthExpensesTotal;
-                    },
-                }
-            );
-        },
-        getMonthEarnings() {
-            let url = `/api/monthEarnings`;
-
-            this.request(
-                "get",
-                url,
-                {},
-                {
-                    onSuccess: (response) => {
-                        this.monthEarnings = response.data.monthEarnings.data;
-                        this.monthEarningsTotal =
-                            response.data.monthEarningsTotal;
-
-                    },
-                }
-            );
-        },
-        // monthExpenseHasBeenSaved() {
-        //     this.showNewMonthExpenseModal = false;
-        //     this.getMonthExpenses();
-        // },
         monthEarningHasBeenSaved() {
             this.showNewMonthEarningModal = false;
             this.getMonthEarnings();
@@ -223,13 +155,16 @@ export default {
     },
     computed: {
         monthDebt() {
-            let totalExpenses =
-                Number(this.monthExpensesTotal) +
-                Number(this.dailyExpensesTotal);
-            return Number(this.monthEarningsTotal) - totalExpenses;
+            return Number(this.monthEarningsTotal) - Number(this.monthExpensesTotal);
         },
         isMonthDebtBiggerThanZero() {
             return this.monthDebt >= 0;
+        },
+        monthExpensesTotal() {
+            let monthExpensesCategoriesTotal = this.monthExpensesCategories.reduce((accumulator, value) => {
+                return accumulator + parseInt(value.monthExpensesCategoryTotal)
+            }, 0)
+            return monthExpensesCategoriesTotal + this.dailyExpensesTotal
         },
     },
 };
@@ -240,8 +175,49 @@ export default {
     font-size: 1.5em;
     background-color: #146d9e;
 }
-    .monthDebtClassLessThanZero {
+
+.monthDebtClassLessThanZero {
     font-size: 1.5em;
     background-color: #e33949;
 }
+
+
+.expensesTotalStyle {
+    background-color: red;
+    height: 2em;
+    font-size: 1.2em;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.expensesTitleStyle {
+    background-color: #ef5151;
+    height: 37px;
+    line-height: 37px;
+    font-size: 1.4em;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.earningsTitleStyle {
+    background-color: #5468ff;
+    height: 37px;
+    line-height: 37px;
+    font-size: 1.4em;
+    border-radius: 6px;
+    color: #fff;
+}
+
+hr {
+    border: 1px solid;
+}
+
+.expensesBackgroundColor {
+    background-color: #ff8787
+}
+.earningsBackgroundColor {
+    background-color: #a3ccff
+}
+
 </style>
+

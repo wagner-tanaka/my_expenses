@@ -46,7 +46,7 @@ class MonthExpensesCategory extends Model
         return $this->hasMany(MonthExpense::class);
     }
 
-    public function getMonthExpensesTotalAttribute()
+    public function getMonthExpensesCategoryTotalAttribute()
     {
         return $this->monthExpenses()->sum('value');
     }
