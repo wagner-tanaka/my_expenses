@@ -1,5 +1,5 @@
 <template>
-    <b-container class="text-center">
+    <b-container class="text-center containerStyle">
         <div>
             <b-tabs content-class="mt-3">
                     <b-tab title="Home"  >
@@ -84,3 +84,4 @@ export default {
     },
 };
 </script>
+

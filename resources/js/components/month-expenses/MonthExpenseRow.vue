@@ -39,7 +39,7 @@
         <td class="text-right" style="width: 10%">
             <b-button
                 size="sm"
-                variant="outline-secondary"
+                variant="secondary"
                 style="cursor: pointer; color: black"
                 @click="deleteMonthExpense()"
             >

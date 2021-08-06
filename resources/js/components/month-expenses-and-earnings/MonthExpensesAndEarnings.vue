@@ -16,7 +16,7 @@
                 Despesas Mensais
                 <b-button
                     class="float-right mb-2"
-                    variant="warning"
+                    variant="danger"
                     @click="showMonthExpensesCategoryCreateUpdateModal = true"
                 ><i class="fas fa-plus"></i>
                 </b-button>
@@ -49,7 +49,7 @@
                 Ganhos Mensais
                 <b-button
                     class="float-right mb-2"
-                    variant="warning"
+                    variant="primary"
                     @click="showNewMonthEarningModal = true"
                 ><i class="fas fa-plus"></i>
                 </b-button>
@@ -183,7 +183,7 @@ export default {
 
 
 .expensesTotalStyle {
-    background-color: red;
+    background-color: #6E0E16;
     height: 2em;
     font-size: 1.2em;
     border-radius: 6px;
@@ -191,7 +191,7 @@ export default {
 }
 
 .expensesTitleStyle {
-    background-color: #ef5151;
+    background-color: #6e0e16;
     height: 37px;
     line-height: 37px;
     font-size: 1.4em;
@@ -200,7 +200,7 @@ export default {
 }
 
 .earningsTitleStyle {
-    background-color: #5468ff;
+    background-color: #083c8c;
     height: 37px;
     line-height: 37px;
     font-size: 1.4em;
@@ -213,7 +213,7 @@ hr {
 }
 
 .expensesBackgroundColor {
-    background-color: #ff8787
+    background-color: #c4aeac
 }
 .earningsBackgroundColor {
     background-color: #a3ccff

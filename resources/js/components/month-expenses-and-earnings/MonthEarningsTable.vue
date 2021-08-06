@@ -60,11 +60,11 @@ export default {
 </script>
 <style scoped>
 .table-footer-header {
-    background: #5468ff;
+    background: #0c8cd4;
     color: white;
 }
 .earningsTotalStyle{
-    background-color: #5468ff;
+    background-color: #083C8C;
     height: 2em;
     font-size: 1.2em;
     border-radius: 6px;
@@ -72,5 +72,10 @@ export default {
     margin-left: -31px;
     margin-right: -31px;
 }
-
+tbody tr:nth-child(odd){
+    background-color: #C2E5FF;
+}
+tbody tr:nth-child(even) {
+    background-color: #A8DAFF;
+}
 </style>

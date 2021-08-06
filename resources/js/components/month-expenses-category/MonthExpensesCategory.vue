@@ -6,10 +6,10 @@
                 <th>
                     <b-button
                         @click="deleteCategory"
-                        variant="danger"
+                        variant="secondary"
                         size="sm"
                         class="float-left btn-xs"
-                    ><i class="fas fa-times fa-sm"></i
+                    ><i class="fas fa-trash-alt fa-sm"></i
                     ></b-button>
                 </th>
                 <th colspan="2">
@@ -24,7 +24,7 @@
                     <b-button
                         class="float-right"
                         size="sm"
-                        variant="success"
+                        variant="danger"
                         @click="showCreateMonthExpenseModal = !showCreateMonthExpenseModal"
                     ><i class="fas fa-plus"></i>
                     </b-button>
@@ -139,7 +139,17 @@ export default {
 </script>
 <style scoped>
 .table-footer-header-color{
-    background-color: #EF5151;
+    background-color: #9a5c5c;
     color: white;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+tbody tr:nth-child(odd){
+    background-color: #FFE6D9;
+}
+tbody tr:nth-child(even){
+background-color: #D9B6A3;
 }
 </style>
