@@ -40,7 +40,7 @@ export default {
         submitEarning() {
             let url = `/api/monthEarnings`;
             this.request("post", url, this.form, {
-                onSuccess: (response) => {
+                onSuccess: () => {
                     this.form = {};
                     this.$emit("save");
                 },
