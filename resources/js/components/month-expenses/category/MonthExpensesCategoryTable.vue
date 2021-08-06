@@ -32,12 +32,12 @@
             </tr>
             </thead>
             <tbody >
-            <month-expense-row
+            <month-expenses-category-table-row
                 v-for="(monthExpense, index) in monthExpenses" :key="JSON.stringify(monthExpense)"
                 :category-id="monthExpensesCategory.id"
                 :monthExpense="monthExpenses[index]"
                 @delete="$emit('update')"
-            ></month-expense-row>
+            ></month-expenses-category-table-row>
             </tbody>
             <tfoot class="table-footer-header-color">
             <tr>

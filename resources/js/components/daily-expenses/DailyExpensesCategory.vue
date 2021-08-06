@@ -85,11 +85,11 @@
             centered
             hide-footer
         >
-            <category-create-update-component
+            <daily-expenses-category-create-update
                 v-model="category"
                 @save="categoryHasBeenUpdated"
                 @cancel="showNewCategoryModal = false"
-            ></category-create-update-component>
+            ></daily-expenses-category-create-update>
         </b-modal>
     </div>
 </template>

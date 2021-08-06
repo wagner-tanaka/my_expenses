@@ -22,9 +22,9 @@
                 <tr>
                     <td colspan="3" class="p-0 border-0">
                         <b-collapse @show="openCategoriesAdd(category.id)" @hide="openCategoriesRemove(category.id)" :id="category.id.toString()">
-                            <table-expenses-grouped
+                            <daily-expenses-details
                                 :value="category"
-                            ></table-expenses-grouped>
+                            ></daily-expenses-details>
                         </b-collapse>
                     </td>
                 </tr>

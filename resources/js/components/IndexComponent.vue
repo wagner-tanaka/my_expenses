@@ -14,10 +14,10 @@
                         v-for="(category, index) in categories"
                         :key="category.id"
                     >
-                        <category-component
+                        <daily-expenses-category
                             v-model="categories[index]"
                             @update="categoryHasBeenSaved"
-                        ></category-component>
+                        ></daily-expenses-category>
                     </div>
                     <b-modal
                         v-model="showNewCategoryModal"
@@ -25,10 +25,10 @@
                         centered
                         hide-footer
                     >
-                        <category-create-update-component
+                        <daily-expenses-category-create-update
                             @save="categoryHasBeenSaved"
                             @cancel="showNewCategoryModal = false"
-                        ></category-create-update-component>
+                        ></daily-expenses-category-create-update>
                     </b-modal>
                 </b-tab>
                 <b-tab title="Detalhes">

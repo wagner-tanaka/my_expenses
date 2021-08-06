@@ -41,7 +41,7 @@
 
     <div id="app" class="mt-3">
         <div>
-            <category-list-component></category-list-component>
+            <index-component></index-component>
         </div>
     </div>
 </body>

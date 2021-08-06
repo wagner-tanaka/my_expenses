@@ -26,10 +26,10 @@
                 v-for="(monthExpensesCategory, index) in monthExpensesCategories"
                 :key="index"
             >
-                <month-expenses-category
+                <month-expenses-category-table
                     v-model="monthExpensesCategories[index]"
                     @update="MonthExpensesCategoryHasBeenUpdated"
-                ></month-expenses-category>
+                ></month-expenses-category-table>
             </div>
 
             <hr>
