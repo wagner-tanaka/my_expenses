@@ -68,7 +68,7 @@ export default {
         submitExpense() {
             let url = `/api/expenses`;
             this.request("post", url, this.form, {
-                onSuccess: (response) => {
+                onSuccess: () => {
                     this.expenseModal = false;
                     this.showNewExpensesModal = false;
                     this.$emit("update");
