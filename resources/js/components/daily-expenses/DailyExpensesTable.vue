@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <table class="table table-sm">
-            <thead>
+    <b-container>
+        <table class="table table-striped table-bordered table-sm">
+            <thead class="table-footer-header-color">
                 <tr>
-                    <th colspan="4">Despesas Diárias</th>
+                    <th colspan="3" class="text-center text-white"><strong> Despesas Diárias </strong></th>
                 </tr>
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
@@ -13,11 +13,6 @@
                         {{ category.name }}
                     </td>
                     <td style="width: 33%">{{ category.totalCategoryExpenses }}</td>
-                    <td style="width: 33%">
-                        <b-button @click.stop="" disabled variant="warning" size="sm"
-                            ><i class="fas fa-pen"></i
-                        ></b-button>
-                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" class="p-0 border-0">
@@ -32,11 +27,12 @@
             <tfoot>
                 <tr>
                     <th>Total</th>
+                    <th></th>
                     <th>{{ categoriesExpensesTotal }}</th>
                 </tr>
             </tfoot>
         </table>
-    </div>
+    </b-container>
 </template>
 <script>
 export default {
@@ -81,3 +77,10 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.table-footer-header-color{
+  background-color: #9a5c5c;
+  color: white;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
-    <b-container class="text-center containerStyle">
+    <b-container class="text-center containerStyle" >
         <div>
-            <b-tabs content-class="mt-3">
+            <b-tabs content-class="mt-3" active>
                     <b-tab title="Home"  >
                     <b-button
                         variant="primary"
@@ -31,12 +31,12 @@
                         ></daily-expenses-category-create-update>
                     </b-modal>
                 </b-tab>
-                <b-tab title="Despesas do Mes" active>
+                <b-tab title="Despesas do Mes" >
                     <month-expenses-and-earnings></month-expenses-and-earnings>
                 </b-tab>
-                <b-tab title="Meses Anteriores">
-                    <daily-expenses-table></daily-expenses-table>
-                </b-tab>
+<!--                <b-tab title="Meses Anteriores">-->
+<!--                    <daily-expenses-table></daily-expenses-table>-->
+<!--                </b-tab>-->
             </b-tabs>
         </div>
     </b-container>
@@ -84,4 +84,11 @@ export default {
     },
 };
 </script>
-
+<style>
+.backgroundImage {
+    background-image: url("https://data.1freewallpapers.com/detail/gradient-blur-color-background-green.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+</style>

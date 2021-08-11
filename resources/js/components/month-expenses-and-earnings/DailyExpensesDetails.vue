@@ -1,21 +1,19 @@
 <template>
     <table class="table table-sm">
-        <thead class="table-info">
+        <thead class="table-primary">
             <tr>
                 <th>Despesa</th>
                 <th>Valor</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr
-                class="table-primary"
+                class="table-info"
                 v-for="(expense, index) in value.groupedExpenses"
                 :key="index"
             >
                 <td>{{ expense.name }}</td>
                 <td>{{ expense.value }}</td>
-                <td></td>
             </tr>
         </tbody>
     </table>
@@ -42,3 +40,10 @@ export default {
     },
 };
 </script>
+<style scoped>
+.table-footer-header-color{
+    background-color: #9a5c5c;
+    color: white;
+}
+
+</style>

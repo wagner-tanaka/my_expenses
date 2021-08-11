@@ -118,7 +118,7 @@ export default {
             dailyExpensesTotal: "",
             monthExpensesCategories: [],
             monthEarningsCategories: [],
-            monthEarningsTotal: ''
+            // monthEarningsTotal: ''
         };
     },
     created() {
@@ -158,6 +158,7 @@ export default {
                     this.monthEarningsCategories = response.data.monthEarningsCategories.data
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
+                    console.log('this.monthEarningsCategories', this.monthEarningsCategories)
                 },
             });
         },
@@ -201,6 +202,12 @@ export default {
                 return accumulator + parseInt(value.monthExpensesCategoryTotal)
             }, 0)
             return monthExpensesCategoriesTotal + this.dailyExpensesTotal
+        },
+        monthEarningsTotal() {
+            return this.monthEarningsCategories.reduce((accumulator, value) => {
+                return accumulator + parseInt(value.monthEarningsCategoryTotal)
+            }, 0)
+
         },
     },
 };
