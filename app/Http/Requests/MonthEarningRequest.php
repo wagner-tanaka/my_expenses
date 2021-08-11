@@ -24,8 +24,11 @@ class MonthEarningRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'value' => 'required',
+            'name' => 'sometimes',
+            'value' => 'sometimes',
+            "is_fixed" => 'nullable',
+            "received_day" => 'nullable',
+            "month_earnings_category_id" => 'required',
         ];
     }
 }

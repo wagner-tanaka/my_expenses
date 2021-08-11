@@ -9,13 +9,9 @@ use App\Actions\MonthEarning\GetMonthEarningsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MonthEarningRequest;
 use App\Models\MonthEarning;
-use Illuminate\Http\Request;
 
 class MonthEarningController extends Controller
 {
-    /**
-     * @return array
-     */
     public function index(): array
     {
         return [
@@ -32,12 +28,12 @@ class MonthEarningController extends Controller
     {
         return [
             'monthEarning' => $this->execute(new CreateMonthEarningAction($request->validated())),
-            'message' => 'Ganho Salva'
+            'message' => 'Ganho Salvo'
         ];
     }
 
     /**
-     * @param MonthEarningRequest $request
+     * @param  MonthEarningRequest  $request
      * @param MonthEarning $monthEarning
      * @return array
      */
@@ -61,4 +57,3 @@ class MonthEarningController extends Controller
         ];
     }
 }
-

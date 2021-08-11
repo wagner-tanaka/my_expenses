@@ -24,7 +24,7 @@ class DeleteMonthEarningAction implements Executable
      */
     public function handle(): bool
     {
-        
+
         \DB::transaction(function () {
             $this->monthEarning->delete();
         });

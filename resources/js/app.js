@@ -48,21 +48,26 @@ Vue.component('daily-expenses-category-create-update', require('./components/dai
 Vue.component('daily-expenses-category', require('./components/daily-expenses/DailyExpensesCategory.vue').default);
 
 // Details
+Vue.component('daily-expenses-details', require('./components/month-expenses-and-earnings/DailyExpensesDetails.vue').default);
 
 // Month Expenses and Earnings
-Vue.component('daily-expenses-details', require('./components/month-expenses-and-earnings/DailyExpensesDetails.vue').default);
 Vue.component('month-expenses-and-earnings', require('./components/month-expenses-and-earnings/MonthExpensesAndEarnings.vue').default);
-Vue.component('month-earning-table', require('./components/month-earnings/MonthEarningTable.vue').default);
-Vue.component('month-earning-create', require('./components/month-earnings/MonthEarningCreate.vue').default);
-Vue.component('month-earnings-table', require('./components/month-earnings/MonthEarningsTable.vue').default);
+// Vue.component('month-earnings-category-create-update', require('./components/month-expenses/category/MonthEarningsCategoryCreateUpdate.vue').default);
+// Vue.component('month-earnings-category-table', require('./components/month-expenses/category/MonthEarningsCategoryTable.vue').default);
+// Vue.component('month-earnings-category-table-row', require('./components/month-expenses/category/MonthEarningsCategoryTableRow.vue').default);
+// Vue.component('month-earning-create', require('./components/month-expenses/category/MonthEarningCreate.vue').default);
 
 // Month Expenses
 Vue.component('month-expenses-category-create-update', require('./components/month-expenses/category/MonthExpensesCategoryCreateUpdate.vue').default);
 Vue.component('month-expenses-category-table', require('./components/month-expenses/category/MonthExpensesCategoryTable.vue').default);
 Vue.component('month-expenses-category-table-row', require('./components/month-expenses/category/MonthExpensesCategoryTableRow.vue').default);
-Vue.component('month-expense-create', require('./components/month-expenses/category/MonthExpenseCreate.vue').default);
+Vue.component('month-expense-create', require('./components/month-expenses/MonthExpenseCreate.vue').default);
 
-
+// Month Earnings
+Vue.component('month-earnings-category-create-update', require('./components/month-earnings/category/MonthEarningsCategoryCreateUpdate.vue').default);
+Vue.component('month-earnings-category-table', require('./components/month-earnings/category/MonthEarningsCategoryTable.vue').default);
+Vue.component('month-earnings-category-table-row', require('./components/month-earnings/category/MonthEarningsCategoryTableRow.vue').default);
+Vue.component('month-earning-create', require('./components/month-earnings/MonthEarningCreate.vue').default);
 
 
 

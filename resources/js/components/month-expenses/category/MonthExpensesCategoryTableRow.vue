@@ -40,7 +40,6 @@
             <b-button
                 size="sm"
                 variant="secondary"
-                style="cursor: pointer; color: black"
                 @click="deleteMonthExpense()"
             >
                 <i class="fa fa-trash-alt" aria-hidden="true"> </i>

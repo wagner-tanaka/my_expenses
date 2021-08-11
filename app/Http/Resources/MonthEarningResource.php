@@ -18,8 +18,7 @@ class MonthEarningResource extends JsonResource
             'name' => $this->name,
             'id' => $this->id,
             'value' => $this->value,
-            // 'date' => substr($this->created_at, 6, -9),
-            // 'time' => substr($this->created_at, 11, -3),
+            'received_day' => $this->pay_day
         ];
     }
 }

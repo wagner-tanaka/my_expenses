@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MonthEarningsCategoryController;
 use App\Http\Controllers\Api\MonthExpenseController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ExpenseController;
@@ -25,8 +26,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::resource('categories', CategoryController::class)->only(['index','store','update','destroy']);
-    Route::resource('monthExpensesCategories', MonthExpensesCategoryController::class)->only(['store','index','update','destroy']);
     Route::resource('expenses', ExpenseController::class)->only(['store', 'destroy', 'update']);
+    Route::resource('monthExpensesCategories', MonthExpensesCategoryController::class)->only(['store','index','update','destroy']);
+    Route::resource('monthEarningsCategories', MonthEarningsCategoryController::class)->only(['store','index','update','destroy']);
     Route::resource('monthExpenses', MonthExpenseController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('monthEarnings', MonthEarningController::class)->only(['index', 'store', 'update', 'destroy']);
 

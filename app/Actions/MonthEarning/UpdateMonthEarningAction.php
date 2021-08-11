@@ -12,7 +12,7 @@ class UpdateMonthEarningAction implements Executable
     protected $data;
 
     /**
-     * @param MonthEarning $project
+     * @param MonthEarning $monthEarning
      * @param array $data
      */
     public function __construct(MonthEarning $monthEarning, array $data)
@@ -22,7 +22,7 @@ class UpdateMonthEarningAction implements Executable
     }
 
     /**
-     * @return Project
+     * @return MonthEarning
      * @throws Throwable
      */
     public function handle(): MonthEarning

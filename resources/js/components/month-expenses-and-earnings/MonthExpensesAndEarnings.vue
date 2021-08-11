@@ -11,6 +11,8 @@
             <b-col class="text-right">Débito</b-col>
             <b-col class="text-left">{{ monthDebt }}</b-col>
         </b-row>
+
+        <!--        Month Expenses-->
         <div class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
                 Despesas Mensais
@@ -42,46 +44,61 @@
             </b-row>
         </div>
 
-
-        <!-- Month Earnings Table -->
+        <!--        Month Earnings-->
         <div class="earningsBackgroundColor">
-            <div class="earningsTitleStyle">
+            <div class="mb-2 mt-2 earningsTitleStyle ">
                 Ganhos Mensais
                 <b-button
                     class="float-right mb-2"
                     variant="primary"
-                    @click="showNewMonthEarningModal = true"
+                    @click="showMonthEarningsCategoryCreateUpdateModal = true"
                 ><i class="fas fa-plus"></i>
                 </b-button>
             </div>
 
-            <month-earnings-table @monthEarningsTotal="monthEarningsTotal = $event"></month-earnings-table>
-
-            <!-- Month Earning Modal -->
-            <b-modal
-                v-model="showMonthExpensesCategoryCreateUpdateModal"
-                title="Nova Categoria de Despesas do Mes"
-                centered
-                hide-footer
+            <div
+                v-for="(monthEarningsCategory, index) in monthEarningsCategories"
+                :key="index"
             >
-                <month-expenses-category-create-update
-                    @save="monthExpensesCategoryHasBeenSaved"
-                    @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
+                <month-earnings-category-table
+                    v-model="monthEarningsCategories[index]"
+                    @update="MonthEarningCategoryHasBeenUpdated"
+                ></month-earnings-category-table>
+            </div>
 
-                ></month-expenses-category-create-update>
-            </b-modal>
-
-            <b-modal
-                v-model="showNewMonthEarningModal"
-                title="Adicionar conta do Mes"
-                centered
-                hide-footer
-            >
-                <month-earning-create
-                    @save="monthEarningHasBeenSaved"
-                ></month-earning-create>
-            </b-modal>
+            <b-row class="earningsTotalStyle mb-2">
+                <b-col class="align-self-center">Total Ganhos</b-col>
+                <b-col class="align-self-center"><strong>{{ monthEarningsTotal }}</strong></b-col>
+            </b-row>
         </div>
+
+<!-- MonthExpensesCategoryCreateUpdate Modal -->
+        <b-modal
+            v-model="showMonthExpensesCategoryCreateUpdateModal"
+            title="Nova Categoria de Despesas do Mes"
+            centered
+            hide-footer
+        >
+            <month-expenses-category-create-update
+                @save="monthExpensesCategoryHasBeenSaved"
+                @cancel="showMonthExpensesCategoryCreateUpdateModal = false"
+
+            ></month-expenses-category-create-update>
+        </b-modal>
+
+<!-- MonthEarningsCategoryCreateUpdate Modal -->
+        <b-modal
+            v-model="showMonthEarningsCategoryCreateUpdateModal"
+            title="Nova Categoria de Ganho do Mes"
+            centered
+            hide-footer
+        >
+            <month-earnings-category-create-update
+                @save="monthEarningsCategoryHasBeenSaved"
+                @cancel="showMonthEarningsCategoryCreateUpdateModal = false"
+
+            ></month-earnings-category-create-update>
+        </b-modal>
 
     </div>
 </template>
@@ -95,16 +112,19 @@ export default {
     data: function () {
         return {
             showMonthExpensesCategoryCreateUpdateModal: false,
+            showMonthEarningsCategoryCreateUpdateModal: false,
             showNewMonthEarningModal: false,
             monthExpenses: [],
             dailyExpensesTotal: "",
             monthExpensesCategories: [],
+            monthEarningsCategories: [],
             monthEarningsTotal: ''
         };
     },
     created() {
         this.getDailyExpensesTotal();
         this.getMonthExpensesCategories()
+        this.getMonthEarningsCategories()
     },
     methods: {
         MonthExpensesCategoryHasBeenUpdated() {
@@ -114,6 +134,13 @@ export default {
             this.showMonthExpensesCategoryCreateUpdateModal = false
             this.getMonthExpensesCategories()
         },
+        MonthEarningCategoryHasBeenUpdated() {
+            this.getMonthEarningsCategories()
+        },
+        monthEarningsCategoryHasBeenSaved() {
+            this.showMonthEarningsCategoryCreateUpdateModal = false
+            this.getMonthEarningsCategories()
+        },
         getMonthExpensesCategories() {
             let url = "/api/monthExpensesCategories";
             this.request("get", url, null, {
@@ -121,7 +148,16 @@ export default {
                     this.monthExpensesCategories = response.data.monthExpensesCategories.data
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
-                    console.log('monthExpensesCategories', this.monthExpensesCategories)
+                },
+            });
+        },
+        getMonthEarningsCategories() {
+            let url = "/api/monthEarningsCategories";
+            this.request("get", url, null, {
+                onSuccess: (response) => {
+                    this.monthEarningsCategories = response.data.monthEarningsCategories.data
+                    this.capitalizeCategoryNameFirstLetter();
+                    this.orderCategoriesByName();
                 },
             });
         },
@@ -199,8 +235,16 @@ export default {
     color: #fff;
 }
 
+.earningsTotalStyle {
+    background-color: #3F526B;
+    height: 2em;
+    font-size: 1.2em;
+    border-radius: 6px;
+    color: #fff;
+}
+
 .earningsTitleStyle {
-    background-color: #083c8c;
+    background-color: #3F526B;
     height: 37px;
     line-height: 37px;
     font-size: 1.4em;
@@ -215,8 +259,9 @@ hr {
 .expensesBackgroundColor {
     background-color: #c4aeac
 }
+
 .earningsBackgroundColor {
-    background-color: #a3ccff
+    background-color: #5A92BD
 }
 
 </style>
