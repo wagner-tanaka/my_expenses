@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -36,12 +38,12 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function expenses()
+    public function expenses(): HasMany
     {
         return $this->hasMany(Expense::class);
     }
@@ -58,7 +60,6 @@ class Category extends Model
                 'name' => $expenses[0]->name,
                 'value' => $expenses->sum('value')
             ];
-            // return $expenses->sum('value');
         });
     }
 }

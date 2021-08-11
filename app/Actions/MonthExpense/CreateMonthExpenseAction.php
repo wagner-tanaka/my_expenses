@@ -26,7 +26,7 @@ class CreateMonthExpenseAction implements Executable
     public function handle(): MonthExpense
     {
         \DB::transaction(function () {
-            $this->monthExpense = MonthExpense::create($this->data);
+            $this->monthExpense = auth()->user()->monthExpenses()->create($this->data);
         });
         return $this->monthExpense;
     }

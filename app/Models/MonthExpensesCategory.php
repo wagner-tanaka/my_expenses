@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MonthExpensesCategory extends Model
 {
-    use HasFactory;
-    protected $guarded = [];
 
     protected static function booted()
     {
         static::addGlobalScope(new UserScope);
     }
+
+    use HasFactory;
+    protected $guarded = [];
 
     public static function generateMonthExpensesForThisCategory(): void
     {

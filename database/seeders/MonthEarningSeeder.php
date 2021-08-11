@@ -16,15 +16,18 @@ class MonthEarningSeeder extends Seeder
     {
         MonthEarning::create([
             'name' => 'Salario Wagner',
-            'value' => 300000
+            'value' => 300000,
+            'user_id' => 1
         ]);
         MonthEarning::create([
             'name' => 'Salario Bruna',
-            'value' => 100000
+            'value' => 100000,
+            'user_id' => 1
         ]);
         MonthEarning::create([
             'name' => 'Jidou Teate',
-            'value' => 40000
+            'value' => 40000,
+            'user_id' => 1
         ]);
     }
 }

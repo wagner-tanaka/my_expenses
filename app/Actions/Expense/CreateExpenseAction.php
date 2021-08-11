@@ -26,7 +26,7 @@ class CreateExpenseAction implements Executable
     public function handle(): Expense
     {
         \DB::transaction(function () {
-            $this->expense = Expense::create($this->data);
+            $this->expense = auth()->user()->expenses()->create($this->data);
         });
 
         return $this->expense;

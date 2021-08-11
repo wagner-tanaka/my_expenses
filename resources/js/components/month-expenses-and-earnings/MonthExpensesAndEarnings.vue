@@ -141,7 +141,7 @@ export default {
         },
         monthEarningHasBeenSaved() {
             this.showNewMonthEarningModal = false;
-            this.getMonthEarnings();
+            // this.getMonthEarnings();
         },
         capitalizeCategoryNameFirstLetter() {
             this.monthExpensesCategories.map((category) => {

@@ -31,11 +31,11 @@
                         ></daily-expenses-category-create-update>
                     </b-modal>
                 </b-tab>
-                <b-tab title="Detalhes">
-                    <daily-expenses-table></daily-expenses-table>
-                </b-tab>
                 <b-tab title="Despesas do Mes" active>
                     <month-expenses-and-earnings></month-expenses-and-earnings>
+                </b-tab>
+                <b-tab title="Meses Anteriores">
+                    <daily-expenses-table></daily-expenses-table>
                 </b-tab>
             </b-tabs>
         </div>

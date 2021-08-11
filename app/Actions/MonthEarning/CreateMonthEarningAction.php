@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Actions\MonthEarning;
 
@@ -26,7 +26,7 @@ class CreateMonthEarningAction implements Executable
     public function handle(): MonthEarning
     {
         \DB::transaction(function () {
-            $this->monthEarning = MonthEarning::create($this->data);
+            $this->monthEarning = auth()->user()->monthEarnings()->create($this->data);
         });
         return $this->monthEarning;
     }

@@ -16,7 +16,7 @@
                 @delete="getMonthEarnings"
             ></month-earning-table>
             </tbody>
-        </table>
+        </table>getMonthEarnings
 
         <b-row class="earningsTotalStyle">
             <b-col class="align-self-center">Total Ganhos</b-col>
