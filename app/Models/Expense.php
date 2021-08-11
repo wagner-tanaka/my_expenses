@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Expense extends Model
 {
 
-     protected static function booted()
-     {
-         static::addGlobalScope(new UserScope);
-     }
+//     protected static function booted()
+//     {
+//         static::addGlobalScope(new UserScope);
+//     }
 
     use HasFactory;
 
