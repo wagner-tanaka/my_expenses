@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\MonthEarning\UpdateMonthEarningAction;
+use App\Actions\MonthEarning\GetMonthEarningsFilteredAction;
 use App\Actions\MonthEarning\CreateMonthEarningAction;
 use App\Actions\MonthEarning\DeleteMonthEarningAction;
 use App\Actions\MonthEarning\GetMonthEarningsAction;
@@ -17,6 +18,13 @@ class MonthEarningController extends Controller
         return [
             'monthEarnings' => $this->execute(new GetMonthEarningsAction),
             'monthEarningsTotal' => MonthEarning::get()->sum('value')
+        ];
+    }
+
+    public function getMonthEarningsFiltered(): array
+    {
+        return [
+            'monthEarningsFiltered' =>  $this->execute(new GetMonthEarningsFilteredAction)
         ];
     }
 

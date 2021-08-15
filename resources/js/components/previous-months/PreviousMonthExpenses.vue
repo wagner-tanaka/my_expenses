@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="previousMonthExpenses.length > 1" class="expensesBackgroundColor">
+        <div v-if="previousMonthExpenses.length > 0" class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
                 Despesas Mensais
             </div>
@@ -27,7 +27,7 @@
             </b-row>
         </div>
         <div v-else class="p-5">
-            <h4>Nenhum deste mes encontrado!</h4>
+            <h4>Nenhum gasto deste mes encontrado!</h4>
         </div>
     </div>
 </template>

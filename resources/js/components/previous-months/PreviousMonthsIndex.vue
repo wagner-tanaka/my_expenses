@@ -12,6 +12,7 @@
             </b-col>-->
         </b-row>
         <previous-months-expenses :date="date"></previous-months-expenses>
+        <previous-months-earnings :date="date"></previous-months-earnings>
     </div>
 </template>
 

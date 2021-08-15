@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
 
     Route::get('get_month_expenses_filtered', [MonthExpenseController::class, 'getMonthExpensesFiltered'])->name('get_month_expenses_filtered');
 
+    Route::get('get_month_earnings_filtered', [MonthEarningController::class, 'getMonthEarningsFiltered'])->name('get_month_earnings_filtered');
+
 
 
 });

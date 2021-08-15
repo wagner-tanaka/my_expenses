@@ -74,8 +74,12 @@ Vue.component('month-earning-create', require('./components/month-earnings/Month
 
 // Previous Months
 Vue.component('previous-months-index', require('./components/previous-months/PreviousMonthsIndex.vue').default);
-Vue.component('previous-months-expenses', require('./components/previous-months/PreviousMonthExpenses.vue').default);
-Vue.component('previous-month-expenses-table-row', require('./components/previous-months/PreviousMonthExpensesTableRow.vue').default);
+    // Previous Months Expenses
+    Vue.component('previous-months-expenses', require('./components/previous-months/PreviousMonthExpenses.vue').default);
+    Vue.component('previous-month-expenses-table-row', require('./components/previous-months/PreviousMonthExpensesTableRow.vue').default);
+    // Previous Months Earnings
+    Vue.component('previous-months-earnings', require('./components/previous-months/PreviousMonthEarnings.vue').default);
+    Vue.component('previous-month-earnings-table-row', require('./components/previous-months/PreviousMonthEarningsTableRow.vue').default);
 
 
 
