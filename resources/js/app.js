@@ -8,6 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import dayjs from "dayjs";
+window.dayjs = dayjs;
+
 import {
     BootstrapVue,
     IconsPlugin
@@ -68,6 +71,14 @@ Vue.component('month-earnings-category-create-update', require('./components/mon
 Vue.component('month-earnings-category-table', require('./components/month-earnings/category/MonthEarningsCategoryTable.vue').default);
 Vue.component('month-earnings-category-table-row', require('./components/month-earnings/category/MonthEarningsCategoryTableRow.vue').default);
 Vue.component('month-earning-create', require('./components/month-earnings/MonthEarningCreate.vue').default);
+
+// Previous Months
+Vue.component('previous-months-index', require('./components/previous-months/PreviousMonthsIndex.vue').default);
+Vue.component('previous-months-expenses', require('./components/previous-months/PreviousMonthExpenses.vue').default);
+Vue.component('previous-month-expenses-table-row', require('./components/previous-months/PreviousMonthExpensesTableRow.vue').default);
+
+
+
 
 
 
