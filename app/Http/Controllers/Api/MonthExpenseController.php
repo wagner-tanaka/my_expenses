@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\MonthExpense\GetMonthExpensesFilteredAction;
 use App\Actions\MonthExpense\UpdateMonthExpenseAction;
 use App\Actions\MonthExpense\CreateMonthExpenseAction;
 use App\Actions\MonthExpense\DeleteMonthExpenseAction;
@@ -17,6 +18,14 @@ class MonthExpenseController extends Controller
         return [
             'monthExpenses' => $this->execute(new GetMonthExpensesAction),
             'monthExpensesTotal' => MonthExpense::get()->sum('value')
+        ];
+    }
+
+    public function getMonthExpensesFiltered(): array
+    {
+        //TODO copiar essa funcao para o MonthEarnings
+        return [
+          'monthExpensesFiltered' =>  $this->execute(new GetMonthExpensesFilteredAction)
         ];
     }
 

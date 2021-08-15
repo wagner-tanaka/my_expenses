@@ -1,7 +1,7 @@
 <template>
     <b-container class="text-center containerStyle" >
         <div>
-            <b-tabs content-class="mt-3" active>
+            <b-tabs content-class="mt-3" >
                     <b-tab title="Home"  >
                     <b-button
                         variant="primary"
@@ -34,9 +34,9 @@
                 <b-tab title="Despesas do Mes" >
                     <month-expenses-and-earnings></month-expenses-and-earnings>
                 </b-tab>
-<!--                <b-tab title="Meses Anteriores">-->
-<!--                    <daily-expenses-table></daily-expenses-table>-->
-<!--                </b-tab>-->
+                <b-tab title="Meses Anteriores" active>
+                    <previous-months-index></previous-months-index>
+                </b-tab>
             </b-tabs>
         </div>
     </b-container>
