@@ -27,6 +27,7 @@ class AddUserIdToMonthEarningsTable extends Migration
     {
         Schema::table('month_earnings', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
+            
             $table->dropColumn('user_id');
         });
     }
