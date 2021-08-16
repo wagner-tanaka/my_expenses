@@ -50,12 +50,22 @@ class Category extends Model
 
     public function getTotalCategoryExpensesAttribute()
     {
-        return $this->expenses()->sum('value');
+        return $this->expenses()->thisMonth()->sum('value');
     }
 
     public function groupedExpenses()
     {
-        return $this->expenses()->  thisMonth()->get()->groupBy('name')->map(function ($expenses) {
+        return $this->expenses()->thisMonth()->get()->groupBy('name')->map(function ($expenses) {
+            return [
+                'name' => $expenses[0]->name,
+                'value' => $expenses->sum('value')
+            ];
+        });
+    }
+
+    public function groupedExpensesFiltered($year, $month)
+    {
+        return $this->expenses()->monthFiltered($year, $month)->get()->groupBy('name')->map(function ($expenses) {
             return [
                 'name' => $expenses[0]->name,
                 'value' => $expenses->sum('value')

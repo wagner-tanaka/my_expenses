@@ -52,13 +52,9 @@ export default {
     },
     methods: {
         getEarnings() {
-            // /users?filter[name]=john&filter[email]=gmail
-            // let url = '/api/get_month_earnings_filtered'
             this.request('get', this.url, {}, {
                 onSuccess: (response) => {
                     this.previousMonthEarnings = response.data.monthEarningsFiltered.data
-                    console.log('previous month earnings response', this.previousMonthEarnings)
-
                 }
             })
         }

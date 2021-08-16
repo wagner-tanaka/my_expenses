@@ -23,7 +23,6 @@ class MonthExpenseController extends Controller
 
     public function getMonthExpensesFiltered(): array
     {
-        //TODO copiar essa funcao para o MonthEarnings
         return [
           'monthExpensesFiltered' =>  $this->execute(new GetMonthExpensesFilteredAction)
         ];

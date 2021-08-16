@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Expense\GetExpensesFilteredAction;
 use App\Actions\Expense\CreateExpenseAction;
 use App\Actions\Expense\DeleteExpenseAction;
 use App\Actions\Expense\UpdateExpenseAction;
@@ -11,6 +12,15 @@ use App\Models\Expense;
 
 class ExpenseController extends Controller
 {
+
+
+    public function getDailyExpensesFiltered(): array
+    {
+//        dd('chegou ExpenseController');
+        return [
+            'dailyExpensesFiltered' =>  $this->execute(new GetExpensesFilteredAction)
+        ];
+    }
 
     /**
      * Store a newly created resource in storage.

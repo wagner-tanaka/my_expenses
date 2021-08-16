@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Actions\Category\CreateCategoryAction;
 use App\Actions\Category\DeleteCategoryAction;
 use App\Actions\Category\GetCategoriesAction;
+use App\Actions\Category\GetCategoriesFilteredAction;
 use App\Actions\Category\UpdateCategoryAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
@@ -20,8 +21,16 @@ class CategoryController extends Controller
     public function index(): array
     {
         return [
-            'categories' => $this->execute(new GetCategoriesAction),
+        'categories' => $this->execute(new GetCategoriesAction),
             'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
+        ];
+    }
+
+    public function getCategoriesFiltered(): array
+    {
+        return [
+            'categories' => $this->execute(new GetCategoriesFilteredAction),
+//            'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
         ];
     }
 

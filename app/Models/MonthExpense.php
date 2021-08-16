@@ -10,23 +10,29 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MonthExpense extends Model
 {
-    public function scopeForDate(Builder $query, $date): Builder
-    {
-        //TODO copiar este scope para o MonthEarnings
-        $year = explode('-', $date)[0];
-        $month = explode('-', $date)[1];
-        return $query->whereYear('created_at', $year)->whereMonth('created_at', $month);
-    }
+    use HasFactory;
+    protected $guarded = [];
 
     protected static function booted()
     {
         static::addGlobalScope(new UserScope);
     }
 
-    use HasFactory;
+    // Scopes
+    public function scopeForDate(Builder $query, $date): Builder
+    {
+        $year = explode('-', $date)[0];
+        $month = explode('-', $date)[1];
+        return $query->whereYear('created_at', $year)->whereMonth('created_at', $month);
+    }
 
-    protected $guarded = [];
+    public function scopeThisMonth($query)
+    {
+        return $query->whereYear('created_at', now()->format('Y'))
+            ->whereMonth('created_at', now()->format('m'));
+    }
 
+    // Relations
     public function monthExpenseCategory(): BelongsTo
     {
         return $this->belongsTo(MonthExpensesCategory::class);
@@ -37,10 +43,6 @@ class MonthExpense extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeThisMonth($query)
-    {
-        return $query->whereYear('created_at', now()->format('Y'))
-            ->whereMonth('created_at', now()->format('m'));
-    }
+
 
 }

@@ -158,7 +158,6 @@ export default {
                     this.monthEarningsCategories = response.data.monthEarningsCategories.data
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
-                    console.log('this.monthEarningsCategories', this.monthEarningsCategories)
                 },
             });
         },
@@ -171,14 +170,12 @@ export default {
                 {
                     onSuccess: (response) => {
                         this.dailyExpensesTotal = response.data;
-                        console.log('dailyExpensesTotal', this.dailyExpensesTotal)
                     },
                 }
             );
         },
         monthEarningHasBeenSaved() {
             this.showNewMonthEarningModal = false;
-            // this.getMonthEarnings();
         },
         capitalizeCategoryNameFirstLetter() {
             this.monthExpensesCategories.map((category) => {

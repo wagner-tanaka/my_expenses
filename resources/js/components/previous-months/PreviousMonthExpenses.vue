@@ -8,8 +8,7 @@
                 <table class="table table-striped table-bordered table-sm">
                     <thead class="table-footer-header-color">
                     <tr>
-                        <th>Despesa</th>
-                        <th>Valor</th>
+                        <th colspan="2">Contas Mensais</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -21,6 +20,9 @@
                     </tbody>
                 </table>
             </b-container>
+
+            <daily-expenses-table :date="date"></daily-expenses-table>
+
             <b-row class="expensesTotalStyle mb-2">
                 <b-col class="align-self-center">Total Despesas</b-col>
                 <b-col class="align-self-center"><strong>2000000</strong></b-col>
@@ -45,33 +47,43 @@ export default {
                 created_at: "",
             },
             previousMonthExpenses: [],
+            previousDailyExpenses: [],
         }
     },
     created() {
-        this.getExpenses()
+        this.getMonthExpenses()
+        this.getDailyExpenses()
     },
     methods: {
-        getExpenses() {
-            // /users?filter[name]=john&filter[email]=gmail
-            // let url = '/api/get_month_expenses_filtered'
-            this.request('get', this.url, {}, {
+        getDailyExpenses() {
+            this.request('get', this.dailyExpensesUrl, {}, {
+                onSuccess: (response) => {
+                    this.previousDailyExpenses = response.data.dailyExpensesFiltered.data
+                    // console.log('response dailyExpenses', this.previousDailyExpenses)
+                }
+            })
+        },
+        getMonthExpenses() {
+            this.request('get', this.monthExpensesUrl, {}, {
                 onSuccess: (response) => {
                     this.previousMonthExpenses = response.data.monthExpensesFiltered.data
-                    console.log('response', this.previousMonthExpenses)
 
                 }
             })
         }
     },
     computed: {
-        url() {
+        monthExpensesUrl() {
             return `/api/get_month_expenses_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
+        },
+        dailyExpensesUrl() {
+            return `/api/get_daily_expenses_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
         }
     },
     watch: {
         date() {
-            this.getExpenses()
-            console.log('date', this.date)
+            this.getMonthExpenses()
+            this.getDailyExpenses()
         }
     }
 }

@@ -23,5 +23,3 @@ class GetMonthExpensesFilteredAction implements Executable
 
     }
 }
-
-//TODO copiar este action para o MonthEarnings
