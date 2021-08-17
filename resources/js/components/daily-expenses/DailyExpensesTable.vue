@@ -25,11 +25,11 @@
                 </td>
             </tr>
             </tbody>
-            <tfoot>
+            <tfoot class="table-footer-header-color">
             <tr>
                 <th>Total</th>
                 <th></th>
-                <th>{{ categoriesExpensesTotal }}</th>
+                <th>{{ dailyExpensesTotal }}</th>
             </tr>
             </tfoot>
         </table>
@@ -47,7 +47,8 @@ export default {
         return {
             openCategories: [],
             categories: [],
-            categoriesExpensesTotal: ''
+            categoriesExpensesTotal: '',
+            dailyExpensesTotal: ''
         };
     },
     created() {
@@ -76,17 +77,25 @@ export default {
                     onSuccess: (response) => {
                         if (response.data.categories) {
                             this.categories = response.data.categories.data;
+                            this.sumDailyExpensesTotal();
                         }
-                        this.categoriesExpensesTotal = response.data.categoriesAmountTotal
-                        console.log('categories', this.categories)
                     },
                 }
             );
         },
+        sumDailyExpensesTotal() {
+            this.dailyExpensesTotal = this.categories.reduce((accumulator, value) => {
+                return accumulator + parseInt(value.totalCategoryExpenses)
+            }, 0)
+        }
     },
+    computed: {},
     watch: {
         date() {
             this.getCategoriesExpenses()
+        },
+        dailyExpensesTotal() {
+            this.$emit('dailyExpensesTotal', this.dailyExpensesTotal)
         }
     }
 
@@ -98,6 +107,7 @@ export default {
     background-color: #9a5c5c;
     color: white;
 }
+
 tbody:nth-child(odd) {
     background-color: #D9B6A3;
 }

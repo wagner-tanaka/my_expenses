@@ -169,7 +169,7 @@ export default {
                 {},
                 {
                     onSuccess: (response) => {
-                        this.dailyExpensesTotal = response.data;
+                        this.dailyExpensesTotal = response.data.totalCategoryExpenses;
                     },
                 }
             );
@@ -213,7 +213,7 @@ export default {
 <style scoped>
 .monthDebtClassBiggerThanZero {
     font-size: 1.5em;
-    background-color: #146d9e;
+    background-color: #00851F;
 }
 
 .monthDebtClassLessThanZero {

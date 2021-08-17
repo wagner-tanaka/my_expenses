@@ -35,7 +35,6 @@ Route::group(['middleware' => ['auth:sanctum'], 'as' => 'api.'], function () {
     Route::get('getDailyExpensesTotal', [CategoryController::class, 'getDailyExpensesTotal'])->name('getDailyExpensesTotal');
 
     Route::get('get_month_expenses_filtered', [MonthExpenseController::class, 'getMonthExpensesFiltered'])->name('get_month_expenses_filtered');
-    Route::get('get_daily_expenses_filtered', [ExpenseController::class, 'getDailyExpensesFiltered'])->name('get_daily_expenses_filtered');
     Route::get('get_categories_filtered', [CategoryController::class, 'getCategoriesFiltered'])->name('get_categories_filtered');
 
     Route::get('get_month_earnings_filtered', [MonthEarningController::class, 'getMonthEarningsFiltered'])->name('get_month_earnings_filtered');

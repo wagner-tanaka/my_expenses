@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index(): array
     {
         return [
-        'categories' => $this->execute(new GetCategoriesAction),
+            'categories' => $this->execute(new GetCategoriesAction),
             'categoriesAmountTotal' => Category::get()->sum('totalCategoryExpenses')
         ];
     }
@@ -36,8 +36,9 @@ class CategoryController extends Controller
 
     public function getDailyExpensesTotal()
     {
-        // TODO retornar com nome
-        return Category::get()->sum('totalCategoryExpenses');
+        return [
+            'totalCategoryExpenses' => Category::get()->sum('totalCategoryExpenses')
+        ];
     }
 
     /**

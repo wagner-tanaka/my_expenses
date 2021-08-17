@@ -23,7 +23,7 @@
             </b-container>
             <b-row class="earningsTotalStyle mb-2">
                 <b-col class="align-self-center">Total Ganhos</b-col>
-                <b-col class="align-self-center"><strong>2000000</strong></b-col>
+                <b-col class="align-self-center"><strong>{{ previousMonthEarningsTotal }}</strong></b-col>
             </b-row>
         </div>
         <div v-else class="p-5">
@@ -45,6 +45,7 @@ export default {
                 created_at: "",
             },
             previousMonthEarnings: [],
+            previousMonthEarningsTotal: ''
         }
     },
     created() {
@@ -55,14 +56,27 @@ export default {
             this.request('get', this.url, {}, {
                 onSuccess: (response) => {
                     this.previousMonthEarnings = response.data.monthEarningsFiltered.data
+                    this.sumPreviousMonthEarnings()
+                    if (this.previousMonthEarnings.length === 0) {
+                        this.$emit('previousMonthEarningsEmpty', true)
+                        return
+                    }
+                    this.$emit('previousMonthEarningsEmpty', false)
                 }
             })
+        },
+        sumPreviousMonthEarnings() {
+            this.previousMonthEarningsTotal = this.previousMonthEarnings.reduce((accumulator, value) => {
+                return accumulator + parseInt(value.value)
+            }, 0)
+            this.$emit('previousMonthEarningsTotal', this.previousMonthEarningsTotal)
         }
     },
     computed: {
         url() {
             return `/api/get_month_earnings_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
-        }
+        },
+
     },
     watch: {
         date() {

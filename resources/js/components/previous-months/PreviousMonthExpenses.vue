@@ -18,14 +18,20 @@
                         :previousMonthExpense="previousMonthExpenses[index]"
                     ></previous-month-expenses-table-row>
                     </tbody>
+                    <tfoot class="table-footer-header-color">
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>{{ monthExpensesSubTotal }}</strong></td>
+                    </tr>
+                    </tfoot>
                 </table>
             </b-container>
 
-            <daily-expenses-table :date="date"></daily-expenses-table>
+            <daily-expenses-table :date="date" @dailyExpensesTotal="dailyExpensesTotal = $event"></daily-expenses-table>
 
             <b-row class="expensesTotalStyle mb-2">
                 <b-col class="align-self-center">Total Despesas</b-col>
-                <b-col class="align-self-center"><strong>2000000</strong></b-col>
+                <b-col class="align-self-center"><strong>{{ totalMonthExpenses }}</strong></b-col>
             </b-row>
         </div>
         <div v-else class="p-5">
@@ -48,26 +54,23 @@ export default {
             },
             previousMonthExpenses: [],
             previousDailyExpenses: [],
+            dailyExpensesTotal: '',
+            totalMonthExpenses: ''
         }
     },
     created() {
         this.getMonthExpenses()
-        this.getDailyExpenses()
     },
     methods: {
-        getDailyExpenses() {
-            this.request('get', this.dailyExpensesUrl, {}, {
-                onSuccess: (response) => {
-                    this.previousDailyExpenses = response.data.dailyExpensesFiltered.data
-                    // console.log('response dailyExpenses', this.previousDailyExpenses)
-                }
-            })
-        },
         getMonthExpenses() {
             this.request('get', this.monthExpensesUrl, {}, {
                 onSuccess: (response) => {
                     this.previousMonthExpenses = response.data.monthExpensesFiltered.data
-
+                    if (this.previousMonthExpenses.length === 0) {
+                        this.$emit('previousMonthExpensesEmpty', true)
+                        return
+                    }
+                    this.$emit('previousMonthExpensesEmpty', false)
                 }
             })
         }
@@ -76,14 +79,21 @@ export default {
         monthExpensesUrl() {
             return `/api/get_month_expenses_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
         },
-        dailyExpensesUrl() {
-            return `/api/get_daily_expenses_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
-        }
+        monthExpensesSubTotal() {
+            return this.previousMonthExpenses.reduce((accumulator, value) => {
+                return accumulator + parseInt(value.value)
+            }, 0)
+        },
     },
     watch: {
         date() {
             this.getMonthExpenses()
-            this.getDailyExpenses()
+        },
+        dailyExpensesTotal() {
+            this.totalMonthExpenses = this.monthExpensesSubTotal + this.dailyExpensesTotal
+        },
+        totalMonthExpenses() {
+            this.$emit('previousMonthExpensesTotal', this.totalMonthExpenses)
         }
     }
 }

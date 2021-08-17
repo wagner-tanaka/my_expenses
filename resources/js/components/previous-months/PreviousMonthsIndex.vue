@@ -7,12 +7,29 @@
             <b-col>
                 <b-form-select v-model="selectedMonth" :options="monthsOfYear"></b-form-select>
             </b-col>
-<!--            <b-col cols="2">
-                <b-button><i class="fas fa-search"></i></b-button>
-            </b-col>-->
         </b-row>
-        <previous-months-expenses :date="date"></previous-months-expenses>
-        <previous-months-earnings :date="date"></previous-months-earnings>
+
+        <b-row
+            v-if="!isPreviousMonthExpensesEmpty || !isPreviousMonthEarningsEmpty"
+            class="mt-2"
+            :class="
+                        isMonthDebtBiggerThanZero
+                            ? 'monthDebtClassBiggerThanZero'
+                            : 'monthDebtClassLessThanZero'
+                    "
+        >
+            <b-col class="text-right">Débito</b-col>
+            <b-col class="text-left">{{ monthDebt }}</b-col>
+        </b-row>
+
+        <previous-months-expenses :date="date"
+                                  @previousMonthExpensesTotal="previousMonthExpensesTotal = $event"
+                                  @previousMonthExpensesEmpty="isPreviousMonthExpensesEmpty = $event">
+        </previous-months-expenses>
+        <previous-months-earnings :date="date"
+                                  @previousMonthEarningsTotal="previousMonthEarningsTotal = $event"
+                                  @previousMonthEarningsEmpty="previousMonthEarningsEmpty = $event">
+        </previous-months-earnings>
     </div>
 </template>
 
@@ -24,11 +41,15 @@ export default {
             selectedYear: dayjs().format('YYYY'),
             selectedMonth: Number(dayjs().format('MM')),
             years: [
-                {value: null, text: 'Ano', disabled:true},
+                {value: null, text: 'Ano', disabled: true},
             ],
             monthsOfYear: [
-                {value: null, text: 'Mês', disabled:true},
-            ]
+                {value: null, text: 'Mês', disabled: true},
+            ],
+            previousMonthEarningsTotal: '',
+            previousMonthExpensesTotal: '',
+            isPreviousMonthExpensesEmpty: true,
+            isPreviousMonthEarningsEmpty: true
         }
     },
     created() {
@@ -36,6 +57,11 @@ export default {
         this.createMonthsOfYear()
     },
     methods: {
+        showHideDebitRow(event) {
+            this.isPreviousMonthExpensesEmpty = event
+            console.log('event', event)
+            console.log('isPreviousMonthExpensesEmpty', this.isPreviousMonthExpensesEmpty)
+        },
         createYears() {
             let year = '';
             for (let i = 2021; i < 2030; i++) {
@@ -52,20 +78,34 @@ export default {
         },
     },
     computed: {
-        date(){
-            if(!this.selectedYear || !this.selectedMonth ) {
+        date() {
+            if (!this.selectedYear || !this.selectedMonth) {
                 return {}
             }
             return {
                 'year': this.selectedYear,
                 'month': this.selectedMonth,
             }
-        }
+        },
+        monthDebt() {
+            return Number(this.previousMonthEarningsTotal) - Number(this.previousMonthExpensesTotal);
+        },
+        isMonthDebtBiggerThanZero() {
+            return this.monthDebt >= 0;
+        },
     },
     watch: {}
 }
 </script>
 
 <style scoped>
+.monthDebtClassBiggerThanZero {
+    font-size: 1.5em;
+    background-color: #00851F;
+}
 
+.monthDebtClassLessThanZero {
+    font-size: 1.5em;
+    background-color: #e33949;
+}
 </style>
