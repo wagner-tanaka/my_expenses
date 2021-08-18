@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div v-if="previousMonthExpenses.length > 0" class="expensesBackgroundColor">
+        <div v-if="previousMonthExpenses.length > 0 || dailyExpensesTotal > 0    " class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
-                Despesas Mensais
+                Despesas do Mês
             </div>
             <b-container>
-                <table class="table table-striped table-bordered table-sm">
+                <table v-if="previousMonthExpenses.length > 0" class="table table-striped table-bordered table-sm">
                     <thead class="table-footer-header-color">
                     <tr>
-                        <th colspan="2">Contas Mensais</th>
+                        <th colspan="2">Contas do Mês</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,8 +34,8 @@
                 <b-col class="align-self-center"><strong>{{ totalMonthExpenses }}</strong></b-col>
             </b-row>
         </div>
-        <div v-else class="p-5">
-            <h4>Nenhum gasto deste mes encontrado!</h4>
+        <div v-else class="p-2">
+            <h4>Nenhum gasto deste mês encontrado!</h4>
         </div>
     </div>
 </template>
@@ -53,7 +53,6 @@ export default {
                 created_at: "",
             },
             previousMonthExpenses: [],
-            previousDailyExpenses: [],
             dailyExpensesTotal: '',
             totalMonthExpenses: ''
         }
@@ -66,6 +65,7 @@ export default {
             this.request('get', this.monthExpensesUrl, {}, {
                 onSuccess: (response) => {
                     this.previousMonthExpenses = response.data.monthExpensesFiltered.data
+                    // console.log('this.previousMonthExpenses', this.previousMonthExpenses``)
                     if (this.previousMonthExpenses.length === 0) {
                         this.$emit('previousMonthExpensesEmpty', true)
                         return

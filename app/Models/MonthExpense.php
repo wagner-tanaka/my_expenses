@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MonthExpense extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     protected static function booted()
@@ -28,8 +29,12 @@ class MonthExpense extends Model
 
     public function scopeThisMonth($query)
     {
-        return $query->whereYear('created_at', now()->format('Y'))
-            ->whereMonth('created_at', now()->format('m'));
+        return $query
+            ->where('is_fixed', 1)
+            ->orWhere(function ($query) {
+                $query->whereYear('created_at', now()->format('Y'))
+                      ->whereMonth('created_at', now()->format('m'));
+            });
     }
 
     // Relations
@@ -42,7 +47,4 @@ class MonthExpense extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
-
 }

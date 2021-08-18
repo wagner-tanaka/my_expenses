@@ -2,7 +2,7 @@
     <div>
         <div v-if="previousMonthEarnings.length > 0" class="earningsBackgroundColor">
             <div class="mb-2 mt-2 earningsTitleStyle ">
-                Ganhos Mensais
+                Ganhos do Mês
             </div>
             <b-container>
                 <table class="table table-striped table-bordered table-sm">
@@ -26,8 +26,8 @@
                 <b-col class="align-self-center"><strong>{{ previousMonthEarningsTotal }}</strong></b-col>
             </b-row>
         </div>
-        <div v-else class="p-5">
-            <h4>Nenhum Ganho deste mes encontrado!</h4>
+        <div v-else class="p-2">
+            <h4>Nenhum ganho deste mês encontrado!</h4>
         </div>
     </div>
 </template>

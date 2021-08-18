@@ -1,6 +1,6 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
-    <!doctype html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -24,35 +24,66 @@
 </head>
 
 <body>
+    <div id="app" class="m-2">
+        <b-container class="text-center">
+            <div>
+                <b-tabs content-class="m-0" active>
+                    <b-tab title="Principal">
+                        <main-index></main-index>
+                    </b-tab>
+                    <b-tab title="Mês Atual">
+                        <current-month-index></current-month-index>
+                    </b-tab>
+                    <b-tab title="Histórico">
+                        <previous-months-index></previous-months-index>
+                    </b-tab>
 
-<div class="container" style="position: relative">
-    @if(\Auth::check())
-        <span style="position: absolute; right:20px">
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            <a href="#" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                logout
-            </a>
-        </span>
-    @endif
-</div>
-
-<div id="app" class="mt-3">
-    <div>
-        <index-component></index-component>
+                </b-tabs>
+            </div>
+        </b-container>
     </div>
-</div>
+
+    <div class="navbar mt-2">
+        @if(\Auth::check())
+            <span style="position: absolute; right:20px">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    @csrf
+                </form>
+                <a href="#" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                    Sair
+                </a>
+            </span>
+        @endif
+    </div>
 </body>
 
 </html>
 {{-- @endsection --}}
 <style scoped>
-    html {
-        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQataIx7UUCHEvEwEI6D9r5TGzfg1sGl7frlA&usqp=CAU");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100% 100%;
+    .navbar {
+        background-color: #7c7c7c;
+        overflow: hidden;
+        /*position: fixed;*/
+        bottom: 0;
+        width: 100%;
+        height: 3em;
+    }
+
+    .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
     }
 </style>

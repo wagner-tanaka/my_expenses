@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-row>
+        <b-row class="mt-2">
             <b-col>
                 <b-form-select v-model="selectedYear" :options="years"></b-form-select>
             </b-col>
@@ -94,7 +94,6 @@ export default {
             return this.monthDebt >= 0;
         },
     },
-    watch: {}
 }
 </script>
 
