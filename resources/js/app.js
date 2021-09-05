@@ -49,10 +49,10 @@ Vue.component('daily-expense-add-value', require('./components/main/DailyExpense
 Vue.component('daily-expense-create', require('./components/main/DailyExpenseCreate.vue').default);
 Vue.component('daily-expenses-table', require('./components/main/DailyExpensesTable.vue').default);
 Vue.component('daily-expenses-category-create-update', require('./components/main/DailyExpensesCategoryCreateUpdate.vue').default);
-Vue.component('daily-expenses-category', require('./components/main/DailyExpensesCategory.vue').default);
+// Vue.component('daily-expenses-category', require('./components/main/DailyExpensesCategory.vue').default);
 
 // Details
-Vue.component('daily-expenses-details', require('./components/current-month/DailyExpensesDetails.vue').default);
+// Vue.component('daily-expenses-details', require('./components/current-month/DailyExpensesDetails.vue').default);
 
 // Current Month
 Vue.component('current-month-index', require('./components/current-month/CurrentMonthIndex.vue').default);

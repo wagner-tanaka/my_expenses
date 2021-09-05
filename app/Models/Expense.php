@@ -14,10 +14,10 @@ class Expense extends Model
 
     protected $guarded = [];
 
-//    protected static function booted()
-//    {
-//        static::addGlobalScope(new UserScope);
-//    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserScope);
+    }
 
     // Scopes
     public function scopeForDate(Builder $query, $date): Builder

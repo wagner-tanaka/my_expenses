@@ -23,10 +23,10 @@ class Category extends Model
             ->groupBy('name')
             ->whereBetween('created_at', [$dateStart, $dateEnd])
             ->get();
-
+//        dd('$expenses', $expenses);
         $expenses->each(function ($expense) {
             Expense::create([
-                'category_id' => $expense->category->id,
+                'category_id' => $expense->category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,
                 'value' => 0

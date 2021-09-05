@@ -21,16 +21,17 @@ class MonthExpensesCategory extends Model
 
     public static function generateMonthExpensesForThisCategory(): void
     {
+
         $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
         $dateEnd =now()->startOfMonth();   // 2021-07-01
         $expenses = MonthExpense::where('is_fixed',true)
             ->groupBy('name')
             ->whereBetween('created_at', [$dateStart, $dateEnd])
             ->get();
-
+//        dd($expenses);
         $expenses->each(function ($expense) {
             MonthExpense::create([
-                'category_id' => $expense->category->id,
+                'month_expenses_category_id' => $expense->month_expenses_category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,
                 'value' => 0
