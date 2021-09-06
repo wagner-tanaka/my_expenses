@@ -40,10 +40,3 @@ export default {
     },
 };
 </script>
-<style scoped>
-.table-footer-header-color{
-    background-color: #9a5c5c;
-    color: white;
-}
-
-</style>
