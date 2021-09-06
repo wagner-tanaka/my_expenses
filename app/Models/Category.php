@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
@@ -26,6 +27,7 @@ class Category extends Model
 //        dd('$expenses', $expenses);
         $expenses->each(function ($expense) {
             Expense::create([
+                'user_id' => Auth::user(),
                 'category_id' => $expense->category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,

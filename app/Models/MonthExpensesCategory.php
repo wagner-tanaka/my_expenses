@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class MonthExpensesCategory extends Model
 {
@@ -31,6 +32,7 @@ class MonthExpensesCategory extends Model
 //        dd($expenses);
         $expenses->each(function ($expense) {
             MonthExpense::create([
+                'user_id' => Auth::user(),
                 'month_expenses_category_id' => $expense->month_expenses_category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,
