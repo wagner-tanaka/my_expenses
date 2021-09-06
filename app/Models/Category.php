@@ -27,7 +27,7 @@ class Category extends Model
 //        dd('$expenses', $expenses);
         $expenses->each(function ($expense) {
             Expense::create([
-                'user_id' => Auth::user(),
+                'user_id' => Auth::id(),
                 'category_id' => $expense->category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,

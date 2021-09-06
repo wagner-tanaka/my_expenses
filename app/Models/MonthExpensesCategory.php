@@ -32,7 +32,7 @@ class MonthExpensesCategory extends Model
 //        dd($expenses);
         $expenses->each(function ($expense) {
             MonthExpense::create([
-                'user_id' => Auth::user(),
+                'user_id' => Auth::id(),
                 'month_expenses_category_id' => $expense->month_expenses_category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,
