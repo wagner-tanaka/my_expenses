@@ -26,17 +26,16 @@ class MonthExpensesCategory extends Model
         $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
         $dateEnd =now()->startOfMonth();   // 2021-07-01
         $expenses = MonthExpense::where('is_fixed',true)
-            ->groupBy('name')
             ->whereBetween('created_at', [$dateStart, $dateEnd])
             ->get();
-//        dd($expenses);
         $expenses->each(function ($expense) {
             MonthExpense::create([
                 'user_id' => Auth::id(),
                 'month_expenses_category_id' => $expense->month_expenses_category_id,
                 'is_fixed' => true,
                 'name' => $expense->name,
-                'value' => 0
+                'value' => $expense->value,
+                'pay_day' => $expense->pay_day
             ]);
         });
     }
@@ -52,7 +51,7 @@ class MonthExpensesCategory extends Model
 
     public function getMonthExpensesCategoryTotalAttribute()
     {
-        return $this->monthExpenses()->sum('value');
+        return $this->monthExpenses()->thisMonth()->sum('value');
     }
 
 }

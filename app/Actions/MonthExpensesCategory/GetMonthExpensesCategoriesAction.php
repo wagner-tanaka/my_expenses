@@ -16,13 +16,17 @@ class GetMonthExpensesCategoriesAction implements Executable
             MonthExpensesCategory::generateMonthExpensesForThisCategory();
             $monthExpensesCategories = $this->getMonthExpensesCategories();
         }
-
         return MonthExpensesCategoryResource::collection($monthExpensesCategories)->response()->getData(true);
     }
 
     private function getMonthExpensesCategories()
     {
-        return MonthExpensesCategory::with('monthExpenses')->
+        return MonthExpensesCategory::
+        with(['monthExpenses' => function ($query) {
+            $query->
+            whereYear('created_at', now()->format('Y'))->
+            whereMonth('created_at', now()->format('m'));
+        }])->
         whereHas('monthExpenses', function ($query) {
             $query->
             whereYear('created_at', now()->format('Y'))->

@@ -11,7 +11,6 @@ class GetCategoriesAction implements Executable
     public function handle()
     {
         $categories = $this->getCategories();
-
         if ($categories->isEmpty()) {
             Category::generateExpensesForThisCategory();
             $categories = $this->getCategories();

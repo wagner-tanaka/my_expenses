@@ -29,12 +29,13 @@ class MonthExpense extends Model
 
     public function scopeThisMonth($query)
     {
-        return $query
-            ->where('is_fixed', 1)
-            ->orWhere(function ($query) {
-                $query->whereYear('created_at', now()->format('Y'))
-                      ->whereMonth('created_at', now()->format('m'));
-            });
+        return $query->whereYear('created_at', now()->format('Y'))
+                     ->whereMonth('created_at', now()->format('m'));
+    }
+
+    public function scopeIsFixed($query)
+    {
+        return $query->where('is_fixed', 1);
     }
 
     // Relations

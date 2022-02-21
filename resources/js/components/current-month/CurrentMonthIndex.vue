@@ -147,7 +147,6 @@ export default {
                     this.monthExpensesCategories = response.data.monthExpensesCategories.data
                     this.capitalizeCategoryNameFirstLetter();
                     this.orderCategoriesByName();
-                    console.log('month expenses', this.monthExpensesCategories)
                 },
             });
         },

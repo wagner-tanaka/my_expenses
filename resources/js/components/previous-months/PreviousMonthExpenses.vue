@@ -65,7 +65,6 @@ export default {
             this.request('get', this.monthExpensesUrl, {}, {
                 onSuccess: (response) => {
                     this.previousMonthExpenses = response.data.monthExpensesFiltered.data
-                    // console.log('this.previousMonthExpenses', this.previousMonthExpenses``)
                     if (this.previousMonthExpenses.length === 0) {
                         this.$emit('previousMonthExpensesEmpty', true)
                         return

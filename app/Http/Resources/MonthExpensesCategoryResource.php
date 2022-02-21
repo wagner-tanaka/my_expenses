@@ -18,7 +18,7 @@ class MonthExpensesCategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'id' => $this->id,
-            'monthExpenses' => MonthExpenseResource::collection($this->monthExpenses()->thisMonth()->get())->response()->getData(true),
+            'monthExpenses' => MonthExpenseResource::collection($this->monthExpenses()->thisMonth()->isFixed()->get())->response()->getData(true),
             'monthExpensesCategoryTotal' => $this->monthExpensesCategoryTotal,
             'date' => $this->created_at
         ];
