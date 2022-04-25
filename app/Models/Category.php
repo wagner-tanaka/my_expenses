@@ -18,12 +18,13 @@ class Category extends Model
 
     public static function generateExpensesForThisCategory(): void
     {
-        $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
-        $dateEnd =now()->startOfMonth();   // 2021-07-01
+//        $dateStart = now()->startOfMonth()->subMonth();  // 2021-06-01
+//        $dateEnd = now()->startOfMonth();   // 2021-07-01
         $expenses = Expense::where('is_fixed',true)
             ->groupBy('name')
-            ->whereBetween('created_at', [$dateStart, $dateEnd])
+//            ->whereBetween('created_at', [$dateStart, $dateEnd])
             ->get();
+
         $expenses->each(function ($expense) {
             Expense::create([
                 'user_id' => Auth::id(),
