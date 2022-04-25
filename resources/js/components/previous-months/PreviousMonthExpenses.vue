@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div v-if="previousMonthExpenses.length > 0 || dailyExpensesTotal > 0    " class="expensesBackgroundColor">
+        <!-- O problema eh aqui, quando nao tem monthExpenses, nao aparece as despesas diarias. -->
+        <div class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
                 Despesas do Mês
             </div>
@@ -27,16 +28,16 @@
                 </table>
             </b-container>
 
-            <daily-expenses-table :date="date" @dailyExpensesTotal="dailyExpensesTotal = $event"></daily-expenses-table>
+            <daily-expenses-table  :date="date" @dailyExpensesTotal="dailyExpensesTotal = $event"></daily-expenses-table>
 
             <b-row class="expensesTotalStyle mb-2">
                 <b-col class="align-self-center">Total Despesas</b-col>
                 <b-col class="align-self-center"><strong>{{ totalMonthExpenses }}</strong></b-col>
             </b-row>
         </div>
-        <div v-else class="p-2">
-            <h4>Nenhum gasto deste mês encontrado!</h4>
-        </div>
+            <!-- <div class="p-2">
+                <h4>Nenhum gasto deste mês encontrado!</h4>
+            </div> -->
     </div>
 </template>
 
@@ -53,8 +54,8 @@ export default {
                 created_at: "",
             },
             previousMonthExpenses: [],
-            dailyExpensesTotal: '',
-            totalMonthExpenses: ''
+            dailyExpensesTotal: 0,
+            totalMonthExpenses: 0
         }
     },
     created() {
@@ -64,6 +65,7 @@ export default {
         getMonthExpenses() {
             this.request('get', this.monthExpensesUrl, {}, {
                 onSuccess: (response) => {
+                    console.log('monthExpensesBug', response.data.monthExpensesFiltered)
                     this.previousMonthExpenses = response.data.monthExpensesFiltered.data
                     if (this.previousMonthExpenses.length === 0) {
                         this.$emit('previousMonthExpensesEmpty', true)
@@ -79,9 +81,15 @@ export default {
             return `/api/get_month_expenses_filtered?filter[for_date]=${this.date.year}-${this.date.month}`
         },
         monthExpensesSubTotal() {
-            return this.previousMonthExpenses.reduce((accumulator, value) => {
+
+            let subTotal = this.previousMonthExpenses.reduce((accumulator, value) => {
                 return accumulator + parseInt(value.value)
             }, 0)
+
+            this.totalMonthExpenses = subTotal
+
+            return subTotal
+        
         },
     },
     watch: {
@@ -89,6 +97,7 @@ export default {
             this.getMonthExpenses()
         },
         dailyExpensesTotal() {
+            console.log('totalMonthExpenses', this.totalMonthExpenses)
             this.totalMonthExpenses = this.monthExpensesSubTotal + this.dailyExpensesTotal
         },
         totalMonthExpenses() {

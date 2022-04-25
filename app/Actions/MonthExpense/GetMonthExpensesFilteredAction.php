@@ -14,10 +14,12 @@ class GetMonthExpensesFilteredAction implements Executable
     public function handle()
     {
 
+        // dd(MonthExpense::all());
         $monthExpenses = QueryBuilder::for(MonthExpense::class)
             ->allowedFilters([
                 AllowedFilter::scope('for_date'),
             ])->get();
+
 
         return MonthExpenseResource::collection($monthExpenses)->response()->getData(true);
 
