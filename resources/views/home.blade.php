@@ -15,6 +15,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <script>
+      window.Translations = @json(getTranslations());
+    </script>
+
+
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -28,7 +34,7 @@
         <b-container class="text-center">
             <div>
                 <b-tabs content-class="m-0" active>
-                    <b-tab title="Principal">
+                    <b-tab title="{{ __('global.main') }}">
                         <main-index></main-index>
                     </b-tab>
                     <b-tab title="Mês Atual">
