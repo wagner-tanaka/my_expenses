@@ -5,4 +5,7 @@ return [
     'add_category' => 'Adicionar Categoria',
     'main' => 'Principal',
     'new_expense' => 'Novo Gasto',
+    'pt' => 'Português',
+    'en' => 'Inglês',
+    'welcome' => 'Bem vindo'
 ];

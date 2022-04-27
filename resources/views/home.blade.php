@@ -1,7 +1,7 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
         <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 
 <head>
     <meta charset="utf-8">
@@ -28,10 +28,51 @@
 </head>
 
 <body>
-
-    <div class="navbar mt-2">
-        @if(\Auth::check())
-            <span style="position: absolute; right:20px">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+{{--    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">--}}
+{{--        <ul class="navbar-nav mr-auto">--}}
+{{--            <li class="nav-item active">--}}
+{{--                <a class="nav-link" href="#">Left</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="//codeply.com">Codeply</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Link</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Link</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Link</a>--}}
+{{--            </li>--}}
+{{--        </ul>--}}
+{{--    </div>--}}
+{{--    <div class="mx-auto order-0">--}}
+{{--        <a class="navbar-brand mx-auto" href="#">Navbar 2</a>--}}
+{{--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">--}}
+{{--            <span class="navbar-toggler-icon"></span>--}}
+{{--        </button>--}}
+{{--    </div>--}}
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" >
+                <a class="text-white">
+                   {{ __('global.welcome') }} {{ ucfirst(auth()->user()->name) }}
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @foreach (config('app.locales') as $locale => $locale_name)
+                <li class="nav-item" >
+                    <a class="nav-link" href="/locale/{{$locale}}">
+                        {!!locale_img($locale)!!}
+                        {{__("global.$locale")}}
+                    </a>
+                </li>
+            @endforeach
+            <li class="nav-item">
+                @if(\Auth::check())
                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                       style="display: none;">
                     @csrf
@@ -40,28 +81,45 @@
                                 document.getElementById('logout-form').submit();">
                     Sair
                 </a>
-            </span>
-        @endif
+                @endif
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <div id="app" class="m-2">
-        <b-container class="text-center">
-            <div>
-                <b-tabs content-class="m-0" active>
-                    <b-tab title="{{ __('global.main') }}">
-                        <main-index></main-index>
-                    </b-tab>
-                    <b-tab title="Mês Atual">
-                        <current-month-index></current-month-index>
-                    </b-tab>
-                    <b-tab title="Histórico">
-                        <previous-months-index></previous-months-index>
-                    </b-tab>
+{{--<div class="navbar mt-2">--}}
+{{--    @if(\Auth::check())--}}
+{{--        <span style="position: absolute; right:20px">--}}
+{{--                <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
+{{--                      style="display: none;">--}}
+{{--                    @csrf--}}
+{{--                </form>--}}
+{{--                <a href="#" onclick="event.preventDefault();--}}
+{{--                                document.getElementById('logout-form').submit();">--}}
+{{--                    Sair--}}
+{{--                </a>--}}
+{{--            </span>--}}
+{{--    @endif--}}
+{{--</div>--}}
 
-                </b-tabs>
-            </div>
-        </b-container>
-    </div>
+<div id="app" class="m-2">
+    <b-container class="text-center">
+        <div>
+            <b-tabs content-class="m-0" active>
+                <b-tab title="{{ __('global.main') }}">
+                    <main-index></main-index>
+                </b-tab>
+                <b-tab title="Mês Atual">
+                    <current-month-index></current-month-index>
+                </b-tab>
+                <b-tab title="Histórico">
+                    <previous-months-index></previous-months-index>
+                </b-tab>
+
+            </b-tabs>
+        </div>
+    </b-container>
+</div>
 
 
 </body>
