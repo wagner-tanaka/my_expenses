@@ -6,7 +6,7 @@
             size="sm"
             @click="showNewCategoryModal = true"
         >
-          {{ __('global.add_category') }}
+            Nova Categoria
         </b-button>
         <div
             v-for="(category, index) in categories"
@@ -19,7 +19,7 @@
         </div>
         <b-modal
             v-model="showNewCategoryModal"
-            :title="__('global.add_category')"
+            title="Nova Categoria"
             centered
             hide-footer
         >

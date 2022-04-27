@@ -21,7 +21,7 @@
                     @click="showNewExpensesModal = true"
                     size="sm"
                     class="float-right"
-                    >{{ __('global.new_expense') }}</b-button
+                    >Novo Gasto</b-button
                 >
                 <a
                     style="color: white"
@@ -69,7 +69,7 @@
         <b-modal
             v-model="showNewExpensesModal"
             hide-footer
-            :title="__('global.new_expense')"
+            title="Nova Despesa"
             centered
         >
             <daily-expense-create
