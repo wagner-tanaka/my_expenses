@@ -1,6 +1,6 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
-<!doctype html>
+        <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -15,6 +15,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <script>
+      window.Translations = @json(getTranslations());
+    </script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -24,28 +28,28 @@
 </head>
 
 <body>
-    <div id="app" class="m-2">
-        <b-container class="text-center">
-            <div>
-                <b-tabs content-class="m-0" active>
-                    <b-tab title="Principal">
-                        <main-index></main-index>
-                    </b-tab>
-                    <b-tab title="Mês Atual">
-                        <current-month-index></current-month-index>
-                    </b-tab>
-                    <b-tab title="Histórico">
-                        <previous-months-index></previous-months-index>
-                    </b-tab>
+<div id="app" class="m-2">
+    <b-container class="text-center">
+        <div>
+            <b-tabs content-class="m-0" active>
+                <b-tab title="{{ __('global.main') }}">
+                    <main-index></main-index>
+                </b-tab>
+                <b-tab title="Mês Atual">
+                    <current-month-index></current-month-index>
+                </b-tab>
+                <b-tab title="Histórico">
+                    <previous-months-index></previous-months-index>
+                </b-tab>
 
-                </b-tabs>
-            </div>
-        </b-container>
-    </div>
+            </b-tabs>
+        </div>
+    </b-container>
+</div>
 
-    <div class="navbar mt-2">
-        @if(\Auth::check())
-            <span style="position: absolute; right:20px">
+<div class="navbar mt-2">
+    @if(\Auth::check())
+        <span style="position: absolute; right:20px">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                       style="display: none;">
                     @csrf
@@ -55,8 +59,8 @@
                     Sair
                 </a>
             </span>
-        @endif
-    </div>
+    @endif
+</div>
 </body>
 
 </html>

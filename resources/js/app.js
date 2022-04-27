@@ -15,10 +15,12 @@ import {
     BootstrapVue,
     IconsPlugin
 } from 'bootstrap-vue'
+import Translations from './mixins/Translations.vue'
+
 
 Vue.use(IconsPlugin)
 
-import String from './mixins/Strings.vue'
+Vue.mixin(Translations)
 Vue.mixin(String)
 
 import AxiosWrapper from 'sb-axios-wrapper'
