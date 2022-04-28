@@ -90,7 +90,7 @@ export default {
             this.isEditingValue = false
         },
         deleteMonthExpense() {
-            if (!confirm('Despesa sera removida.')) return
+            if (!confirm(this.__('global.delete_expense_confirm'))) return
             // let expenseIndex = this.expenses.indexOf(monthExpense);
             this.request(
                 "delete",

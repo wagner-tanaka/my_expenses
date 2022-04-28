@@ -2,14 +2,14 @@
     <div>
         <div v-if="previousMonthEarnings.length > 0" class="earningsBackgroundColor">
             <div class="mb-2 mt-2 earningsTitleStyle ">
-                Ganhos do Mês
+                {{ __('global.month_income') }}
             </div>
             <b-container>
                 <table class="table table-striped table-bordered table-sm">
                     <thead class="table-footer-header-color">
                     <tr>
-                        <th>Ganho</th>
-                        <th>Valor</th>
+                        <th>{{ __('global.income') }}</th>
+                        <th>{{ __('global.amount') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,12 +22,12 @@
                 </table>
             </b-container>
             <b-row class="earningsTotalStyle mb-2">
-                <b-col class="align-self-center">Total Ganhos</b-col>
+                <b-col class="align-self-center">{{ __('global.total_incomes') }}</b-col>
                 <b-col class="align-self-center"><strong>{{ previousMonthEarningsTotal }}</strong></b-col>
             </b-row>
         </div>
         <div v-else class="p-2">
-            <h4>Nenhum ganho deste mês encontrado!</h4>
+            <h4>{{ __('global.no_earnings_for_this_month_found') }}</h4>
         </div>
     </div>
 </template>

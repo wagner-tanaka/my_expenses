@@ -4,14 +4,14 @@
             type="text"
             v-model="form.name"
             class="mt-2"
-            placeholder="Nome do ganho aqui!"
+            :placeholder="__('global.earning_name')"
         ></b-input>
 
         <b-input
             type="number"
             v-model="form.value"
             class="mt-2"
-            placeholder="Valor do ganho!"
+            :placeholder="__('global.amount')"
         ></b-input>
 
         <b-form-select v-model="selected" :options="daysOfMonth" class="mt-2"></b-form-select>
@@ -20,14 +20,14 @@
             v-model="form.is_fixed"
             class="mt-2"
         >
-            Fixar Ganho
+            {{ __('global.repeat_earning') }}
         </b-form-checkbox>
 
         <div class="text-center mt-2">
             <b-button variant="danger mr-2" @click="cancelEarningCreation"
-                >Cancelar</b-button
+                >{{ __('global.cancel') }}</b-button
             >
-            <b-button variant="success" @click="submitEarning">Salvar</b-button>
+            <b-button variant="success" @click="submitEarning">{{ __('global.save') }}</b-button>
         </div>
     </div>
 </template>
@@ -50,7 +50,7 @@ export default {
             },
             selected: null,
             daysOfMonth: [
-                { value: null, text: 'Selecione o dia do ganho' },
+                { value: null, text: this.__('global.select_earning_day') },
             ]
         };
     },
