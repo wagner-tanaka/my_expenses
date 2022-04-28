@@ -1,7 +1,7 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
         <!doctype html>
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -79,7 +79,7 @@
                 </form>
                 <a href="#" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                    Sair
+                    {{ __('global.logout') }}
                 </a>
                 @endif
             </li>
@@ -109,10 +109,10 @@
                 <b-tab title="{{ __('global.main') }}">
                     <main-index></main-index>
                 </b-tab>
-                <b-tab title="Mês Atual">
+                <b-tab :title="__('global.current_month')">
                     <current-month-index></current-month-index>
                 </b-tab>
-                <b-tab title="Histórico">
+                <b-tab :title="__('global.previous_months')">
                     <previous-months-index></previous-months-index>
                 </b-tab>
 

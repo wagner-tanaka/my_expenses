@@ -16,12 +16,13 @@ import {
     IconsPlugin
 } from 'bootstrap-vue'
 import Translations from './mixins/Translations.vue'
+import Strings from './mixins/Strings.vue'
 
 
 Vue.use(IconsPlugin)
 
 Vue.mixin(Translations)
-Vue.mixin(String)
+Vue.mixin(Strings)
 
 import AxiosWrapper from 'sb-axios-wrapper'
 import Notifier from "./Notifier";

@@ -3,12 +3,12 @@
         <b-input
             v-model="form.name"
             class="mt-2"
-            placeholder="Nome da Categoria aqui!"
+            :placeholder="__('global.category_name')"
         ></b-input>
 
         <div class="text-center mt-2">
-            <b-button variant="danger mr-2" @click="$emit('cancel')">Cancelar</b-button>
-            <b-button variant="success" @click="submitCategory">Salvar</b-button>
+            <b-button variant="danger mr-2" @click="$emit('cancel')">{{ __('global.cancel') }}</b-button>
+            <b-button variant="success" @click="submitCategory">{{ __('global.save') }}</b-button>
         </div>
     </div>
 </template>

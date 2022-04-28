@@ -8,14 +8,14 @@
                             : 'monthDebtClassLessThanZero'
                     "
         >
-            <b-col class="text-right">Débito</b-col>
+            <b-col class="text-right">{{ __('global.debt') }}</b-col>
             <b-col class="text-left">{{ monthDebt }}</b-col>
         </b-row>
 
         <!--        Month Expenses-->
         <div class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
-                Despesas do Mês
+                {{ __('global.month_expense') }}
                 <b-button
                     class="float-right mb-2"
                     variant="danger"
@@ -39,7 +39,7 @@
             <daily-expenses-table></daily-expenses-table>
 
             <b-row class="expensesTotalStyle mb-2">
-                <b-col class="align-self-center">Total Despesas</b-col>
+                <b-col class="align-self-center">{{ __('global.total_expenses') }}</b-col>
                 <b-col class="align-self-center"><strong>{{ monthExpensesTotal }}</strong></b-col>
             </b-row>
         </div>
@@ -47,7 +47,7 @@
         <!--        Month Earnings-->
         <div class="earningsBackgroundColor">
             <div class="mb-2 mt-2 earningsTitleStyle ">
-                Ganhos do Mês
+                {{ __('global.month_earnings') }}
                 <b-button
                     class="float-right mb-2"
                     variant="primary"
@@ -67,7 +67,7 @@
             </div>
 
             <b-row class="earningsTotalStyle mb-2">
-                <b-col class="align-self-center">Total Ganhos</b-col>
+                <b-col class="align-self-center">{{ __('global.month_earnings_total') }}</b-col>
                 <b-col class="align-self-center"><strong>{{ monthEarningsTotal }}</strong></b-col>
             </b-row>
         </div>
@@ -75,7 +75,7 @@
 <!-- MonthExpensesCategoryCreateUpdate Modal -->
         <b-modal
             v-model="showMonthExpensesCategoryCreateUpdateModal"
-            title="Nova Categoria de Despesas do Mes"
+            :title="__('global.new_month_expenses_category')"
             centered
             hide-footer
         >
@@ -89,7 +89,7 @@
 <!-- MonthEarningsCategoryCreateUpdate Modal -->
         <b-modal
             v-model="showMonthEarningsCategoryCreateUpdateModal"
-            title="Nova Categoria de Ganho do Mes"
+            :title="__('global.new_month_earnings_category')"
             centered
             hide-footer
         >

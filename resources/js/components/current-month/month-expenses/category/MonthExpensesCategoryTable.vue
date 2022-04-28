@@ -52,7 +52,7 @@
         <!--        Month Expenses Create Modal -->
         <b-modal
             v-model="showCreateMonthExpenseModal"
-            title="Adicionar conta do Mes"
+            :title="__('global.add_month_expense')"
             centered
             hide-footer
         >
@@ -65,7 +65,7 @@
         <!-- Edit Category name Modal -->
         <b-modal
             v-model="showEditMonthExpensesCategoryNameModal"
-            title="Editar Categoria"
+            :title="__('global.edit_category')"
             centered
             hide-footer
         >
@@ -109,9 +109,7 @@ export default {
         },
         deleteCategory() {
             if (
-                !confirm(
-                    "Se voce excluir a categoria, ira excluir todos os gastos desta categoria tambem. \n Quer mesmo excluir?"
-                )
+                !confirm(this.__('global.delete_category_confirm'))
             ) {
                 return;
             }

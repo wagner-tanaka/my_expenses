@@ -3,13 +3,13 @@
         <!-- O problema eh aqui, quando nao tem monthExpenses, nao aparece as despesas diarias. -->
         <div class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
-                Despesas do Mês
+                {{ __('global.month_expenses') }}
             </div>
             <b-container>
                 <table v-if="previousMonthExpenses.length > 0" class="table table-striped table-bordered table-sm">
                     <thead class="table-footer-header-color">
                     <tr>
-                        <th colspan="2">Contas do Mês</th>
+                        <th colspan="2">{{ __('global.month_bills') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
             <daily-expenses-table  :date="date" @dailyExpensesTotal="dailyExpensesTotal = $event"></daily-expenses-table>
 
             <b-row class="expensesTotalStyle mb-2">
-                <b-col class="align-self-center">Total Despesas</b-col>
+                <b-col class="align-self-center">{{ __('global.expenses_total') }}</b-col>
                 <b-col class="align-self-center"><strong>{{ totalMonthExpenses }}</strong></b-col>
             </b-row>
         </div>

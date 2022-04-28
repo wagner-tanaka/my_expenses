@@ -7,5 +7,6 @@ return [
     'new_expense' => 'New Expense',
     'pt' => 'Portuguese',
     'en' => 'English',
+    'ja' => 'Japanese',
     'welcome' => 'Welcome'
 ];

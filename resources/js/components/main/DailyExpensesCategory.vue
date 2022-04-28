@@ -124,9 +124,7 @@ export default {
     },
     deleteCategory(category) {
       if (
-        !confirm(
-          "Se voce excluir a categoria, ira excluir todos os gastos desta categoria tambem. \n Quer mesmo excluir?"
-        )
+        !confirm(this.__('global.delete_category_confirm'))
       ) {
         return;
       }
@@ -148,16 +146,12 @@ export default {
     showDetails() {
       if (this.collapse) {
         // this.collapse = false
-        return "Ocultar detalhes";
+        return this.__('global.hide_details');
       }
-      return "Ver detalhes";
+      return this.__('global.show_details');
     },
   },
-  watch:{
-    category(){
-      console.log('att categoria',this.category.groupedExpenses)
-    }
-  }
+  watch:{}
 };
 </script>
 

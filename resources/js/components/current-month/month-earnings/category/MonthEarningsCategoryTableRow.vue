@@ -90,7 +90,7 @@ export default {
             this.isEditingValue = false
         },
         deleteMonthEarning() {
-            if (!confirm('Ganho sera removida.')) return
+            if (!confirm(this.__('global.confirm_month_earning_delete'))) return
             // let earningIndex = this.earnings.indexOf(monthEarning);
             this.request(
                 "delete",

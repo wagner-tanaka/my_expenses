@@ -84,6 +84,7 @@ return [
     'locales' => [
         'pt' => 'Portuguese',
         'en' => 'English',
+        'ja' => 'Japanese',
     ],
 
     /*

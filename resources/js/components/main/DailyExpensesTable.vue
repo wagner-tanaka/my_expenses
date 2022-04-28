@@ -3,7 +3,7 @@
         <table v-if="categories.length > 0" class="table table-striped table-bordered table-sm">
             <thead class="table-footer-header-color">
             <tr>
-                <th colspan="3" class="text-center text-white"><strong> Despesas Diárias </strong></th>
+                <th colspan="3" class="text-center text-white"><strong> {{ __('global.daily_expenses') }} </strong></th>
             </tr>
             </thead>
             <tbody v-for="(category, index) in categories" :key="index">
@@ -27,7 +27,7 @@
             </tbody>
             <tfoot class="table-footer-header-color">
             <tr>
-                <th>Total</th>
+                <th>{{ __('global.total') }}</th>
                 <th></th>
                 <th>{{ dailyExpensesTotal }}</th>
             </tr>

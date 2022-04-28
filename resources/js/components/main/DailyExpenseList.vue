@@ -3,9 +3,9 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Data</th>
-                    <th>Despesa</th>
-                    <th>Valor</th>
+                    <th>{{ __('global.date') }}</th>
+                    <th>{{ __('global.expense') }}</th>
+                    <th>{{ __('global.amount') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -18,7 +18,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Total</th>
+                    <th>{{ __('global.total') }}</th>
                     <th></th>
                     <th>{{ category.totalCategoryExpenses }}</th>
                     <th></th>
