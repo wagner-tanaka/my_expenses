@@ -3,7 +3,6 @@
 return [
     'daily_expenses' => 'Despesas Diárias',
     'add_category' => 'Adicionar Categoria',
-    'main' => 'Principal',
     'new_expense' => 'Novo Gasto',
     'pt' => 'Português',
     'en' => 'Inglês',
@@ -31,7 +30,7 @@ return [
     'show_details' => 'Ver detalhes',
     'hide_details' => 'Ocultar detalhes',
     'total' => 'Total',
-    'data' => 'Data',
+    'date' => 'Data',
     'expense' => 'Despesa',
     'amount' => 'Valor',
     'no_earnings_for_this_month_found' => 'Nenhum ganho deste mês encontrado!',

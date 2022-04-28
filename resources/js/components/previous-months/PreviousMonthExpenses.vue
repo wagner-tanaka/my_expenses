@@ -21,7 +21,7 @@
                     </tbody>
                     <tfoot class="table-footer-header-color">
                     <tr>
-                        <td><strong>Total</strong></td>
+                        <td><strong>{{ __('global.total') }}</strong></td>
                         <td><strong>{{ monthExpensesSubTotal }}</strong></td>
                     </tr>
                     </tfoot>

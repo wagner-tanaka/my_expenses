@@ -3,7 +3,6 @@
 return [
     'daily_expenses' => 'Daily Expenses',
     'add_category' => 'Add Category',
-    'main' => 'Main',
     'new_expense' => 'New Expense',
     'pt' => 'Portuguese',
     'en' => 'English',
@@ -29,7 +28,7 @@ return [
     'show_details' => 'Show details',
     'hide_details' => 'Hide details',
     'total' => 'Total',
-    'data' => 'Date',
+    'date' => 'Date',
     'expense' => 'Expense',
     'amount' => 'Amount',
     'no_earnings_for_this_month_found' => 'No earnings found for this month.',

@@ -106,7 +106,7 @@
     <b-container class="text-center">
         <div>
             <b-tabs content-class="m-0" active>
-                <b-tab title="{{ __('global.main') }}">
+                <b-tab title="{{ __('global.daily_expenses') }}">
                     <main-index></main-index>
                 </b-tab>
                 <b-tab :title="__('global.current_month')">
