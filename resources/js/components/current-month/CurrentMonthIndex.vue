@@ -15,7 +15,7 @@
         <!--        Month Expenses-->
         <div class="expensesBackgroundColor">
             <div class="mb-2 mt-2 expensesTitleStyle ">
-                {{ __('global.month_expense') }}
+                {{ __('global.month_expenses') }}
                 <b-button
                     class="float-right mb-2"
                     variant="danger"

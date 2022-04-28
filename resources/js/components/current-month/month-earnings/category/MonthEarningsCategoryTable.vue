@@ -109,7 +109,7 @@ export default {
         },
         deleteCategory() {
             if (
-                !confirm(this.__('global.confirm_expense_category_delete'))
+                !confirm(this.__('global.confirm_earning_category_delete'))
             ) {
                 return;
             }

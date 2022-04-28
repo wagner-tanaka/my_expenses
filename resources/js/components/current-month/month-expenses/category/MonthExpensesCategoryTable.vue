@@ -52,7 +52,7 @@
         <!--        Month Expenses Create Modal -->
         <b-modal
             v-model="showCreateMonthExpenseModal"
-            :title="__('global.add_month_expense')"
+            :title="__('global.add_month_expenses')"
             centered
             hide-footer
         >
