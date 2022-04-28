@@ -41,7 +41,7 @@
             </tbody>
             <tfoot class="table-footer-header-color">
             <tr>
-                <th>Total</th>
+                <th>{{ __('global.total') }}</th>
                 <th></th>
                 <th>{{ monthEarningsCategory.monthEarningsCategoryTotal }}</th>
                 <th></th>
@@ -52,7 +52,7 @@
         <!--        Month Earnings Create Modal -->
         <b-modal
             v-model="showCreateMonthEarningModal"
-            title="Adicionar conta do Mes"
+            :title="__('add_month_expense')"
             centered
             hide-footer
         >
@@ -65,7 +65,7 @@
         <!-- Edit Category name Modal -->
         <b-modal
             v-model="showEditMonthEarningsCategoryNameModal"
-            title="Editar Categoria"
+            :title="__('edit_category')"
             centered
             hide-footer
         >
@@ -109,9 +109,7 @@ export default {
         },
         deleteCategory() {
             if (
-                !confirm(
-                    "Se voce excluir a categoria, ira excluir todos os ganhos desta categoria tambem. \n Quer mesmo excluir?"
-                )
+                !confirm(this.__('global.confirm_earning_category_delete'))
             ) {
                 return;
             }

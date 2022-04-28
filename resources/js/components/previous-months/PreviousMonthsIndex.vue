@@ -18,7 +18,7 @@
                             : 'monthDebtClassLessThanZero'
                     "
         >
-            <b-col class="text-right">Débito</b-col>
+            <b-col class="text-right">{{ __('global.debt') }}</b-col>
             <b-col class="text-left">{{ monthDebt }}</b-col>
         </b-row>
 

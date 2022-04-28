@@ -2,8 +2,8 @@
     <table class="table table-sm">
         <thead class="table-primary">
             <tr>
-                <th>Despesa</th>
-                <th>Valor</th>
+                <th>{{ __('global.expense') }}</th>
+                <th>{{ __('global.amount') }}</th>
             </tr>
         </thead>
         <tbody>

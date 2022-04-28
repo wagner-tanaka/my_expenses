@@ -20,17 +20,17 @@
                     type="number"
                     v-model="form.value"
                     class="mt-2"
-                    placeholder="Valor do gasto!"
+                    :placeholder="__('global.expense_amount')"
                 ></b-input>
 
                 <div class="text-center mt-2">
                     <b-button
                         variant="danger mr-2"
                         @click="cancelExpenseCreation"
-                        >Cancelar</b-button
+                        >{{ __('global.cancel') }}</b-button
                     >
                     <b-button variant="success" @click="submitExpense"
-                        >Salvar</b-button
+                        >{{ __('global.save') }}</b-button
                     >
                 </div>
             </div>

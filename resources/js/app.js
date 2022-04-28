@@ -15,17 +15,20 @@ import {
     BootstrapVue,
     IconsPlugin
 } from 'bootstrap-vue'
+import Translations from './mixins/Translations.vue'
+import Strings from './mixins/Strings.vue'
+
 
 Vue.use(IconsPlugin)
 
-import String from './mixins/Strings.vue'
-Vue.mixin(String)
+Vue.mixin(Translations)
+Vue.mixin(Strings)
 
 import AxiosWrapper from 'sb-axios-wrapper'
 import Notifier from "./Notifier";
 Vue.use(BootstrapVue)
 
- Vue.mixin(AxiosWrapper)
+Vue.mixin(AxiosWrapper)
 
 /**
  * The following block of code may be used to automatically register your
@@ -57,27 +60,27 @@ Vue.component('daily-expenses-details', require('./components/main/DailyExpenses
 // Current Month
 Vue.component('current-month-index', require('./components/current-month/CurrentMonthIndex.vue').default);
 
-    // Current Month Expenses
-    Vue.component('month-expenses-category-create-update', require('./components/current-month/month-expenses/category/MonthExpensesCategoryCreateUpdate.vue').default);
-    Vue.component('month-expenses-category-table', require('./components/current-month/month-expenses/category/MonthExpensesCategoryTable.vue').default);
-    Vue.component('month-expenses-category-table-row', require('./components/current-month/month-expenses/category/MonthExpensesCategoryTableRow.vue').default);
-    Vue.component('month-expense-create', require('./components/current-month/month-expenses/MonthExpenseCreate.vue').default);
+// Current Month Expenses
+Vue.component('month-expenses-category-create-update', require('./components/current-month/month-expenses/category/MonthExpensesCategoryCreateUpdate.vue').default);
+Vue.component('month-expenses-category-table', require('./components/current-month/month-expenses/category/MonthExpensesCategoryTable.vue').default);
+Vue.component('month-expenses-category-table-row', require('./components/current-month/month-expenses/category/MonthExpensesCategoryTableRow.vue').default);
+Vue.component('month-expense-create', require('./components/current-month/month-expenses/MonthExpenseCreate.vue').default);
 
-    // Current Month Earnings
-    Vue.component('month-earnings-category-create-update', require('./components/current-month/month-earnings/category/MonthEarningsCategoryCreateUpdate.vue').default);
-    Vue.component('month-earnings-category-table', require('./components/current-month/month-earnings/category/MonthEarningsCategoryTable.vue').default);
-    Vue.component('month-earnings-category-table-row', require('./components/current-month/month-earnings/category/MonthEarningsCategoryTableRow.vue').default);
-    Vue.component('month-earning-create', require('./components/current-month/month-earnings/MonthEarningCreate.vue').default);
+// Current Month Earnings
+Vue.component('month-earnings-category-create-update', require('./components/current-month/month-earnings/category/MonthEarningsCategoryCreateUpdate.vue').default);
+Vue.component('month-earnings-category-table', require('./components/current-month/month-earnings/category/MonthEarningsCategoryTable.vue').default);
+Vue.component('month-earnings-category-table-row', require('./components/current-month/month-earnings/category/MonthEarningsCategoryTableRow.vue').default);
+Vue.component('month-earning-create', require('./components/current-month/month-earnings/MonthEarningCreate.vue').default);
 
 // Previous Months
 Vue.component('previous-months-index', require('./components/previous-months/PreviousMonthsIndex.vue').default);
 
-    // Previous Months Expenses
-    Vue.component('previous-months-expenses', require('./components/previous-months/PreviousMonthExpenses.vue').default);
-    Vue.component('previous-month-expenses-table-row', require('./components/previous-months/PreviousMonthExpensesTableRow.vue').default);
-    // Previous Months Earnings
-    Vue.component('previous-months-earnings', require('./components/previous-months/PreviousMonthEarnings.vue').default);
-    Vue.component('previous-month-earnings-table-row', require('./components/previous-months/PreviousMonthEarningsTableRow.vue').default);
+// Previous Months Expenses
+Vue.component('previous-months-expenses', require('./components/previous-months/PreviousMonthExpenses.vue').default);
+Vue.component('previous-month-expenses-table-row', require('./components/previous-months/PreviousMonthExpensesTableRow.vue').default);
+// Previous Months Earnings
+Vue.component('previous-months-earnings', require('./components/previous-months/PreviousMonthEarnings.vue').default);
+Vue.component('previous-month-earnings-table-row', require('./components/previous-months/PreviousMonthEarningsTableRow.vue').default);
 
 
 

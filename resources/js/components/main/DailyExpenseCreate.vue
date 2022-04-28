@@ -4,25 +4,25 @@
             type="text"
             v-model="form.name"
             class="mt-2"
-            placeholder="Nome do gasto aqui!"
+            :placeholder="__('global.expense_name')"
         ></b-input>
         <b-input
             type="number"
             v-model="form.value"
             class="mt-2"
-            placeholder="Valor do gasto!"
+            :placeholder="__('global.expense_amount')"
         ></b-input>
         <b-form-checkbox
             v-model="form.is_fixed"
             class="mt-2"
         >
-            Fixar gasto
+            {{ __('global.repeat_expense') }}
         </b-form-checkbox>
         <div class="text-center mt-2">
             <b-button variant="danger mr-2" @click="cancelExpenseCreation"
-                >Cancelar</b-button
+                >{{ __('global.cancel') }}</b-button
             >
-            <b-button variant="success" @click="submitExpense">Salvar</b-button>
+            <b-button variant="success" @click="submitExpense">{{ __('global.save') }}</b-button>
         </div>
     </div>
 </template>
