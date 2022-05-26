@@ -6,4 +6,3 @@ Finanças
 Projeto para registrar despesas e ganhos.
 Sinta-se à vontade para fazer pull requests e ajudar o projeto a melhorar.
 
-TestGit
