@@ -23,10 +23,11 @@ class MonthExpensesCategory extends Model
     public static function generateMonthExpensesForThisCategory(): void
     {
 
-        $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
-        $dateEnd =now()->startOfMonth();   // 2021-07-01
+//        $dateStart =now()->startOfMonth()->subMonth();  // 2021-06-01
+//        $dateEnd =now()->startOfMonth();   // 2021-07-01
         $expenses = MonthExpense::where('is_fixed',true)
-            ->whereBetween('created_at', [$dateStart, $dateEnd])
+            ->groupBy('name')
+//            ->whereBetween('created_at', [$dateStart, $dateEnd])
             ->get();
         $expenses->each(function ($expense) {
             MonthExpense::create([
